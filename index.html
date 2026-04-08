@@ -1609,145 +1609,82 @@ footer{border-top:1px solid var(--bd);padding:28px 0;text-align:center;color:var
    'PRFAQ': { title: 'PRFAQ', text: 'Press Release + FAQ: артефакт Working Backwards. PR объясняет ценность для клиента, FAQ отвечает на вопросы команды и стейкхолдеров.', source: 'Amazon' }
  };
  
- const tooltip = document.getElementById('tooltip');
- let currentTooltip = null;
- 
- function showTooltip(element, term) {
-   const data = tooltipData[term];
-   if (!data) return;
- 
-   tooltip.innerHTML = `<strong>${data.title}</strong>${data.text}<small>${data.source || ''}</small>`;
-   tooltip.classList.add('active');
- 
-   const rect = element.getBoundingClientRect();
-   const tooltipRect = tooltip.getBoundingClientRect();
- 
-   let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-   let top = rect.top - tooltipRect.height - 10;
- 
-   if (left < 10) left = 10;
-   if (left + tooltipRect.width > window.innerWidth - 10) left = window.innerWidth - tooltipRect.width - 10;
-   if (top < 10) top = rect.bottom + 10;
- 
-   tooltip.style.left = left + 'px';
-   tooltip.style.top = top + 'px';
- 
-   currentTooltip = element;
- }
- 
- function hideTooltip() {
-   tooltip.classList.remove('active');
-   currentTooltip = null;
- }
- 
- document.querySelectorAll('.abbr-link').forEach(link => {
-   link.addEventListener('click', (e) => {
-     e.preventDefault();
-     e.stopPropagation();
-     const term = link.getAttribute('data-term');
-     if (currentTooltip === link) hideTooltip();
-     else showTooltip(link, term);
-   });
- });
- 
- document.addEventListener('click', (e) => {
-   if (!e.target.closest('.abbr-link') && !e.target.closest('.tooltip')) hideTooltip();
- });
- 
- document.addEventListener('keydown', (e) => {
-   if (e.key === 'Escape') hideTooltip();
- });
+ // Tooltip functionality
+const tooltip = document.getElementById('tooltip');
+let currentTooltip = null;
 
-// Auto-link terms in text content (excluding script, style, already linked terms, and specific tags)
-function autolinkTerms() {
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-    acceptNode: (node) => {
-      const parent = node.parentElement;
-      if (!parent) return NodeFilter.FILTER_REJECT;
-      // Skip script, style, abbr-link, tooltip, and pre/code elements
-      if (parent.closest('script, style, .abbr-link, .tooltip, pre, code')) return NodeFilter.FILTER_REJECT;
-      // Skip if already has data-term
-      if (parent.hasAttribute && parent.hasAttribute('data-term')) return NodeFilter.FILTER_REJECT;
-      // Skip empty or whitespace-only nodes
-      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    }
-  });
+function showTooltip(element, term) {
+  const data = tooltipData[term];
+  if (!data) return;
 
-  const nodesToProcess = [];
-  let node;
-  while (node = walker.nextNode()) {
-    nodesToProcess.push(node);
+  tooltip.innerHTML = '<strong>' + data.title + '</strong>' + data.text + '<small>' + (data.source || '') + '</small>';
+  tooltip.classList.add('active');
+
+  const rect = element.getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+
+  let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+  let top = rect.top - tooltipRect.height - 10;
+
+  if (left < 10) left = 10;
+  if (left + tooltipRect.width > window.innerWidth - 10) {
+    left = window.innerWidth - tooltipRect.width - 10;
+  }
+  if (top < 10) {
+    top = rect.bottom + 10;
   }
 
-  nodesToProcess.forEach(textNode => {
-    let text = textNode.nodeValue;
-    let hasChanges = false;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
 
-    // Sort terms by length (longest first) to avoid partial matches
-    const terms = Object.keys(tooltipData).sort((a, b) => b.length - a.length);
-
-    for (const term of terms) {
-      // Create regex for whole word match with word boundaries
-      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`\\b${escapedTerm}\\b`, 'g');
-
-      if (regex.test(text)) {
-        hasChanges = true;
-        // Replace with marker to process later
-        text = text.replace(regex, `{{${term}}}`);
-      }
-    }
-
-    if (hasChanges) {
-      // Create a container span
-      const span = document.createElement('span');
-      // Split and rebuild with proper spans
-      const parts = text.split(/\{\{(\w[\w\s\/\-]*)\}\}/);
-      parts.forEach((part, index) => {
-        if (index % 2 === 0) {
-          // Regular text
-          if (part) span.appendChild(document.createTextNode(part));
-        } else {
-          // It's a term
-          if (tooltipData[part]) {
-            const link = document.createElement('span');
-            link.className = 'autolink';
-            link.setAttribute('data-term', part);
-            link.textContent = part;
-            link.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if (currentTooltip === link) hideTooltip();
-              else showTooltip(link, part);
-            });
-            span.appendChild(link);
-          } else {
-            span.appendChild(document.createTextNode(part));
-          }
-        }
-      });
-      textNode.parentNode.replaceChild(span, textNode);
-    }
-  });
+  currentTooltip = element;
 }
 
-// Initialize autolinking when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  // Re-attach listeners to existing abbr-links
-  document.querySelectorAll('.abbr-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const term = link.getAttribute('data-term');
-      if (currentTooltip === link) hideTooltip();
-      else showTooltip(link, term);
-    });
-  });
+function hideTooltip() {
+  tooltip.classList.remove('active');
+  currentTooltip = null;
+}
 
-  // Run autolink (optional - disabled by default to avoid over-linking)
-  // Uncomment the line below to enable automatic term linking:
-  // autolinkTerms();
+// Add event listeners to all abbr-link elements
+document.querySelectorAll('.abbr-link').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const term = link.getAttribute('data-term');
+    if (currentTooltip === link) {
+      hideTooltip();
+    } else {
+      showTooltip(link, term);
+    }
+  });
+});
+
+// Add event listeners to all autolink elements
+document.querySelectorAll('.autolink').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const term = link.getAttribute('data-term');
+    if (currentTooltip === link) {
+      hideTooltip();
+    } else {
+      showTooltip(link, term);
+    }
+  });
+});
+
+// Close tooltip when clicking anywhere else
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.abbr-link') && !e.target.closest('.autolink') && !e.target.closest('.tooltip')) {
+    hideTooltip();
+  }
+});
+
+// Close on ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    hideTooltip();
+  }
 });
  </script>
 
