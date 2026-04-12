@@ -3,1690 +3,1472 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Playbook исследования продукта: от нуля до CPO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&display=swap" rel="stylesheet">
+<title>Полный гид по продукт-менеджменту | Россия 2026</title>
 <style>
-:root{--bg:#f7f6f2;--s:#fff;--s2:#f1efe9;--s3:#e8e5dd;--bd:#ddd8ce;--bd2:#c5bfb4;--tx:#15130c;--tx2:#44403a;--mu:#76706a;--p:#0f766e;--pl:#14b8a6;--pbg:#f0fdfa;--pbd:#5eead4;--g:#0a7a50;--gl:#12a06a;--gbg:#e7f9f1;--gbd:#6ee7b7;--a:#b55800;--al:#d97706;--abg:#fff3e0;--abd:#fbbf24;--r:#b91c1c;--rl:#ef4444;--rbg:#fff0f0;--rbd:#fca5a5;--c:#0369a1;--cl:#0ea5e9;--cbg:#e0f2fe;--cbd:#7dd3fc;--o:#c2410c;--ol:#f97316;--obg:#fff7ed;--obd:#fdba74;--t:#1e1b4b;--tl:#6d28d9;--tbg:#f5f3ff;--tbd:#ddd6fe;--rad:10px;--rad-lg:16px;--rad-xl:22px;--sh:0 1px 3px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.04);--sh-md:0 4px 12px rgba(0,0,0,.08),0 12px 36px rgba(0,0,0,.06);}
+:root{
+  --bg:#f8f7f3;--bg2:#f0ede7;--s:#fff;--s2:#f4f1eb;
+  --bd:#e3ddd5;--bd2:#ccc6bc;
+  --tx:#17150e;--tx2:#4a4438;--mu:#7a7060;
+  --p:#5b3de8;--pl:#7c5ff5;--pbg:#f0ecff;--pbd:#c4b5fd;
+  --c:#0891b2;--cl:#22d3ee;--cbg:#ecfeff;--cbd:#a5f3fc;
+  --g:#059669;--gl:#34d399;--gbg:#ecfdf5;--gbd:#6ee7b7;
+  --a:#d97706;--al:#fbbf24;--abg:#fffbeb;--abd:#fde68a;
+  --r:#dc2626;--rl:#f87171;--rbg:#fef2f2;--rbd:#fca5a5;
+  --k:#db2777;--kl:#f472b6;--kbg:#fdf2f8;--kbd:#fbcfe8;
+  --o:#ea580c;--ol:#fb923c;--obg:#fff7ed;--obd:#fed7aa;
+  --t:#0d9488;--tl:#2dd4bf;--tbg:#f0fdfa;--tbd:#99f6e4;
+  --n:#1e1b4b;--nl:#6d28d9;--nbg:#f5f3ff;--nbd:#ddd6fe;
+  --rad:14px;--rad-lg:20px;
+  --sh:0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:'Literata',Georgia,serif;line-height:1.82;font-size:16px;max-width:980px;margin:0 auto;padding:0 16px 80px}
-h1,h2,h3,h4,.chapter-title{font-family:'Manrope',system-ui,sans-serif}
-strong{color:var(--tx);font-family:inherit}
-a{color:var(--p);text-decoration:none}
-.abbr-link{color:var(--p);border-bottom:1px dashed var(--p);cursor:pointer;font-weight:600;position:relative}
-.tooltip{position:fixed;background:var(--s);border:1px solid var(--bd);border-radius:var(--rad);padding:12px 16px;box-shadow:var(--sh-md);min-width:280px;max-width:380px;z-index:10000;display:none;font-family:'Inter',sans-serif;font-size:13px;line-height:1.6;color:var(--tx2)}
-.tooltip.active{display:block}
-.tooltip strong{display:block;margin-bottom:6px;color:var(--tx);font-family:'Manrope',sans-serif;font-size:14px}
-.tooltip small{display:block;margin-top:6px;color:var(--mu);font-size:11px}
-.autolink{color:var(--p);border-bottom:1px dashed var(--p);cursor:pointer;font-weight:600}
-.nav{position:sticky;top:0;z-index:100;background:rgba(247,246,242,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);width:100vw;margin-left:calc(-50vw + 50%)}
-.nav-inner{max-width:980px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;scrollbar-width:none;gap:2px}
-.nav-inner::-webkit-scrollbar{display:none}
-.nav-inner a{color:var(--mu);font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;padding:10px 9px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
-.nav-inner a:hover{color:var(--p);border-bottom-color:var(--p)}
-.hero{background:linear-gradient(150deg,#1e1b4b 0%,#4c1d95 45%,#0f766e 100%);border-radius:var(--rad-xl);padding:44px 28px 32px;margin:16px 0 36px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 70%,rgba(109,40,217,.3) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 85% 20%,rgba(20,184,166,.14) 0%,transparent 55%)}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;margin-bottom:18px;position:relative}
-.hero h1{font-size:clamp(22px,5vw,42px);font-weight:800;color:#fff;line-height:1.12;margin-bottom:12px;position:relative;letter-spacing:-.03em}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,#ddd6fe,#5eead4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{color:rgba(255,255,255,.65);font-size:15px;position:relative;max-width:720px;line-height:1.65;margin-bottom:24px}
-.hero-meta{display:flex;flex-wrap:wrap;gap:10px;position:relative}
-.hm{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 14px;text-align:center}
-.hm .n{font-size:20px;font-weight:800;color:#fff;font-family:'Manrope',sans-serif}
-.hm .l{color:rgba(255,255,255,.45);font-size:11px;margin-top:1px;font-family:'Inter',sans-serif}
-.chapter{margin-bottom:60px}
-.chapter-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid var(--bd)}
-.ch-num{width:52px;height:52px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;font-family:'Manrope',sans-serif;color:#fff}
-.chapter-header h2{font-size:clamp(19px,4vw,26px);font-weight:800;letter-spacing:-.03em;margin-bottom:4px;line-height:1.2}
-.chapter-header .sub{color:var(--mu);font-size:13px;line-height:1.5;font-family:'Inter',sans-serif}
-.block{background:var(--s);border:1px solid var(--bd);border-radius:var(--rad-lg);padding:24px 26px;margin-bottom:16px;box-shadow:var(--sh)}
-.block-title{font-size:18px;font-weight:800;color:var(--tx);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;letter-spacing:-.02em;line-height:1.3;font-family:'Manrope',sans-serif}
-.block-title .ico{font-size:20px}
-.block p{color:var(--tx2);font-size:15px;line-height:1.82;margin-bottom:12px}
-.block p:last-child{margin-bottom:0}
-.voice{background:linear-gradient(135deg,#f0fdfa,#f5f3ff);border:1.5px solid var(--pbd);border-radius:var(--rad-lg);padding:20px 22px;margin:16px 0;position:relative}
-.voice::before{content:'💬';position:absolute;top:-12px;left:18px;font-size:20px;background:var(--bg);padding:0 4px}
-.voice-label{font-size:11px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-family:'Inter',sans-serif}
-.voice p{color:var(--tx);font-size:15px;line-height:1.78;margin-bottom:8px;font-style:italic}
-.voice p:last-child{margin-bottom:0}
-.card{background:var(--s);border:1px solid var(--bd);border-radius:var(--rad-lg);padding:18px 20px;border-left:4px solid transparent;box-shadow:var(--sh)}
-.card.p{border-left-color:var(--p)}.card.g{border-left-color:var(--g)}.card.a{border-left-color:var(--a)}.card.r{border-left-color:var(--r)}.card.c{border-left-color:var(--c)}.card.o{border-left-color:var(--o)}.card.t{border-left-color:var(--t)}
-.card h3{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--tx);letter-spacing:-.01em;font-family:'Manrope',sans-serif}
-.card p{color:var(--tx2);font-size:14px;line-height:1.75;margin-bottom:8px}
-.card p:last-child{margin-bottom:0}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
-ul.lst{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:8px}
-ul.lst li{font-size:15px;color:var(--tx2);line-height:1.75;padding-left:24px;position:relative}
-.arr{position:absolute;left:0;top:50%;transform:translateY(-50%);font-weight:700;font-size:13px;color:var(--p);width:18px;text-align:center;line-height:1}
-.arrg{position:absolute;left:0;top:50%;transform:translateY(-50%);font-weight:700;font-size:13px;color:var(--g);width:18px;text-align:center;line-height:1}
-.arra{position:absolute;left:0;top:50%;transform:translateY(-50%);font-weight:700;font-size:13px;color:var(--a);width:18px;text-align:center;line-height:1}
-.callout{border-left:3px solid var(--p);border-radius:0 8px 8px 0;padding:13px 17px;margin:12px 0;font-size:14px;color:var(--tx2);line-height:1.65;font-family:'Inter',sans-serif;background:var(--pbg)}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:15px}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,#0f0820 0%,#1e1b4b 50%,#0f766e 100%);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 60%,rgba(91,61,232,.25) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,rgba(20,184,166,.15) 0%,transparent 55%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);padding:6px 18px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;position:relative}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;color:#fff;position:relative;margin-bottom:16px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,#5eead4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:rgba(255,255,255,.6);font-size:16px;max-width:800px;margin:0 auto 36px;position:relative;line-height:1.7}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(248,247,243,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd)}
+.nav-in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;overflow-x:auto;gap:2px}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-in a{color:var(--mu);text-decoration:none;font-size:11px;font-weight:600;padding:12px 10px;white-space:nowrap;border-bottom:3px solid transparent;transition:.15s;flex-shrink:0;text-transform:uppercase;letter-spacing:.03em}
+.nav-in a:hover,.nav-in a.active{color:var(--p);border-color:var(--p)}
+
+/* LAYOUT */
+.wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+.sec{padding:50px 0 40px}
+.sec+.sec{border-top:2px solid var(--bd)}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sh-ico{width:60px;height:60px;border-radius:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,var(--p),var(--c));box-shadow:0 8px 24px rgba(91,61,232,.3)}
+.sh h2{font-size:clamp(24px,3.5vw,36px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.sh .sub{color:var(--mu);font-size:15px;line-height:1.7;max-width:900px}
+
+/* CARDS */
+.card{background:var(--s);border:1.5px solid var(--bd);border-radius:var(--rad-lg);padding:28px;margin:20px 0;box-shadow:var(--sh);position:relative}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--p);border-radius:var(--rad-lg) 0 0 var(--rad-lg)}
+.card.g::before{background:var(--g)}
+.card.a::before{background:var(--a)}
+.card.r::before{background:var(--r)}
+.card.c::before{background:var(--c)}
+.card h3{font-size:20px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.card h3 .num{width:36px;height:36px;border-radius:10px;background:var(--pbg);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--p)}
+.card h4{font-size:16px;font-weight:700;margin:24px 0 12px;color:var(--tx)}
+.card p{color:var(--tx2);font-size:15px;line-height:1.8;margin-bottom:14px}
+.card ul{list-style:none;margin:14px 0;padding:0}
+.card li{font-size:15px;color:var(--tx2);line-height:1.9;padding-left:28px;position:relative;margin:8px 0}
+.card li::before{content:'→';position:absolute;left:0;color:var(--p);font-weight:700;font-size:16px}
+.card.g li::before{color:var(--g)}
+.card.a li::before{color:var(--a)}
+.card strong{color:var(--tx)}
+
+/* TABLES */
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin:20px 0;background:var(--s);border-radius:var(--rad-lg);overflow:hidden;box-shadow:var(--sh)}
+.data-table th{background:var(--s2);color:var(--mu);font-weight:700;padding:14px 16px;text-align:left;font-size:11px;letter-spacing:.04em;text-transform:uppercase;border-bottom:2px solid var(--bd)}
+.data-table td{padding:14px 16px;border-bottom:1px solid var(--bd);vertical-align:top;color:var(--tx2);line-height:1.7}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--s2)}
+.cell-main{font-weight:700;color:var(--tx);font-size:14px}
+.cell-sub{color:var(--mu);font-size:12px;font-style:italic}
+.cell-link{color:var(--p);font-weight:600}
+
+/* FORMULA */
+.formula{background:#17150e;color:#fff;border-radius:14px;padding:24px 28px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:14px;line-height:2.2;margin:24px 0;overflow-x:auto;position:relative}
+.formula::before{content:'⚡ Формула';position:absolute;top:10px;right:16px;font-size:11px;color:#888;font-family:system-ui}
+.formula-comment{color:#aaa;font-size:12px;display:block;margin-top:12px;line-height:1.8;font-family:system-ui}
+.hl{background:rgba(91,61,232,.4);padding:3px 8px;border-radius:6px}
+
+/* EXAMPLE */
+.example{background:linear-gradient(135deg,var(--gbg),var(--pbg));border:2px solid var(--gbd);border-radius:var(--rad-lg);padding:28px;margin:24px 0;position:relative}
+.example::before{content:'💡 Реальный пример';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:var(--g);border:2px solid var(--gbd);box-shadow:var(--sh)}
+.example p{margin-top:12px}
+
+/* WARNING */
+.warning{background:var(--rbg);border:2px solid var(--rbd);border-radius:var(--rad-lg);padding:22px 26px;margin:24px 0;position:relative}
+.warning::before{content:'⚠️ Важно — не ошибитесь';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:var(--r);border:2px solid var(--rbd);box-shadow:var(--sh)}
+.warning p{margin-top:12px}
+
+/* CHECKLIST */
+.checklist{background:var(--s);border:2px solid var(--bd);border-radius:var(--rad-lg);padding:24px;margin:24px 0}
+.checklist h4{font-size:17px;font-weight:800;margin-bottom:20px}
+.check-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--bd)}
+.check-item:last-child{border-bottom:none}
+.check-box{width:26px;height:26px;border-radius:8px;background:var(--gbg);border:2px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--g);flex-shrink:0;margin-top:2px}
+.check-text{flex:1}
+.check-text strong{display:block;font-size:15px;margin-bottom:4px}
+.check-text span{font-size:14px;color:var(--mu)}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.step{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--bd)}
+.step:last-child{border-bottom:none}
+.step-num{width:48px;height:48px;border-radius:14px;background:var(--pbg);color:var(--p);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0}
+.step-body{flex:1}
+.step-body h5{font-size:16px;font-weight:700;margin-bottom:8px}
+.step-body p{font-size:14px;color:var(--tx2);line-height:1.8}
+.step-body .step-meta{font-size:12px;color:var(--mu);margin-top:8px;font-style:italic}
+
+/* WHEN TO USE */
+.whento{background:var(--s2);border-radius:var(--rad-lg);padding:20px;margin:20px 0}
+.whento h5{font-size:14px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:.03em;color:var(--mu)}
+.whento-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.whento-item{background:var(--s);border-radius:12px;padding:16px;border-left:4px solid var(--p);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.whento-item strong{display:block;font-size:14px;margin-bottom:6px}
+.whento-item span{font-size:13px;color:var(--mu);line-height:1.5}
+
+/* CALLOUT */
+.callout{background:var(--s2);border-left:4px solid var(--p);border-radius:0 var(--rad) var(--rad) 0;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--tx2);line-height:1.8}
 .callout.g{border-left-color:var(--g);background:var(--gbg)}
 .callout.a{border-left-color:var(--a);background:var(--abg)}
 .callout.r{border-left-color:var(--r);background:var(--rbg)}
-.callout.warn{border-left-color:#f59e0b;background:#fffbeb}
-.tw{overflow-x:auto;border-radius:var(--rad-lg);border:1px solid var(--bd);margin:12px 0;box-shadow:var(--sh)}
-table.t{width:100%;border-collapse:collapse;font-size:13px;font-family:'Inter',sans-serif}
-table.t th{background:var(--s2);color:var(--mu);font-weight:700;padding:10px 13px;text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
-table.t td{padding:10px 13px;border-bottom:1px solid var(--bd);vertical-align:top;color:var(--tx2);line-height:1.6}
-table.t tr:last-child td{border-bottom:none}
-table.t tr:hover td{background:var(--s2)}
-table.t .hl{color:var(--tx);font-weight:600}
-.steps{display:flex;flex-direction:column;gap:0}
-.step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bd)}
-.step:last-child{border-bottom:none}
-.step-n{width:36px;height:36px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;margin-top:2px;font-family:'Manrope',sans-serif}
-.step-body h4{font-size:14px;font-weight:700;margin-bottom:5px;font-family:'Manrope',sans-serif}
-.step-body p{color:var(--tx2);font-size:14.5px;line-height:1.7}
-.formula{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:12px 16px;font-family:'Inter',monospace;font-size:13px;color:var(--tx);margin:10px 0;line-height:1.7;font-weight:600}
-.lbl{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:8px;font-family:'Inter',sans-serif}
-.lp{background:var(--pbg);color:var(--p)}.lg{background:var(--gbg);color:var(--g)}.la{background:var(--abg);color:var(--a)}.lr{background:var(--rbg);color:var(--r)}.lc{background:var(--cbg);color:var(--c)}.lo{background:var(--obg);color:var(--o)}.lt{background:var(--tbg);color:var(--t)}
-.metric-box{background:var(--s);border:1px solid var(--bd);border-radius:var(--rad-lg);padding:16px 18px;text-align:center;box-shadow:var(--sh)}
-.metric-box .val{font-size:28px;font-weight:800;font-family:'Manrope',sans-serif;line-height:1}
-.metric-box .lbl2{font-size:12px;color:var(--mu);margin-top:4px;font-family:'Inter',sans-serif}
-.timeline{display:flex;flex-direction:column;gap:0;margin:12px 0}
-.tl-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--bd)}
-.tl-item:last-child{border-bottom:none}
-.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:6px;border:2px solid}
-.tl-body h4{font-size:14px;font-weight:700;margin-bottom:4px;font-family:'Manrope',sans-serif}
-.tl-body p{font-size:14px;color:var(--tx2);line-height:1.65}
-.quote{background:var(--s2);border-radius:var(--rad-lg);padding:18px 22px;margin:14px 0;position:relative;border:1px solid var(--bd)}
-.quote::before{content:'"';position:absolute;top:-8px;left:16px;font-size:48px;color:var(--bd2);font-family:Georgia,serif;line-height:1}
-.quote p{font-size:14.5px;color:var(--tx2);line-height:1.75;font-style:italic;padding-top:8px}
-.quote .src{font-size:12px;color:var(--mu);margin-top:8px;font-family:'Inter',sans-serif;font-style:normal}
-.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}
-footer{border-top:1px solid var(--bd);padding:28px 0;text-align:center;color:var(--mu);font-size:12px;margin-top:40px;line-height:1.8;font-family:'Inter',sans-serif}
-@media(max-width:480px){body{padding:0 12px 60px;font-size:14px}.block{padding:16px 14px}.hero{padding:28px 16px 24px}.card{padding:14px 14px}}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* BMC GRID */
+.bmc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0;font-size:12px}
+.bmc-cell{background:var(--s2);border:2px solid var(--bd);border-radius:12px;padding:16px;min-height:90px;display:flex;flex-direction:column}
+.bmc-cell.hl{background:var(--pbg);border-color:var(--pbd)}
+.bmc-cell.center{grid-column:3;grid-row:1/3;background:var(--pbg);border-color:var(--pbd);display:flex;align-items:center;justify-content:center;text-align:center}
+.bmc-title{font-weight:700;font-size:13px;margin-bottom:6px}
+.bmc-desc{color:var(--mu);font-size:11px;line-height:1.5}
+@media(max-width:768px){.bmc-grid{grid-template-columns:repeat(2,1fr)}.bmc-cell.center{grid-column:1/3}}
+
+/* FOOTER */
+footer{text-align:center;padding:50px 24px;color:var(--mu);font-size:14px;border-top:2px solid var(--bd);background:var(--s2)}
+footer p{margin:6px 0}
+
+/* TAGS */
+.tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:var(--s2);color:var(--mu);margin:4px 4px 4px 0}
+.tag.p{background:var(--pbg);color:var(--p)}
+.tag.g{background:var(--gbg);color:var(--g)}
+.tag.a{background:var(--abg);color:var(--a)}
+.tag.r{background:var(--rbg);color:var(--r)}
 </style>
 </head>
 <body>
 
- <!-- Tooltip container -->
- <div id="tooltip" class="tooltip"></div>
+<div class="hero">
+  <div class="hero-badge">📚 Полный гид · Россия 2026 · На основе курса Яндекс Практикум</div>
+  <h1>Продукт-менеджмент:<br><em>от исследования до метрик</em></h1>
+  <p class="hero-sub">Всё в одном месте: как и где собирать данные, какие фреймворки использовать, какие метрики отслеживать. Практические инструкции с примерами.</p>
+</div>
 
 <nav class="nav">
-  <div class="nav-inner">
-    <a href="#ch0">Старт</a>
-    <a href="#ch1">С чего начать</a>
-    <a href="#ch2">Вторичка</a>
-    <a href="#ch3">Первичка</a>
-    <a href="#ch4">Метрики</a>
-    <a href="#ch5">Воронка</a>
-    <a href="#ch6">Гипотезы</a>
-    <a href="#ch7">Приоритизация</a>
-     <a href="#backlog">Бэклог</a>
-    <a href="#ch8">Рост</a>
-    <a href="#ch9">Инструменты РФ</a>
-    <a href="#ch10">Чек-лист CPO</a>
-    <a href="#glossary">Словарь</a>
-    <a href="#ifthen">If X→Y</a>
+  <div class="nav-in">
+    <a href="#toc" class="active">Содержание</a>
+    <a href="#secondary">Вторичка</a>
+    <a href="#primary">Первичка</a>
+    <a href="#frameworks">Фреймворки</a>
+    <a href="#metrics">Метрики</a>
+    <a href="#funnels">Воронки</a>
+    <a href="#storage">Хранение</a>
+    <a href="#process">Процесс</a>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-badge">📋 Универсальный playbook · Россия · Апрель 2026</div>
-  <h1>Как исследовать<br><em>любой продукт</em><br>от нуля до CPO</h1>
-  <p class="hero-sub">Полный алгоритм: с чего начать, куда копать, где брать метрики, как проводить первичное и вторичное исследование, как растить и приоритизировать. На основе курса Яндекса, 4 книг (Каган, Эяаль, Остервальдер, Рис) и лучших практик 2026.</p>
-  <div class="hero-meta">
-    <div class="hm"><div class="n">13</div><div class="l">глав</div></div>
-    <div class="hm"><div class="n">4</div><div class="l">книги</div></div>
-    <div class="hm"><div class="n">60+</div><div class="l">терминов</div></div>
-    <div class="hm"><div class="n">🇷🇺</div><div class="l">РФ 2026</div></div>
+<div class="wrap">
+
+<!-- TABLE OF CONTENTS -->
+<section class="sec" id="toc">
+<div class="sh">
+  <div class="sh-ico">📋</div>
+  <div>
+    <h2>Содержание</h2>
+    <div class="sub">Навигация по полному гиду продукт-менеджмента</div>
   </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h3><span class="num">1</span>🔍 Вторичное исследование</h3>
+    <ul>
+      <li>Источники данных (Data Insight, РБК, Росстат)</li>
+      <li>Анализ конкурентов — шаблон и методика</li>
+      <li>Анализ отзывов — 6 площадок, техника анализа</li>
+      <li>Тренды и поисковый спрос — инструменты 2026</li>
+      <li>Чек-лист отчёта вторички</li>
+    </ul>
+  </div>
+  <div class="card g">
+    <h3><span class="num">2</span>👥 Первичное исследование</h3>
+    <ul>
+      <li>Глубинные интервью — структура JTBD</li>
+      <li>Где брать респондентов — цены, конверсии</li>
+      <li>Количественные опросы — инструменты, выборки</li>
+      <li>Юзабилити-тестирование — закон 5 пользователей</li>
+    </ul>
+  </div>
+  <div class="card a">
+    <h3><span class="num">3</span>🛠️ Фреймворки</h3>
+    <ul>
+      <li>BMC — 9 блоков бизнес-модели</li>
+      <li>JTBD — какую работу нанимает продукт</li>
+      <li>AARRR — пиратские метрики</li>
+      <li>RICE/ICE — приоритизация фич</li>
+      <li>SWOT — стратегический анализ</li>
+    </ul>
+  </div>
+  <div class="card r">
+    <h3><span class="num">4</span>📊 Метрики и аналитика</h3>
+    <ul>
+      <li>Инструменты аналитики (Россия 2026)</li>
+      <li>North Star Metric — главная метрика</li>
+      <li>CAC, LTV, AOV — юнит-экономика</li>
+      <li>Retention, Churn — удержание</li>
+      <li>A/B тестирование — методология</li>
+    </ul>
+  </div>
+  <div class="card c">
+    <h3><span class="num">5</span>🔄 Воронки</h3>
+    <ul>
+      <li>AARRR — жизненный цикл пользователя</li>
+      <li>Onboarding — воронка активации</li>
+      <li>Монетизация — платёжная воронка</li>
+      <li>Реферальная воронка — виральность</li>
+    </ul>
+  </div>
+  <div class="card" style="border-left-color:var(--o)">
+    <h3><span class="num">6</span>📁 Хранение данных</h3>
+    <ul>
+      <li>Структура хранилища исследований</li>
+      <li>Бэклог — приоритизация идей</li>
+      <li>Гипотезы — формулировка и проверка</li>
+      <li>Инструменты: Notion, Miro, FigJam</li>
+    </ul>
+  </div>
+</div>
 </section>
 
-<!-- ГЛАВА 0 -->
-<section class="chapter" id="ch0">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#1e1b4b,#6d28d9)">0</div>
+<!-- SECONDARY RESEARCH -->
+<section class="sec" id="secondary">
+<div class="sh">
+  <div class="sh-ico">🔍</div>
   <div>
-    <h2>Мышление CPO: с чего начать любое исследование</h2>
-    <div class="sub">Главный принцип: факты → гипотезы → проверка. Никакой магии.</div>
+    <h2>Вторичное исследование</h2>
+    <div class="sub">Анализ существующих данных. Быстро, дёшево, масштабируемо. Полный гайд по источникам и методам для России 2026.</div>
   </div>
 </div>
 
-<div class="voice">
-  <div class="voice-label">Моя позиция как CPO</div>
-  <p>Перед тем как что-то менять, я должен понять: (1) какая реальная проблема пользователя, (2) как продукт её решает сейчас, (3) где метрики подтверждают или опровергают мои предположения. Любое действие без данных — это гадание.</p>
+<div class="card">
+  <h3><span class="num">1</span>Что такое вторичное исследование</h3>
+  <p><strong>Определение:</strong> Анализ данных, которые уже существуют и были собраны кем-то другим. Это не "второсортные" данные — это данные из вторых рук (secondary = вторичный).</p>
+  
+  <h4>Когда использовать вторичку:</h4>
+  <div class="whento">
+    <div class="whento-grid">
+      <div class="whento-item">
+        <strong>Старт проекта</strong>
+        <span>Быстро понять рынок, прежде чем тратить деньги на первичку</span>
+      </div>
+      <div class="whento-item">
+        <strong>Подготовка к первичке</strong>
+        <span>Сформулировать гипотезы для проверки в интервью</span>
+      </div>
+      <div class="whento-item">
+        <strong>Валидация результатов</strong>
+        <span>Сравнить свои выводы с отраслевыми данными</span>
+      </div>
+      <div class="whento-item">
+        <strong>Мониторинг</strong>
+        <span>Отслеживать тренды и конкурентов регулярно</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="example">
+    <p><strong>Сценарий:</strong> Вы хотите запустить сервис доставки здоровой еды в Казани. Вместо того чтобы сразу идти к клиентам, вы сначала:</p>
+    <ul style="margin-top:12px">
+      <li>Смотрите отчёт Data Insight о рынке доставки готовой еды в России</li>
+      <li>Анализируете 5 конкурентов в Казани через их сайты и приложения</li>
+      <li>Читаете 200 отзывов на Яндекс.Картах и 2ГИС</li>
+      <li>Проверяете поисковый спрос в Яндекс.Вордстате</li>
+    </ul>
+    <p>Только после этого формулируете гипотезы для глубинных интервью. Экономия: 2-3 недели и 50-100 тысяч рублей.</p>
+  </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧭</span> Алгоритм исследования любого продукта</div>
+<div class="card g">
+  <h3><span class="num">2</span>Источники данных о рынке (Россия 2026)</h3>
+  
+  <table class="data-table">
+    <tr>
+      <th>Источник</th>
+      <th>Что найдёте</th>
+      <th>Как использовать</th>
+      <th>Стоимость</th>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">Data Insight</span><br>
+        <span class="cell-link">datainsight.ru</span>
+      </td>
+      <td>Исследования e-commerce, ритейла, маркетплейсов. Топовые: "Интернет-торговля в России 2025", "Рынок маркетплейсов: динамика и ориентиры на 2026"</td>
+      <td class="cell-sub">Скачать бесплатную версию (краткие тезисы). Полный отчёт — покупка</td>
+      <td>Часть бесплатно<br>Отчёты: 50-300 тыс ₽</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">РБК Исследования</span><br>
+        <span class="cell-link">research.rbc.ru</span>
+      </td>
+      <td>Отраслевые обзоры: банки, телеком, ритейл, недвижимость, логистика</td>
+      <td class="cell-sub">Поиск по отрасли → скачивание summary или покупка</td>
+      <td>От 15 тыс ₽</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">Аналитика VC.ru, Rusbase</span><br>
+        <span class="cell-link">vc.ru</span>
+      </td>
+      <td>Обзоры рынков, инсайты от игроков, статистика, тренды</td>
+      <td class="cell-sub">Поиск: "рынок [отрасль] 2025 2026" → сборка из статей</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">ТАСС, РИА Новости</span><br>
+        <span class="cell-link">tass.ru, ria.ru</span>
+      </td>
+      <td>Новости с данными: "Рынок X вырос на Y%", цитаты экспертов</td>
+      <td class="cell-sub">Поиск: "рынок [отрасль] объем" → фиксация цифр с источником</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">Росстат</span><br>
+        <span class="cell-link">rosstat.gov.ru</span>
+      </td>
+      <td>Официальная статистика по отраслям, регионам, демографии</td>
+      <td class="cell-sub">Базы данных → ЕМИСС → поиск по отрасли. Данные с задержкой 3-6 мес</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="cell-main">Отраслевые ассоциации</span><br>
+        <span class="cell-link">АКИТ, РАЭК, АРПП</span>
+      </td>
+      <td>Данные от игроков отрасли (e-commerce, digital, издательства)</td>
+      <td class="cell-sub">Сайт ассоциации → раздел "Исследования/Аналитика"</td>
+      <td>Часто бесплатно</td>
+    </tr>
+  </table>
+  
+  <div class="formula">
+<span class="hl">TAM</span> = Общий объём рынка в России (все деньги на эту категорию)<br>
+<span class="hl">SAM</span> = TAM × % доступного сегмента (гео/категория)<br>
+<span class="hl">SOM</span> = SAM × реалистичная доля за 1-2 года (обычно 1-5%)<br><br>
+<span class="formula-comment">Пример: TAM доставки еды в РФ = 500 млрд ₽. SAM (Казань) = 500 млрд × 1.5% = 7.5 млрд ₽. SOM (цель на год 2) = 7.5 млрд × 2% = 150 млн ₽</span>
+  </div>
+</div>
+
+<div class="card a">
+  <h3><span class="num">3</span>Анализ конкурентов: практический гайд</h3>
+  
+  <h4>Как находить конкурентов:</h4>
   <div class="steps">
     <div class="step">
-      <div class="step-n" style="background:var(--pbg);color:var(--p)">1</div>
+      <div class="step-num">1</div>
       <div class="step-body">
-        <h4>Зафиксировать что есть (ассеты)</h4>
-        <p>Сайт, приложение, база пользователей, интеграции, контент, каналы коммуникации. Без оценки «хорошо/плохо» — просто инвентаризация.</p>
+        <h5>Поисковые системы</h5>
+        <p>Яндекс/Google по ключевым запросам → первые 3 страницы</p>
+        <div class="step-meta">Запросы: "[продукт] [город]", "заказать [услуга]", "[проблема] решение"</div>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--gbg);color:var(--g)">2</div>
+      <div class="step-num">2</div>
       <div class="step-body">
-        <h4>Вторичное исследование (secondary research)</h4>
-        <p>Что уже известно: рынок, конкуренты, тренды, публичные метрики, отчёты. Быстро, дёшево, без пользователей.</p>
+        <h5>Агрегаторы</h5>
+        <p>Яндекс.Карты, 2ГИС для локального бизнеса; App Store/Google Play для приложений</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--abg);color:var(--a)">3</div>
+      <div class="step-num">3</div>
       <div class="step-body">
-        <h4>Первичное исследование (primary research)</h4>
-        <p>Интервью, опросы, наблюдение, тестирование. Данные из первых рук. Дороже, но даёт инсайты, которых нет в открытом доступе.</p>
+        <h5>Социальные сети</h5>
+        <p>Поиск групп ВК, Telegram-каналов по тематике; хештеги в Instagram</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--cbg);color:var(--c)">4</div>
+      <div class="step-num">4</div>
       <div class="step-body">
-        <h4>Формулировка <span class="abbr-link" data-term="JTBD">JTBD</span> и гипотез</h4>
-        <p>Что пользователь нанимает продукт для выполнения? Какие гипотезы о проблеме/решении можно проверить?</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n" style="background:var(--tbg);color:var(--t)">5</div>
-      <div class="step-body">
-        <h4>Приоритизация и roadmap</h4>
-        <p><span class="abbr-link" data-term="RICE">RICE</span>/<span class="abbr-link" data-term="ICE">ICE</span>, ценность/усилие, зависимости. Что делаем первым, что потом, что никогда.</p>
+        <h5>Спросите ЦА</h5>
+        <p>В опросах: "Чем пользуетесь для [решения проблемы]?"</p>
       </div>
     </div>
   </div>
-</div>
-</section>
-
-<!-- ГЛАВА 1 -->
-<section class="chapter" id="ch1">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0f766e,#14b8a6)">1</div>
-  <div>
-    <h2>С чего начать: инвентаризация продукта (Day 0)</h2>
-    <div class="sub">Первые 2 часа с новым продуктом. Что смотреть и куда копать.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">📦</span> Чек-лист инвентаризации (что фиксируем)</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Продуктовые активы</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Web / iOS / Android / мини-аппы (ВК/ТГ)</li>
-        <li><span class="arr">→</span>Основные фичи (что видит пользователь)</li>
-        <li><span class="arr">→</span>Юзерфлоу ключевых сценариев</li>
-        <li><span class="arr">→</span>Регистрация/онбординг</li>
-        <li><span class="arr">→</span>Каналы: email, push, SMS, боты</li>
-      </ul>
-    </div>
-    <div class="card g">
-      <h3>Бизнесовые активы</h3>
-      <ul class="lst">
-        <li><span class="arrg">→</span>Модель монетизации (подписка, CPA, реклама)</li>
-        <li><span class="arrg">→</span>Интеграции (платежи, доставка, API)</li>
-        <li><span class="arrg">→</span>Партнёры и поставщики</li>
-        <li><span class="arrg">→</span>Юридические ограничения (152-ФЗ, лицензии)</li>
-      </ul>
-    </div>
-    <div class="card a">
-      <h3>Контент и данные</h3>
-      <ul class="lst">
-        <li><span class="arra">→</span>Объём контента (SKU, посты, события)</li>
-        <li><span class="arra">→</span>Качество данных (полнота, актуальность)</li>
-        <li><span class="arra">→</span>UGC (отзывы, комментарии, фото)</li>
-        <li><span class="arra">→</span>SEO-позиции ключевых запросов</li>
-      </ul>
-    </div>
-    <div class="card c">
-      <h3>Команда и процессы</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Состав команды (разработка, дизайн, аналитика)</li>
-        <li><span class="arr">→</span>Используемые инструменты (Jira, Figma, Amplitude)</li>
-        <li><span class="arr">→</span>Цикл релиза (раз в неделю/месяц)</li>
-        <li><span class="arr">→</span>Наличие аналитики и её качество</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🔍</span> Куда копать в первый день (приоритеты)</div>
-  <div class="callout warn">⚠️ Важно: не пытайся всё исправить сразу. Сначала — наблюдение, потом — гипотезы, потом — действия.</div>
   
-  <div class="g3 mt12">
-    <div class="metric-box">
-      <div class="val" style="color:var(--p)">1</div>
-      <div class="lbl2">Пройди основной сценарий как пользователь<br>(от входа до целевого действия)</div>
-    </div>
-    <div class="metric-box">
-      <div class="val" style="color:var(--g)">2</div>
-      <div class="lbl2">Найди 3 конкурента<br>(прямых и косвенных)</div>
-    </div>
-    <div class="metric-box">
-      <div class="val" style="color:var(--a)">3</div>
-      <div class="lbl2">Пойми, как продукт зарабатывает<br>(где деньги)</div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ГЛАВА 2 -->
-<section class="chapter" id="ch2">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0a7a50,#12a06a)">2</div>
-  <div>
-    <h2>Вторичное исследование: быстро и дёшево</h2>
-    <div class="sub">Что уже известно о рынке, конкурентах и трендах. Россия, апрель 2026.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">📚</span> Источники вторичных данных в РФ (2026)</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>Тип данных</th><th>Где брать</th><th>Что найдёшь</th><th>Стоимость</th></tr>
-      <tr><td class="hl">Размер рынка (<span class="abbr-link" data-term="TAM">TAM</span>/<span class="abbr-link" data-term="SAM">SAM</span>)</td><td>Data Insight, «Аналитика» РБК, vc.ru</td><td>Объём рынка, динамика, ключевые игроки</td><td>Частично бесплатно, отчёты платные</td></tr>
-      <tr><td class="hl">Конкуренты</td><td>Самостоятельный анализ, SimilarWeb (ограниченно)</td><td>Фичи, UX, цены, позиционирование</td><td>Бесплатно (ручной анализ)</td></tr>
-      <tr><td class="hl">Пользовательские инсайты</td><td>VK, Telegram-каналы, Отзовик, Яндекс.Отзывы</td><td>Что нравится/не нравится, боли</td><td>Бесплатно</td></tr>
-      <tr><td class="hl">Тренды поведения</td><td>Telemetr, Popsters (ТГ), Stat4market</td><td>Что растёт, что падает, новые форматы</td><td>Частично платно</td></tr>
-      <tr><td class="hl">Регуляторика</td><td>Роскомнадзор, ЦБ РФ, 152-ФЗ</td><td>Ограничения, требования к данным</td><td>Бесплатно</td></tr>
+  <h4>Что анализировать у конкурентов:</h4>
+  <table class="data-table">
+    <tr>
+      <th>Аспект</th>
+      <th>Где смотреть</th>
+      <th>Что фиксировать</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Продукт/фичи</span></td>
+      <td>Сайт, приложение, демо, тестовый аккаунт</td>
+      <td>Функционал, UI/UX, ценностное предложение, боли UX</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Цены</span></td>
+      <td>Прайс-лист, тарифы, калькулятор, скрытые комиссии</td>
+      <td>Модель ценообразования, диапазон, скидки, LTV подсказки</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Аудитория</span></td>
+      <td>Отзывы, соцсети, реклама, кейсы</td>
+      <td>Кто покупает, что пишут, боли, восторги</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Маркетинг</span></td>
+      <td>Рекламные кабинеты, видимость в поиске, баннеры</td>
+      <td>Каналы привлечения, УТП, креативы, частота</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Финансы</span></td>
+      <td>Если публичная компания — отчёты, ньюс</td>
+      <td>Выручка, рост, инвестиции, оценка</td>
+    </tr>
+  </table>
+  
+  <div class="example">
+    <p><strong>Шаблон таблицы анализа конкурентов:</strong></p>
+    <table class="data-table" style="margin-top:14px">
+      <tr>
+        <th>Конкурент</th>
+        <th>УТП</th>
+        <th>Цена</th>
+        <th>Strengths</th>
+        <th>Weaknesses</th>
+      </tr>
+      <tr>
+        <td>Яндекс.Еда</td>
+        <td>Доставка 15-30 мин</td>
+        <td>Доставка 0-199₽</td>
+        <td>Бренд, сеть ресторанов</td>
+        <td>Высокая комиссия, иногда холодная еда</td>
+      </tr>
+      <tr>
+        <td>Delivery Club</td>
+        <td>Широкий выбор</td>
+        <td>Доставка 0₽ при заказе 800₽+</td>
+        <td>Скидки, акции</td>
+        <td>Медленнее Яндекса в некоторых районах</td>
+      </tr>
     </table>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🗺️</span> Чек-лист вторичного исследования</div>
+<div class="card r">
+  <h3><span class="num">4</span>Анализ отзывов: золотая жила инсайтов</h3>
+  
+  <p><strong>Зачем:</strong> Пользователи уже сформулировали свои боли. Нужно только собрать и систематизировать.</p>
+  
+  <h4>Где брать отзывы (Россия 2026):</h4>
+  <table class="data-table">
+    <tr>
+      <th>Площадка</th>
+      <th>Лучше для</th>
+      <th>Как собирать</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Яндекс.Карты</span></td>
+      <td>Локальный бизнес, рестораны, услуги</td>
+      <td class="cell-sub">Ручной сбор или парсинг (с осторожностью, ТОС). Смотрите последние 6 месяцев</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">2ГИС</span></td>
+      <td>Локальный бизнес, особенно в регионах</td>
+      <td class="cell-sub">Ручной анализ 50-100 отзывов, фокус на негативе 1-2 звезды</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Отзовик.ru</span></td>
+      <td>Товары, интернет-магазины, услуги</td>
+      <td class="cell-sub">Поиск по категории → сортировка по дате/полезности</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">App Store / Google Play</span></td>
+      <td>Мобильные приложения</td>
+      <td class="cell-sub">Отзывы 1-3 звезды = боли; 4-5 = что нравится. Фильтр по версии</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">VK / Telegram</span></td>
+      <td>Мнения, обсуждения, тренды</td>
+      <td class="cell-sub">Поиск по ключевым словам в группах и чатах</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Otzovik, Irecommend</span></td>
+      <td>Товары, услуги B2C</td>
+      <td class="cell-sub">Детальные разборы с фото, часто — объективные</td>
+    </tr>
+  </table>
+  
+  <h4>Метод анализа (ручной, 2-4 часа):</h4>
   <div class="steps">
     <div class="step">
-      <div class="step-n" style="background:var(--pbg);color:var(--p)">1</div>
+      <div class="step-num">1</div>
       <div class="step-body">
-        <h4><span class="abbr-link" data-term="TAM">TAM</span> / <span class="abbr-link" data-term="SAM">SAM</span> / <span class="abbr-link" data-term="SOM">SOM</span></h4>
-        <p>Какой объём рынка? Какую долю реально взять? Для РФ: Data Insight (e-commerce, digital), отраслевые ассоциации.</p>
-        <div class="formula"><span class="abbr-link" data-term="TAM">TAM</span> = Весь рынок<br><span class="abbr-link" data-term="SAM">SAM</span> = Достижимый сегмент (гео/категория)<br><span class="abbr-link" data-term="SOM">SOM</span> = Реалистичная доля в 1-2 года</div>
+        <h5>Соберите 100 отзывов</h5>
+        <p>Хронологически — последние 6 месяцев. Баланс позитивных и негативных.</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--gbg);color:var(--g)">2</div>
+      <div class="step-num">2</div>
       <div class="step-body">
-        <h4>Конкурентный анализ</h4>
-        <p>3-5 прямых конкурентов. Таблица фичей (что есть у них, чего нет у нас). SWOT каждого.</p>
+        <h5>Категоризируйте</h5>
+        <p>Пометьте: Доставка, Качество, Цена, Сервис, UI/UX, Другое</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--abg);color:var(--a)">3</div>
+      <div class="step-num">3</div>
       <div class="step-body">
-        <h4>Анализ отзывов</h4>
-        <p>100 отзывов вручную (или скрейпинг + кластеризация). Что повторяется = реальная боль.</p>
+        <h5>Считайте</h5>
+        <p>Сколько в каждой категории позитивных и негативных упоминаний</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--cbg);color:var(--c)">4</div>
+      <div class="step-num">4</div>
       <div class="step-body">
-        <h4><span class="abbr-link" data-term="Business Model Canvas">Business Model Canvas</span></h4>
-        <p>Заполняем по <span class="abbr-link" data-term="Остервальдер">Остервальдеру</span> для себя и 2-3 конкурентов. Сравниваем модели.</p>
+        <h5>Выделяйте темы</h5>
+        <p>Повторяющиеся боли — реальные проблемы для решения</p>
       </div>
     </div>
   </div>
-</div>
-</section>
-
-<!-- ГЛАВА 3 -->
-<section class="chapter" id="ch3">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0369a1,#0ea5e9)">3</div>
-  <div>
-    <h2>Первичное исследование: глубина</h2>
-    <div class="sub">Когда вторички недостаточно. Глубинные интервью, опросы, тесты.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">👥</span> Глубинные интервью (Jobs To Be Done)</div>
-  <div class="quote">
-    <p>Люди не хотят купить дрель. Они хотят сделать отверстие в стене. И даже это неправда — они хотят повесить полку, чтобы организовать пространство.</p>
-    <div class="src">— Классический JTBD-пример</div>
-  </div>
-
-  <div class="g2 mt16">
-    <div class="card p">
-      <h3>Структура интервью (45-60 мин)</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Контекст: расскажи о последний раз, когда…</li>
-        <li><span class="arr">→</span>Триггер: что сподвигло начать?</li>
-        <li><span class="arr">→</span>Процесс: как искал решение?</li>
-        <li><span class="arr">→</span>Проблемы: что раздражало/не получалось?</li>
-        <li><span class="arr">→</span>Результат: как понял, что всё хорошо?</li>
-        <li><span class="arr">→</span>Альтернативы: что ещё рассматривал?</li>
-      </ul>
-    </div>
-    <div class="card g">
-      <h3>Где искать респондентов в РФ (2026)</h3>
-      <ul class="lst">
-        <li><span class="arrg">→</span>Собственная база (если есть)</li>
-        <li><span class="arrg">→</span>VK-группы по тематике + пост с опросом</li>
-        <li><span class="arrg">→</span>Telegram-каналы (через админов)</li>
-        <li><span class="arrg">→</span>Яндекс.Взгляд (панель респондентов)</li>
-        <li><span class="arrg">→</span>Рекрутинговые агентства (дороже)</li>
-        <li><span class="arrg">→</span>Бартер: промокод за интервью</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">📊</span> Количественные опросы</div>
-  <p>Используйте, когда нужно проверить масштаб проблемы. JTBD даёт качество (почему), опросы дают количество (сколько таких).</p>
   
-  <div class="callout">Инструменты РФ 2026: Яндекс.Формы (бесплатно), Google Forms (VPN), SurveyMonkey, Typeform (интернациональные), ВЦИОМ (для массовых).</div>
-
-  <div class="g2 mt12">
-    <div class="card a">
-      <h3>Что измерять в опросе</h3>
-      <ul class="lst">
-        <li><span class="arra">→</span>Частота поведения (как часто…)</li>
-        <li><span class="arra">→</span>Важность проблемы (0-10)</li>
-        <li><span class="arra">→</span>Удовлетворённость текущим решением</li>
-        <li><span class="arra">→</span>Готовность платить/менять поведение</li>
-      </ul>
-    </div>
-    <div class="card c">
-      <h3>Сколько респондентов</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Глубинные: 8-12 человек (насыщение)</li>
-        <li><span class="arr">→</span>Количественные: 100-400 для стат.значимости</li>
-        <li><span class="arr">→</span>A/B-тесты: минимум 1000 на вариант</li>
-      </ul>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ГЛАВА 4 -->
-<section class="chapter" id="ch4">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#92400e,#f59e0b)">4</div>
-  <div>
-    <h2>Метрики: где брать и как читать</h2>
-    <div class="sub">North Star Metric, воронки, юнит-экономика. Инструменты в РФ.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🎯</span> Как выбрать <span class="abbr-link" data-term="NSM">North Star Metric</span></div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Хороший NSM</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Отражает ценность для пользователя</li>
-        <li><span class="arr">→</span>Связан с бизнес-результатом</li>
-        <li><span class="arr">→</span>Действие пользователя (не пассивный показ)</li>
-        <li><span class="arr">→</span>Измеряем регулярно</li>
-      </ul>
-      <div class="formula mt8">Примеры:<br>Spotify: время прослушивания<br>Airbnb: количество бронирований<br>Slack: отправленные сообщения</div>
-    </div>
-    <div class="card r">
-      <h3>Плохой <span class="abbr-link" data-term="NSM">NSM</span></h3>
-      <ul class="lst">
-        <li><span class="arrr">→</span><span class="abbr-link" data-term="DAU">DAU</span> без контекста (может быть пустой трафик)</li>
-        <li><span class="arrr">→</span>Количество регистраций (не активация)</li>
-        <li><span class="arrr">→</span>Просмотры страниц (vanity metric)</li>
-        <li><span class="arrr">→</span>Установки (не использование)</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">📈</span> Инструменты аналитики в РФ (апрель 2026)</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>Инструмент</th><th>Для чего</th><th>Особенности в РФ 2026</th></tr>
-      <tr><td class="hl">Яндекс.Метрика</td><td>Веб-аналитика, воронки</td><td>Стандарт, интеграция с Директом, Вебвизор</td></tr>
-      <tr><td class="hl">Яндекс.АппМетрика</td><td>Мобильная аналитика</td><td>Пуши, краш-репорты, воронки в приложениях</td></tr>
-      <tr><td class="hl">Google Analytics 4</td><td>Универсальная</td><td>Требует VPN/обход, но работает</td></tr>
-      <tr><td class="hl">Amplitude / Mixpanel</td><td>Продуктовая аналитика</td><td>Платные, мощные когортные анализы</td></tr>
-      <tr><td class="hl">Своя база + BI</td><td>Кастомные метрики</td><td>ClickHouse, Superset, DataLens</td></tr>
-    </table>
-  </div>
-</div>
-</section>
-
-<!-- ГЛАВА 5 -->
-<section class="chapter" id="ch5">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">5</div>
-  <div>
-    <h2>Воронка <span class="abbr-link" data-term="AARRR">AARRR</span> и юнит-экономика</h2>
-    <div class="sub">От привлечения до виральности. Как считать <span class="abbr-link" data-term="CAC">CAC</span> и <span class="abbr-link" data-term="LTV">LTV</span> в РФ.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🔄</span> Воронка <span class="abbr-link" data-term="AARRR">AARRR</span>: вопросы на каждом этапе</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Acquisition (Привлечение)</h3>
-      <p><strong>Вопрос:</strong> Откуда приходят пользователи? Какой канал самый дешёвый?</p>
-      <p><strong>Метрики:</strong> Источники трафика, <span class="abbr-link" data-term="CPA">CPA</span> (cost per acquisition), <span class="abbr-link" data-term="CAC">CAC</span> по каналам.</p>
-    </div>
-    <div class="card g">
-      <h3>Activation (Активация)</h3>
-      <p><strong>Вопрос:</strong> Что нужно сделать, чтобы пользователь понял ценность?</p>
-      <p><strong>Метрики:</strong> Время до первой ценности, % завершения онбординга.</p>
-    </div>
-    <div class="card a">
-      <h3>Retention (Удержание)</h3>
-      <p><strong>Вопрос:</strong> Возвращаются ли пользователи? Когда бросают?</p>
-      <p><strong>Метрики:</strong> D1/D7/D30 <span class="abbr-link" data-term="retention">retention</span>, когортный анализ, <span class="abbr-link" data-term="churn">churn</span>.</p>
-    </div>
-    <div class="card c">
-      <h3>Revenue (Доход)</h3>
-      <p><strong>Вопрос:</strong> Как пользователи платят? Где точки роста?</p>
-      <p><strong>Метрики:</strong> <span class="abbr-link" data-term="ARPU">ARPU</span>, <span class="abbr-link" data-term="ARPPU">ARPPU</span>, конверсия в платеж, <span class="abbr-link" data-term="LTV">LTV</span>.</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">💰</span> Юнит-экономика: формулы и смысл</div>
   <div class="formula">
-    <span class="abbr-link" data-term="CAC">CAC</span> = (Затраты на маркетинг + Затраты на продажи) / Количество новых пользователей<br><br>
-    <span class="abbr-link" data-term="LTV">LTV</span> = Средний чек × Частота покупок × Период жизни × Маржинальность<br><br>
-    <span class="abbr-link" data-term="LTV/CAC">LTV/CAC</span> &gt; 3 — хорошо (можем масштабировать)<br>
-    <span class="abbr-link" data-term="LTV/CAC">LTV/CAC</span> &lt; 1 — плохо (сливаем деньги)<br><br>
-    Период окупаемости <span class="abbr-link" data-term="CAC">CAC</span>: обычно 6-12 месяцев для подписок, 1-3 месяца для транзакций
+Частота боли = (Упоминания боли / Всего отзывов) × 100%<br><br>
+<span class="formula-comment">Если "Долгая доставка" в 35 из 100 отзывов = 35% — критическая боль. Если "Хотелось бы приложение для iPad" в 3 отзывах = 3% — низкий приоритет.</span>
   </div>
+</div>
+
+<div class="card c">
+  <h3><span class="num">5</span>Тренды и поведение: цифровые источники</h3>
   
-  <div class="callout mt12">В РФ 2026: учитывайте НДС, комиссии банков (обычно 1.5-3.5%), комиссии платформ (App Store 15-30%, Google Play аналогично).</div>
+  <table class="data-table">
+    <tr>
+      <th>Что исследуем</th>
+      <th>Инструмент</th>
+      <th>Как использовать</th>
+      <th>Цена</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Поисковый спрос</span></td>
+      <td><span class="cell-link">Яндекс.Вордстат</span></td>
+      <td class="cell-sub">Вводите запросы → видите сезонность, гео, похожие запросы, частотность</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Тренды тематик</span></td>
+      <td><span class="cell-link">Яндекс.Тренды</span></td>
+      <td class="cell-sub">Сравнение интереса к темам во времени, по регионам</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Telegram-каналы</span></td>
+      <td><span class="cell-link">Telemetr, TGStat, Popsters</span></td>
+      <td class="cell-sub">Аналитика роста, вовлечённости, рекламы в ТГ</td>
+      <td>Частично платно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">ВКонтакте</span></td>
+      <td><span class="cell-link">Popsters, Brand Analytics</span></td>
+      <td class="cell-sub">Упоминания брендов, тональность, тренды</td>
+      <td>Платно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Соцсети общий</span></td>
+      <td><span class="cell-link">Brand Analytics, Kribrum</span></td>
+      <td class="cell-sub">Мониторинг упоминаний, анализ тональности</td>
+      <td>От 30 тыс/мес</td>
+    </tr>
+  </table>
+  
+  <div class="callout g">
+    <strong>💡 Практика: как проверить спрос на идею за 30 минут</strong><br><br>
+    1. Открываете Яндекс.Вордстат<br>
+    2. Вводите запросы: "заказать [ваш продукт]", "[продукт] цена", "[продукт] отзывы"<br>
+    3. Смотрите: есть ли запросы? какая сезонность? какой регион самый активный?<br>
+    4. Если запросов &lt; 1000/мес в России — рынок слишком мал или слишком новый
+  </div>
+</div>
+
+<div class="checklist">
+  <h4>✅ Чек-лист отчёта вторичного исследования</h4>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Размер рынка TAM/SAM/SOM</strong><span>С указанием источников данных</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>3-5 прямых конкурентов с таблицей сравнения</strong><span>Фичи, цены, strengths/weaknesses</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>2-3 косвенных конкурента (альтернативы)</strong><span>Как люди решают проблему сейчас без вашего продукта</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>3-5 ключевых болей пользователей с подтверждением</strong><span>Цитаты из отзывов, статистика упоминаний</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Тренды роста/падения рынка</strong><span>Годовой рост в %, факторы влияния</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Регуляторные ограничения</strong><span>Лицензии, требования, риски</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Гипотезы для проверки в первичном исследовании</strong><span>Что осталось неясным из открытых данных</span></div></div>
 </div>
 </section>
 
-<!-- ГЛАВА 6 -->
-<section class="chapter" id="ch6">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#1e1b4b,#6d28d9)">6</div>
+<!-- PRIMARY RESEARCH -->
+<section class="sec" id="primary">
+<div class="sh">
+  <div class="sh-ico">👥</div>
   <div>
-    <h2>Гипотезы и проверки</h2>
-    <div class="sub">Как формулировать гипотезы по <span class="abbr-link" data-term="Lean Startup">Lean Startup</span>. <span class="abbr-link" data-term="MVP">MVP</span> и эксперименты.</div>
+    <h2>Первичное исследование</h2>
+    <div class="sub">Когда вторички недостаточно. Прямой контакт с пользователями: интервью, опросы, наблюдение.</div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧪</span> Структура гипотезы</div>
-  <div class="formula">
-    Мы считаем, что [вот это действие для продукта]<br>
-    приведёт к [вот этому результату]<br>
-    для [таких пользователей]<br>
-    потому что [обоснование].
+<div class="card g">
+  <h3><span class="num">1</span>Глубинные интервью (JTBD-структура)</h3>
+  
+  <p><strong>Определение:</strong> Качественный метод — полуструктурированная беседа 45-60 минут с целью понять мотивацию, контекст, боли пользователя.</p>
+  
+  <h4>Когда использовать:</h4>
+  <div class="whento">
+    <div class="whento-grid">
+      <div class="whento-item"><strong>Не знаете проблему</strong><span>Этап Discovery — какую проблему решать</span></div>
+      <div class="whento-item"><strong>Понять JTBD</strong><span>Какую "работу" нанимает продукт</span></div>
+      <div class="whento-item"><strong>Проверить гипотезы</strong><span>Перед масштабным опросом</span></div>
+      <div class="whento-item"><strong>Искать инсайты</strong><span>Для копирайтинга и позиционирования</span></div>
+    </div>
   </div>
   
-  <div class="callout g mt12">Пример: «Мы считаем, что добавление фильтра „Бесплатно“ приведёт к +15% просмотров бесплатных событий для пользователей 18-25 лет, потому что цена — ключевой барьер для этой аудитории».</div>
+  <h4>Структура интервью (60 минут):</h4>
+  <table class="data-table">
+    <tr>
+      <th>Этап</th>
+      <th>Вопросы-примеры</th>
+      <th>Цель</th>
+      <th>Время</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">1. Контекст</span></td>
+      <td>"Расскажите о последний раз, когда вы сталкивались с [проблемой]"</td>
+      <td>Погружение в ситуацию</td>
+      <td>5 мин</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">2. Триггер</span></td>
+      <td>"Что сподвигло вас начать искать решение?"</td>
+      <td>Причина действия</td>
+      <td>5 мин</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">3. Поиск</span></td>
+      <td>"Как искали решение? Что рассматривали?"</td>
+      <td>Карта принятия решения</td>
+      <td>10 мин</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">4. Проблемы</span></td>
+      <td>"Что раздражало? Что не получалось?"</td>
+      <td>Боли и препятствия</td>
+      <td>15 мин</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">5. Результат</span></td>
+      <td>"Как поняли, что всё хорошо? Что изменилось?"</td>
+      <td>Успешный исход</td>
+      <td>10 мин</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">6. Альтернативы</span></td>
+      <td>"Что ещё рассматривали? Почему выбрали это?"</td>
+      <td>Конкуренты</td>
+      <td>10 мин</td>
+    </tr>
+  </table>
+  
+  <h4>Где найти респондентов (Россия 2026):</h4>
+  <div class="grid-2">
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">Своя база</h4>
+      <p style="font-size:14px">Если есть продукт — существующие пользователи. Письмо: "Помогите стать лучше — получите месяц бесплатно"</p>
+      <span class="tag g">Конверсия: 5-15%</span>
+    </div>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">VK и Telegram</h4>
+      <p style="font-size:14px">Посты в тематических группах. "Ищу людей для исследования о [тема]. 30 мин, подарок"</p>
+      <span class="tag a">Нужна активная группа</span>
+    </div>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">Яндекс.Взгляд</h4>
+      <p style="font-size:14px">Панель респондентов Яндекса. Скрининг по демографии, интересам.</p>
+      <span class="tag r">~500-1500₽ за интервью</span>
+    </div>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">Рекрутинговые агентства</h4>
+      <p style="font-size:14px">UserStory, ResearchMe. Полный цикл: поиск, назначение, напоминания.</p>
+      <span class="tag r">1500-4000₽ за респондента</span>
+    </div>
+  </div>
+  
+  <div class="formula">
+Формула насыщения: N = 8-12 интервью<br><br>
+<span class="formula-comment">После 8-12 интервью новые инсайты перестают появляться — данные насыщены. Делайте больше только если видите сегменты (мужчины/женщины решают проблему по-разному).</span>
+  </div>
+  
+  <div class="warning">
+    <p><strong>Ошибки начинающих:</strong></p>
+    <ul style="margin-top:10px">
+      <li>Интервью с друзьями/коллегами — они не объективны</li>
+      <li>Задавать наводящие вопросы: "Вам же неудобно, правда?"</li>
+      <li>Защищать продукт: "Но у нас же есть эта фича!"</li>
+      <li>Записывать только на бумаге — теряется 80% информации</li>
+      <li>Не делать выводы — просто "побеседовали"</li>
+    </ul>
+  </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">⚡</span> Способы проверки гипотез (от дешёвого к дорогому)</div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-n" style="background:var(--gbg);color:var(--g)">1</div>
-      <div class="step-body">
-        <h4>Консьерж-тест (Concierge)</h4>
-        <p>Делаем вручную то, что потом автоматизируем. Проверяем спрос без разработки. Пример: вручную подбираем концерты пользователям через ТГ, прежде чем делать рекомендательную систему.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n" style="background:var(--abg);color:var(--a)">2</div>
-      <div class="step-body">
-        <h4>Посадочная страница (Smoke Test)</h4>
-        <p>Создаём страницу несуществующего продукта, меряем конверсию в «хочу». Показываем, если наберётся N заявок.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n" style="background:var(--cbg);color:var(--c)">3</div>
-      <div class="step-body">
-        <h4>Прототип / Fake Door</h4>
-        <p>Кнопка «Сохранить в календарь» ведёт на форму «Скоро будет доступно». Меряем клики.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n" style="background:var(--tbg);color:var(--t)">4</div>
-      <div class="step-body">
-        <h4>MVP (Минимальный жизнеспособный продукт)</h4>
-        <p>Минимум фич, чтобы решить проблему. Запускаем на ограниченной аудитории, собираем фидбек.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n" style="background:var(--pbg);color:var(--p)">5</div>
-      <div class="step-body">
-        <h4>A/B-тест</h4>
-        <p>Параллельно сравниваем две версии. Требует: достаточный трафик, чёткую метрику, стат.значимость.</p>
-      </div>
-    </div>
+<div class="card a">
+  <h3><span class="num">2</span>Количественные опросы</h3>
+  
+  <p><strong>Определение:</strong> Структурированный набор вопросов для большой выборки. Цель — получить статистически значимые данные.</p>
+  
+  <h4>Инструменты для опросов (РФ 2026):</h4>
+  <table class="data-table">
+    <tr>
+      <th>Инструмент</th>
+      <th>Лучше для</th>
+      <th>Особенности</th>
+      <th>Цена</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Яндекс.Формы</span></td>
+      <td>Быстрые опросы, внутренние</td>
+      <td class="cell-sub">Бесплатно, интеграция с экосистемой Яндекса, базовая аналитика</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Google Forms</span></td>
+      <td>Простые опросы</td>
+      <td class="cell-sub">Требует VPN в РФ, но работает. Простой интерфейс.</td>
+      <td>Бесплатно</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">SurveyMonkey</span></td>
+      <td>Профессиональные опросы</td>
+      <td class="cell-sub">Мощная аналитика, шаблоны, логика вопросов, экспорт</td>
+      <td>От $25/мес</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Typeform</span></td>
+      <td>Красивые опросы для клиентов</td>
+      <td class="cell-sub">Отличный UX, логика ветвления, интеграции</td>
+      <td>От $25/мес</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">ВЦИОМ</span></td>
+      <td>Масштабные социологические</td>
+      <td class="cell-sub">Проведение под ключ, национальная репрезентативность</td>
+      <td>От 300 тыс ₽</td>
+    </tr>
+  </table>
+  
+  <div class="formula">
+Размер выборки для статистической значимости (95% доверие, ±5% погрешность):<br>
+• Генеральная совокупность бесконечна → n = <span class="hl">384</span> респондента<br>
+• Генеральная совокупность 100,000 → n = 383<br>
+• Генеральная совокупность 10,000 → n = 370<br>
+• Генеральная совокупность 1,000 → n = 278<br><br>
+<span class="formula-comment">На практике: 100-400 респондентов достаточно для большинства продуктовых задач. Для A/B-тестов — минимум 1000 на вариант.</span>
+  </div>
+</div>
+
+<div class="card r">
+  <h3><span class="num">3</span>Юзабилити-тестирование</h3>
+  
+  <p><strong>Определение:</strong> Наблюдение за пользователями, выполняющими реальные задачи в продукте. Поиск проблем в UX.</p>
+  
+  <h4>Методология:</h4>
+  <table class="data-table">
+    <tr>
+      <th>Этап</th>
+      <th>Что делать</th>
+      <th>Результат</th>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Подготовка</span></td>
+      <td>Составить 3-5 сценариев (задач), которые должен выполнить пользователь</td>
+      <td>Список задач + критерии успеха</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Рекрутинг</span></td>
+      <td>Найти 5-8 респондентов похожих на ЦА</td>
+      <td>5-8 человек на даты</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Тестирование</span></td>
+      <td>Пользователь делит экран и думает вслух. Вы молча наблюдаете.</td>
+      <td>Запись + заметки</td>
+    </tr>
+    <tr>
+      <td><span class="cell-main">Анализ</span></td>
+      <td>Группировка проблем по типу и серьёзности</td>
+      <td>Список UX-багов с приоритетами</td>
+    </tr>
+  </table>
+  
+  <div class="callout g">
+    <strong>Закон 5 пользователей (Jakob Nielsen):</strong> 5 респондентов находят 85% проблем usability. 15-й респондент найдёт проблемы, которые уже найдены. Экономьте бюджет — 5-8 человек достаточно.
   </div>
 </div>
 </section>
 
-<!-- ГЛАВА 7 -->
-<section class="chapter" id="ch7">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0f766e,#14b8a6)">7</div>
+<!-- FRAMEWORKS -->
+<section class="sec" id="frameworks">
+<div class="sh">
+  <div class="sh-ico">🛠️</div>
   <div>
-    <h2>Приоритизация: <span class="abbr-link" data-term="RICE">RICE</span>, <span class="abbr-link" data-term="ICE">ICE</span> и ценность/усилие</h2>
-    <div class="sub">Как выбирать, что делать, а что откладывать.</div>
+    <h2>Фреймворки продукт-менеджмента</h2>
+    <div class="sub">Проверенные инструменты для структурирования мышления и принятия решений</div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">📊</span> Фреймворк <span class="abbr-link" data-term="RICE">RICE</span></div>
-  <div class="formula">
-    <span class="abbr-link" data-term="RICE">RICE</span> = (Reach × Impact × Confidence) / Effort<br><br>
-    Reach — сколько пользователей затронет (в тысячах/месяц)<br>
-    Impact — насколько сильно (3 = массово, 2 = высоко, 1 = средне, 0.5 = низко, 0.25 = минимально)<br>
-    Confidence — насколько уверены (100% = высокая, 80% = средняя, 50% = низкая)<br>
-    Effort — человеко-месяцы (или недели для мелких задач)
+<div class="card">
+  <h3><span class="num">1</span>BMC — Business Model Canvas</h3>
+  <p><strong>Александр Остервальдер.</strong> Описание бизнес-модели на 1 странице. 9 блоков — логика создания ценности и заработка.</p>
+  
+  <div class="bmc-grid">
+    <div class="bmc-cell"><div class="bmc-title">Ключевые партнёры</div><div class="bmc-desc">Кто помогает бизнесу работать?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Ключевые активности</div><div class="bmc-desc">Что делать для работы модели?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Ключевые ресурсы</div><div class="bmc-desc">Что нужно для работы?</div></div>
+    <div class="bmc-cell hl center"><div class="bmc-title">Ценностное предложение</div><div class="bmc-desc">Какую проблему решаем?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Отношения с клиентами</div><div class="bmc-desc">Как взаимодействуем?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Каналы</div><div class="bmc-desc">Как достигаем клиентов?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Целевые сегменты</div><div class="bmc-desc">Для кого ценность?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Структура затрат</div><div class="bmc-desc">На что тратим?</div></div>
+    <div class="bmc-cell"><div class="bmc-title">Потоки дохода</div><div class="bmc-desc">Как зарабатываем?</div></div>
   </div>
   
-  <div class="tw mt16">
-    <table class="t">
+  <h4>Когда использовать BMC:</h4>
+  <ul>
+    <li><strong>Старт проекта</strong> — понять, как бизнес будет зарабатывать</li>
+    <li><strong>Анализ конкурентов</strong> — заполнить BMC для 2-3 конкурентов и сравнить</li>
+    <li><strong>Перед инвестициями</strong> — показать бизнес-модель инвесторам</li>
+    <li><strong>Пивот</strong> — переделать модель при провале гипотез</li>
+  </ul>
+  
+  <div class="example">
+    <p><strong>Пример: сервис подписки на кофе</strong></p>
+    <ul>
+      <li><strong>Ценностное предложение:</strong> Свежий кофе нужного помола каждую неделю без похода в магазин</li>
+      <li><strong>Сегменты:</strong> Любители кофе 25-40 лет, города 500к+</li>
+      <li><strong>Каналы:</strong> Instagram, контекстная реклама, реферальная программа</li>
+      <li><strong>Доходы:</strong> Подписка 990₽/мес, премиум 1990₽/мес</li>
+      <li><strong>Затраты:</strong> Закупка зерна 40%, логистика 25%, маркетинг 20%, операционные 15%</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card g">
+  <h3><span class="num">2</span>JTBD — Jobs To Be Done</h3>
+  <p><strong>Клейтон Кристенсен.</strong> Люди не покупают продукты — они "нанимают" их для выполнения конкретной работы (Job).</p>
+  
+  <div class="formula">
+"Люди не хотят купить дрель. Они хотят сделать отверстие в стене. <span class="hl">И даже это неправда — они хотят повесить полку, чтобы организовать пространство.</span>"<br><br>
+<span class="formula-comment">Классический пример JTBD. Уходите от продукта к результату, который получает пользователь.</span>
+  </div>
+  
+  <h4>Структура JTBD-интервью (60 минут):</h4>
+  <table class="data-table">
+    <tr><th>Этап</th><th>Вопрос</th><th>Что выясняем</th><th>Время</th></tr>
+    <tr><td><span class="cell-main">Контекст</span></td><td>"Расскажи о последний раз, когда..."</td><td>В какой ситуации возникла потребность</td><td>5 мин</td></tr>
+    <tr><td><span class="cell-main">Триггер</span></td><td>"Что сподвигло начать?"</td><td>Почему сейчас, а не месяц назад</td><td>5 мин</td></tr>
+    <tr><td><span class="cell-main">Процесс</span></td><td>"Как искал решение?"</td><td>Какие шаги, что пробовал</td><td>10 мин</td></tr>
+    <tr><td><span class="cell-main">Проблемы</span></td><td>"Что раздражало?"</td><td>Боли и препятствия</td><td>15 мин</td></tr>
+    <tr><td><span class="cell-main">Результат</span></td><td>"Как понял, что всё хорошо?"</td><td>Успешное выполнение job</td><td>10 мин</td></tr>
+    <tr><td><span class="cell-main">Альтернативы</span></td><td>"Что ещё рассматривал?"</td><td>Конкуренты — прямые и косвенные</td><td>10 мин</td></tr>
+  </table>
+  
+  <h4>Примеры JTBD для разных продуктов:</h4>
+  <table class="data-table">
+    <tr><th>Продукт</th><th>Поверхностный job</th><th>Глубинный job</th></tr>
+    <tr><td>Spotify</td><td>Слушать музыку</td><td>"Помоги мне поднять настроение во время утренней пробежки"</td></tr>
+    <tr><td>Notion</td><td>Вести заметки</td><td>"Помоги организовать все проекты в одном месте, чтобы ничего не забыть"</td></tr>
+    <tr><td>Яндекс.Еда</td><td>Заказать еду</td><td>"Помоги мне не готовить после работы, когда я устал"</td></tr>
+  </table>
+</div>
+
+<div class="card a">
+  <h3><span class="num">3</span>AARRR — Pirate Metrics</h3>
+  <p><strong>Дейв Макклюр.</strong> 5 метрик жизненного цикла пользователя. Звучит как "AARRR!" — рёв пирата 🏴‍☠️</p>
+  
+  <div class="formula">
+<span class="hl">A</span> — Acquisition (Привлечение) → Откуда приходят?<br>
+<span class="hl">A</span> — Activation (Активация) → Когда понимают ценность?<br>
+<span class="hl">R</span> — Retention (Удержание) → Возвращаются ли?<br>
+<span class="hl">R</span> — Revenue (Доход) → Как платят?<br>
+<span class="hl">R</span> — Referral (Виральность) → Рассказывают друзьям?
+  </div>
+  
+  <table class="data-table">
+    <tr><th>Этап</th><th>Метрики</th><th>Инструменты улучшения</th></tr>
+    <tr><td><span class="cell-main">🎯 Acquisition</span></td><td>CPA, CAC, трафик по каналам</td><td>SEO, контекст, SMM, офлайн</td></tr>
+    <tr><td><span class="cell-main">⚡ Activation</span></td><td>Время до первой ценности, % онбординга</td><td>Онбординг, tutorial, aha-moment</td></tr>
+    <tr><td><span class="cell-main">🔄 Retention</span></td><td>D1/D7/D30 retention, когорты</td><td>Письма, push, привычки, контент</td></tr>
+    <tr><td><span class="cell-main">💰 Revenue</span></td><td>ARPU, ARPPU, LTV, конверсия</td><td>Ценообразование, upsell, paywall</td></tr>
+    <tr><td><span class="cell-main">📣 Referral</span></td><td>K-factor, NPS, реферальные</td><td>Рефералки, шаринг, инвайты</td></tr>
+  </table>
+  
+  <div class="example">
+    <p><strong>Диагностика продукта через AARRR:</strong></p>
+    <ul>
+      <li><strong>Acquisition:</strong> 10,000 посетителей/мес, CAC = 150₽ — <span style="color:var(--g)">норма</span></li>
+      <li><strong>Activation:</strong> Только 15% завершают регистрацию — <span style="color:var(--r)">🚨 проблема!</span></li>
+      <li><strong>Retention:</strong> D7 = 45% — <span style="color:var(--g)">хорошо</span></li>
+      <li><strong>Revenue:</strong> ARPPU = 2,000₽, LTV = 6,000₽ — <span style="color:var(--g)">хорошо</span></li>
+      <li><strong>Referral:</strong> K-factor = 0.1 — <span style="color:var(--a)">можно улучшить</span></li>
+    </ul>
+    <p><strong>Вывод:</strong> Фокус на Activation — пересмотреть онбординг, упростить регистрацию.</p>
+  </div>
+</div>
+
+<div class="card r">
+  <h3><span class="num">4</span>RICE и ICE — приоритизация</h3>
+  <p><strong>Интерком.</strong> У вас 100 идей, ресурсов на 10. Как выбрать? Фреймворки дают числа для сравнения.</p>
+  
+  <div class="formula">
+<span class="hl" style="color:var(--rl)">RICE</span> = (Reach × Impact × Confidence) / Effort<br><br>
+<span class="hl" style="color:var(--rl)">ICE</span> = Impact × Confidence × Ease<br><br>
+<span class="formula-comment">RICE точнее (учитывает охват), ICE проще (быстрее считать). Для продуктового бэклога — RICE, для гипотез роста — ICE.</span>
+  </div>
+  
+  <h4>Компоненты RICE:</h4>
+  <table class="data-table">
+    <tr><th>Компонент</th><th>Что означает</th><th>Шкала оценки</th></tr>
+    <tr><td><span class="cell-main">Reach (Охват)</span></td><td>Сколько пользователей затронет за период</td><td>Число: 100, 1000, 10000</td></tr>
+    <tr><td><span class="cell-main">Impact (Влияние)</span></td><td>Насколько сильно улучшит метрику</td><td>3 = массовое, 2 = высокое, 1 = среднее, 0.5 = низкое, 0.25 = минимальное</td></tr>
+    <tr><td><span class="cell-main">Confidence (Уверенность)</span></td><td>Насколько уверены в оценках</td><td>%: 100% = есть данные, 80% = уверены, 50% = предположение</td></tr>
+    <tr><td><span class="cell-main">Effort (Усилия)</span></td><td>Сколько человеко-месяцев нужно</td><td>Число: 0.5 = неделя, 1 = месяц, 2 = два месяца...</td></tr>
+  </table>
+  
+  <div class="example">
+    <p><strong>Расчёт RICE для фич:</strong></p>
+    <table class="data-table">
       <tr><th>Фича</th><th>Reach</th><th>Impact</th><th>Confidence</th><th>Effort</th><th>RICE</th></tr>
-      <tr><td class="hl">Фильтр "Бесплатно"</td><td>10K</td><td>2</td><td>90%</td><td>0.5</td><td>36,000</td></tr>
-      <tr><td class="hl">ML-рекомендации</td><td>10K</td><td>3</td><td>50%</td><td>2</td><td>7,500</td></tr>
-      <tr><td class="hl">"Я иду" счётчик</td><td>5K</td><td>2</td><td>80%</td><td>1</td><td>8,000</td></tr>
+      <tr><td>Поиск по фильтрам</td><td>5,000</td><td>2</td><td>80%</td><td>1</td><td>8,000</td></tr>
+      <tr><td>Push-уведомления</td><td>10,000</td><td>1</td><td>50%</td><td>0.5</td><td style="color:var(--g);font-weight:700">10,000 ✓</td></tr>
+      <tr><td>Чат поддержки</td><td>1,000</td><td>3</td><td>60%</td><td>2</td><td>900</td></tr>
     </table>
+    <p><strong>Результат:</strong> Делаем сначала push-уведомления (10,000), потом поиск (8,000), потом чат (900).</p>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🎯</span> Матрица Ценность / Усилие</div>
-  <div class="g2">
-    <div class="card g">
-      <h3>🔥 Quick Wins (делаем первыми)</h3>
-      <p>Высокая ценность, низкое усилие. Максимум импакта за минимум ресурсов.</p>
-    </div>
-    <div class="card p">
-      <h3>📋 Major Projects (планируем)</h3>
-      <p>Высокая ценность, высокое усилие. Нужны ресурсы и время, но дают стратегический результат.</p>
-    </div>
-    <div class="card a">
-      <h3>🔪 Fill-ins (делаем если есть время)</h3>
-      <p>Низкая ценность, низкое усилие. Мелкие улучшения, технический долг.</p>
-    </div>
-    <div class="card r">
-      <h3>❌ Thankless tasks (не делаем)</h3>
-      <p>Низкая ценность, высокое усилие. Убираем из бэклога.</p>
+<div class="card c">
+  <h3><span class="num">5</span>SWOT-анализ</h3>
+  <p>Классический стратегический инструмент для анализа внутренних и внешних факторов.</p>
+  
+  <div class="formula">
+<span style="color:var(--g)">S</span> — Strengths (Сильные стороны, внутренние)<br>
+<span style="color:var(--r)">W</span> — Weaknesses (Слабые стороны, внутренние)<br>
+<span style="color:var(--p)">O</span> — Opportunities (Возможности, внешние)<br>
+<span style="color:var(--a)">T</span> — Threats (Угрозы, внешние)
+  </div>
+  
+  <h4>Когда использовать SWOT:</h4>
+  <ul>
+    <li><strong>Анализ конкурента</strong> — понять чужие силы и слабости</li>
+    <li><strong>Позиционирование</strong> — найти нишу между сильными игроками</li>
+    <li><strong>Стратегическое планирование</strong> — SO-стратегии: сильные стороны + возможности</li>
+  </ul>
+  
+  <div class="example">
+    <p><strong>SWOT анализа конкурента (Яндекс.Еда):</strong></p>
+    <div class="grid-2">
+      <div style="background:var(--gbg);padding:16px;border-radius:12px">
+        <strong style="color:var(--g)">Strengths</strong>
+        <ul style="margin-top:8px;font-size:13px">
+          <li>Бренд Яндекса</li>
+          <li>Интеграция с картами</li>
+          <li>Широкая сеть ресторанов</li>
+        </ul>
+      </div>
+      <div style="background:var(--rbg);padding:16px;border-radius:12px">
+        <strong style="color:var(--r)">Weaknesses</strong>
+        <ul style="margin-top:8px;font-size:13px">
+          <li>Высокая комиссия ресторанам</li>
+          <li>Проблемы с доставкой в час пик</li>
+          <li>Ограниченная поддержка</li>
+        </ul>
+      </div>
+      <div style="background:var(--pbg);padding:16px;border-radius:12px">
+        <strong style="color:var(--p)">Opportunities</strong>
+        <ul style="margin-top:8px;font-size:13px">
+          <li>Рост dark kitchen</li>
+          <li>Доставка продуктов (Яндекс.Лавка)</li>
+          <li>Подписка Яндекс.Плюс</li>
+        </ul>
+      </div>
+      <div style="background:var(--abg);padding:16px;border-radius:12px">
+        <strong style="color:var(--a)">Threats</strong>
+        <ul style="margin-top:8px;font-size:13px">
+          <li>Конкуренция Delivery Club</li>
+          <li>Самовывоз ресторанов</li>
+          <li>Регуляторика (трудовые права курьеров)</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 </section>
 
-<!-- БЭКЛОГ (отдельная глава, не меняем нумерацию основных модулей) -->
-<section class="chapter" id="backlog">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0f766e,#14b8a6)">B</div>
+<!-- METRICS -->
+<section class="sec" id="metrics">
+<div class="sh">
+  <div class="sh-ico">📊</div>
   <div>
-    <h2>Продуктовый бэклог: от гипотез к задачам</h2>
-    <div class="sub">Как устроить систему работы, чтобы идеи превращались в результат (и не утонуть в хаосе)</div>
+    <h2>Метрики и аналитика</h2>
+    <div class="sub">Что измерять и как интерпретировать данные о продукте</div>
   </div>
 </div>
 
-<div class="voice">
-  <div class="voice-label">Мои мысли</div>
-  <p>Большинство новичков ломаются не на интервью и не на метриках — а на бэклоге. Идей много, задач ещё больше, команда просит «нормальные требования», бизнес хочет «быстрее», а данных мало. Хороший бэклог — это не список хотелок, а управляемая очередь гипотез с понятной ценностью и критериями.</p>
+<div class="card">
+  <h3><span class="num">1</span>Инструменты аналитики (Россия 2026)</h3>
+  <table class="data-table">
+    <tr><th>Инструмент</th><th>Тип</th><th>Для чего</th><th>Цена</th></tr>
+    <tr><td><span class="cell-main">Яндекс.Метрика</span></td><td>Веб-аналитика</td><td>Трафик, воронки, Вебвизор, тепловые карты</td><td>Бесплатно</td></tr>
+    <tr><td><span class="cell-main">Яндекс.АппМетрика</span></td><td>Мобильная</td><td>Установки, события, воронки, краши, push</td><td>Бесплатно</td></tr>
+    <tr><td><span class="cell-main">Google Analytics 4</span></td><td>Универсальная</td><td>Веб + приложения, ML-инсайты</td><td>Требует VPN в РФ</td></tr>
+    <tr><td><span class="cell-main">Amplitude</span></td><td>Продуктовая</td><td>Когорты, retention, продуктовые воронки</td><td>От $49/мес</td></tr>
+    <tr><td><span class="cell-main">Mixpanel</span></td><td>Продуктовая</td><td>Funnels, retention, A/B testing</td><td>От $25/мес</td></tr>
+    <tr><td><span class="cell-main">ClickHouse + DataLens</span></td><td>Своя аналитика</td><td>Кастомные дашборды, большие данные</td><td>Инфраструктура</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧩</span> Что такое бэклог (точно)</div>
-  <p><strong>Продуктовый бэклог</strong> — это список гипотез/инициатив/задач, упорядоченный по ценности и готовности, который постоянно уточняется. Важно: бэклог живой. Он не «составляется один раз».</p>
-  <div class="callout">Если в бэклоге нет связи с метриками и гипотезами — это не продуктовый бэклог, а список поручений.</div>
+<div class="card g">
+  <h3><span class="num">2</span>North Star Metric (NSM)</h3>
+  <p><strong>Главная метрика продукта</strong>, отражающая ценность для пользователя и бизнеса.</p>
+  
+  <h4>Критерии хорошего NSM:</h4>
+  <ul>
+    <li>✓ Отражает ценность для пользователя (не просто "посещения")</li>
+    <li>✓ Коррелирует с бизнес-результатом (выручкой, retention)</li>
+    <li>✓ Действие пользователя (active), не пассивный показатель</li>
+    <li>✓ Можно повлиять продуктовыми решениями</li>
+  </ul>
+  
+  <table class="data-table">
+    <tr><th>Продукт</th><th>Хороший NSM</th><th>Почему</th><th>Плохой NSM</th></tr>
+    <tr><td>Spotify</td><td>Время прослушивания</td><td>Ценность = слушать музыку</td><td>DAU (можно открыть и уйти)</td></tr>
+    <tr><td>Airbnb</td><td>Количество бронирований</td><td>Ценность = найти жильё</td><td>Регистрации (не бронирования)</td></tr>
+    <tr><td>Slack</td><td>Отправленные сообщения</td><td>Ценность = коммуникация</td><td>Установки (не использование)</td></tr>
+    <tr><td>Яндекс.Еда</td><td>Количество заказов</td><td>Ценность = еда доставлена</td><td>Просмотры ресторанов</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🌊</span> Путь гипотезы до элемента бэклога</div>
+<div class="card a">
+  <h3><span class="num">3</span>Юнит-экономика: CAC, LTV, AOV</h3>
+  
+  <div class="formula">
+<span class="hl">CAC</span> (Customer Acquisition Cost) = Затраты на маркетинг / Количество новых пользователей<br><br>
+<span class="hl">LTV</span> (Lifetime Value) = Средний чек × Количество покупок × Маржинальность<br><br>
+<span class="hl">AOV</span> (Average Order Value) = Выручка / Количество заказов<br><br>
+<span class="hl">LTV / CAC ratio</span> должно быть ≥ 3 для здорового бизнеса
+<span class="formula-comment">Пример: CAC = 500₽, LTV = 2000₽ → Ratio = 4 (хорошо). Если ratio &lt; 3 — маркетинг убыточен.</span>
+  </div>
+  
+  <h4>Время окупаемости (Payback Period):</h4>
+  <div class="formula">
+Payback Period = CAC / (ARPU × Маржинальность)<br><br>
+<span class="formula-comment">Цель: окупаемость ≤ 12 месяцев. Если payback &gt; 18 месяцев — проблема с бизнес-моделью.</span>
+  </div>
+</div>
+
+<div class="card r">
+  <h3><span class="num">4</span>Retention и Churn</h3>
+  
+  <div class="formula">
+<span class="hl">Retention Rate</span> = (Пользователи на конец периода / Пользователи на начало) × 100%<br><br>
+<span class="hl">Churn Rate</span> = (Ушедшие пользователи / Всего на начало) × 100%<br><br>
+<span class="formula-comment">Retention + Churn = 100%. Хороший D30 retention для мобильных приложений = 15-25%. Для SaaS = 80%+.</span>
+  </div>
+  
+  <h4>Когортный анализ:</h4>
+  <p>Сравнение поведения групп пользователей, пришедших в разное время. Показывает, улучшается ли продукт со временем.</p>
+  
+  <div class="example">
+    <p><strong>Когортная таблица (D1/D7/D30 retention):</strong></p>
+    <table class="data-table">
+      <tr><th>Когорта (неделя)</th><th>Новые</th><th>D1</th><th>D7</th><th>D30</th></tr>
+      <tr><td>1-8 января</td><td>1000</td><td>40%</td><td>20%</td><td>8%</td></tr>
+      <tr><td>8-15 января</td><td>1200</td><td>45%</td><td>25%</td><td>12%</td></tr>
+      <tr><td>15-22 января</td><td>1100</td><td>48%</td><td>28%</td><td style="color:var(--g);font-weight:700">15%</td></tr>
+    </table>
+    <p><strong>Вывод:</strong> Ретеншен растёт с каждой когортой — продукт улучшается!</p>
+  </div>
+</div>
+
+<div class="card c">
+  <h3><span class="num">5</span>A/B тестирование</h3>
+  
+  <h4>Методология:</h4>
   <div class="steps">
     <div class="step">
-      <div class="step-n" style="background:var(--pbg);color:var(--p)">1</div>
+      <div class="step-num">1</div>
       <div class="step-body">
-        <h4>Источник сигнала</h4>
-        <p>Данные (воронка/ретеншен), поддержка, интервью, конкурент, стейкхолдер, стратегия.</p>
+        <h5>Сформулируйте гипотезу</h5>
+        <p>"Ели изменим [X], то [Y] вырастет на [Z]% потому что [обоснование]"</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--gbg);color:var(--g)">2</div>
+      <div class="step-num">2</div>
       <div class="step-body">
-        <h4>Формулировка гипотезы</h4>
-        <p>Кто → что делает → какая метрика изменится → почему мы так думаем → как проверим.</p>
+        <h5>Выберите метрику</h5>
+        <p>Одна главная метрика (primary) и 2-3 вспомогательных (secondary)</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--abg);color:var(--a)">3</div>
+      <div class="step-num">3</div>
       <div class="step-body">
-        <h4>Проверка (дешёвый тест)</h4>
-        <p>Smoke test / Fake door / прототип / консьерж-тест. Цель — подтвердить спрос или эффект до разработки.</p>
+        <h5>Рассчитайте размер выборки</h5>
+        <p>Используйте калькуляторы: abtestguide.com, evanmiller.org/ab-testing</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--cbg);color:var(--c)">4</div>
+      <div class="step-num">4</div>
       <div class="step-body">
-        <h4>Декомпозиция</h4>
-        <p><span class="abbr-link" data-term="Epic">Эпик</span> → <span class="abbr-link" data-term="User Story">user story</span> → задачи разработки/дизайна/аналитики. У каждой истории — критерии приёмки.</p>
+        <h5>Запустите и дождитесь</h5>
+        <p>Не останавливайте тест раньше времени (minimum 1 week, 2 preferred)</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--tbg);color:var(--t)">5</div>
+      <div class="step-num">5</div>
       <div class="step-body">
-        <h4>Приоритизация и план</h4>
-        <p><span class="abbr-link" data-term="RICE">RICE</span>/<span class="abbr-link" data-term="ICE">ICE</span> + зависимости + риск. Выбор: сделать сейчас / позже / никогда.</p>
+        <h5>Проанализируйте</h5>
+        <p>Доверительный интервал, статистическая значимость (p-value &lt; 0.05)</p>
       </div>
     </div>
   </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🧾</span> Минимальный шаблон элемента бэклога (как писать)</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>Поле</th><th>Что писать</th><th>Зачем</th></tr>
-      <tr><td class="hl">Problem</td><td>Какая проблема и у кого</td><td>Без проблемы нет продукта</td></tr>
-      <tr><td class="hl">Hypothesis</td><td>Какое изменение и какой эффект</td><td>Чтобы измерять результат</td></tr>
-      <tr><td class="hl">Metric</td><td>Целевая метрика (и baseline)</td><td>Чтобы понимать «улучшили или нет»</td></tr>
-      <tr><td class="hl">Scope</td><td>Что входит / что не входит</td><td>Не расползтись</td></tr>
-      <tr><td class="hl">Acceptance criteria</td><td>Критерии приёмки</td><td>Чтобы не спорить на релизе</td></tr>
-      <tr><td class="hl">Analytics</td><td>События/сегменты/дашборд</td><td>Чтобы измерить эффект</td></tr>
-      <tr><td class="hl">Risks</td><td>Риски и как снизить</td><td>Снижает сюрпризы</td></tr>
-    </table>
+  
+  <div class="formula">
+Минимальная выборка для A/B теста (95% confidence, 80% power):<br>
+• Конверсия 10% → нужно ~30,000 на вариант для ±1% изменения<br>
+• Конверсия 2% → нужно ~150,000 на вариант для ±0.2% изменения<br><br>
+<span class="formula-comment">Для быстрых тестов используйте бОльшие изменения — тогда нужно меньше трафика.</span>
   </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🧷</span> Источники гипотез для бэклога</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Данные и исследования</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Провалы воронки <span class="abbr-link" data-term="AARRR">AARRR</span></li>
-        <li><span class="arr">→</span>Когорты (<span class="abbr-link" data-term="Cohort">cohort</span>) и <span class="abbr-link" data-term="retention">retention</span></li>
-        <li><span class="arr">→</span>Интервью (<span class="abbr-link" data-term="JTBD">JTBD</span>)</li>
-        <li><span class="arr">→</span>Юзабилити-тесты</li>
-      </ul>
-    </div>
-    <div class="card g">
-      <h3>Рынок и стратегия</h3>
-      <ul class="lst">
-        <li><span class="arrg">→</span>Конкуренты и <span class="abbr-link" data-term="SWOT">SWOT</span></li>
-        <li><span class="arrg">→</span>Сегменты (<span class="abbr-link" data-term="ICP">ICP</span>)</li>
-        <li><span class="arrg">→</span><span class="abbr-link" data-term="OKR">OKR</span> и стратегические цели</li>
-        <li><span class="arrg">→</span>Запросы стейкхолдеров (с проверкой данных)</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout warn">Запросы стейкхолдеров — источник идей, но не доказательство ценности. Любую инициативу возвращай к пользователю и метрикам.</div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🗂️</span> Структура бэклога (как не утонуть)</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>Уровень</th><th>Пример</th><th>Кому нужен</th></tr>
-      <tr><td class="hl">Стратегия</td><td>Сфокусироваться на росте retention</td><td>CPO/CEO</td></tr>
-      <tr><td class="hl">Цели</td><td><span class="abbr-link" data-term="OKR">OKR</span> квартала</td><td>Руководство/лиды</td></tr>
-      <tr><td class="hl">Инициатива</td><td>Улучшить онбординг</td><td>PM</td></tr>
-      <tr><td class="hl">Эпик</td><td>Серия изменений в онбординге</td><td>PM/команда</td></tr>
-      <tr><td class="hl">User story</td><td>Как новый пользователь…</td><td>Команда</td></tr>
-      <tr><td class="hl">Таски</td><td>FE/BE/QA/аналитика</td><td>Команда</td></tr>
-    </table>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🧱</span> PRD: минимальный каркас документа</div>
-  <p>Чтобы команда делала «то, что нужно», а не «то, что поняли», используй <span class="abbr-link" data-term="PRD">PRD</span> (или короткий one-pager) для инициатив среднего размера.</p>
-  <div class="tw mt12">
-    <table class="t">
-      <tr><th>Раздел</th><th>Содержание</th></tr>
-      <tr><td class="hl">Контекст</td><td>почему сейчас, почему важно</td></tr>
-      <tr><td class="hl">Проблема</td><td>кто страдает и как</td></tr>
-      <tr><td class="hl">Цель</td><td><span class="abbr-link" data-term="KPI">KPI</span>, baseline и target</td></tr>
-      <tr><td class="hl">Решение</td><td>что делаем и что не делаем</td></tr>
-      <tr><td class="hl">События аналитики</td><td>что логируем, какие срезы</td></tr>
-      <tr><td class="hl">Риски</td><td>что может пойти не так</td></tr>
-      <tr><td class="hl">План оценки эффекта</td><td>какой дизайн эксперимента (<span class="abbr-link" data-term="A/B тест">A/B</span> или квази-эксперимент)</td></tr>
-    </table>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🧼</span> Груминг, <span class="abbr-link" data-term="DoR">DoR</span> и <span class="abbr-link" data-term="DoD">DoD</span></div>
-  <div class="g2">
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="DoR">DoR</span> (Definition of Ready)</h3>
-      <p>Когда задача «готова к разработке»: есть проблема, гипотеза, макеты/описание, критерии, аналитика, зависимости.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="DoD">DoD</span> (Definition of Done)</h3>
-      <p>Когда задача «сделана»: не только код в проде, но и события аналитики, мониторинг, документация, план оценки эффекта.</p>
-    </div>
-  </div>
-  <div class="callout warn">Если релиз без аналитики — это «сделали фичу», но не «улучшили продукт».</div>
-</div>
-</section>
-
-<!-- ГЛАВА 8 -->
-<section class="chapter" id="ch8">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#92400e,#f59e0b)">8</div>
-  <div>
-    <h2>Рост: от PM к CPO</h2>
-    <div class="sub">Стратегия, стейкхолдеры, управление продуктовой командой.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🚀</span> Разница PM и CPO</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>PM (Product Manager)</th><th>CPO (Chief Product Officer)</th></tr>
-      <tr><td>Один продукт/фича</td><td>Портфель продуктов</td></tr>
-      <tr><td>Команда 5-8 человек</td><td>Несколько команд/отделов</td></tr>
-      <tr><td>Фокус: выполнение</td><td>Фокус: стратегия + люди</td></tr>
-      <tr><td>Метрики: метрики продукта</td><td>Метрики: бизнес-метрики</td></tr>
-      <tr><td>Стейкхолдеры: команда</td><td>Стейкхолдеры: CEO, инвесторы, рынок</td></tr>
-    </table>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">📈</span> Путь роста PM → CPO</div>
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--p);border-color:var(--p)"></div>
-      <div class="tl-body">
-        <h4>Junior PM (0-1 год)</h4>
-        <p>Пишу чёткие задачи, собираю метрики, провожу интервью под руководством. Учусь отличать гипотезу от факта.</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--g);border-color:var(--g)"></div>
-      <div class="tl-body">
-        <h4>Middle PM (1-3 года)</h4>
-        <p>Веду продукт самостоятельно, приоритизирую бэклог, запускаю фичи от идеи до метрик. Учусь работать со стейкхолдерами.</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--a);border-color:var(--a)"></div>
-      <div class="tl-body">
-        <h4>Senior PM / Group PM (3-5 лет)</h4>
-        <p>Веду портфель/направление, менторю младших, влияю на стратегию компании. Понимаю бизнес глубже продукта.</p>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--t);border-color:var(--t)"></div>
-      <div class="tl-body">
-        <h4>CPO / VP Product (5+ лет)</h4>
-        <p>Стратегия продуктовой организации, найм, культура, взаимодействие с CEO/бордом. Продукт = бизнес.</p>
-      </div>
-    </div>
+  
+  <div class="warning">
+    <p><strong>Ошибки A/B тестирования:</strong></p>
+    <ul>
+      <li>Останавливать тест слишком рано (peeking problem)</li>
+      <li>Тестировать несколько переменных одновременно</li>
+      <li>Игнорировать сезонность и выходные</li>
+      <li>Тестировать на разных сегментах без стратификации</li>
+      <li>Не проверять мощность теста (power) заранее</li>
+    </ul>
   </div>
 </div>
 </section>
 
-<!-- ГЛАВА 9 -->
-<section class="chapter" id="ch9">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0369a1,#0ea5e9)">9</div>
+<!-- FUNNELS -->
+<section class="sec" id="funnels">
+<div class="sh">
+  <div class="sh-ico">🔄</div>
   <div>
-    <h2>Инструменты и реалии России (апрель 2026)</h2>
-    <div class="sub">Что работает, что нет, на что обратить внимание.</div>
+    <h2>Воронки продуктовые</h2>
+    <div class="sub">От первого контакта до лояльного пользователя</div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🇷🇺</span> Специфика российского рынка 2026</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Что изменилось</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Миграция с зарубежных сервисов на российские</li>
-        <li><span class="arr">→</span>Рост ТГ-каналов как канала коммуникации</li>
-        <li><span class="arr">→</span>ВК остаётся ключевой соцсетью для 25+</li>
-        <li><span class="arr">→</span>Рост СБП (Система быстрых платежей)</li>
-        <li><span class="arr">→</span>Усиление 152-ФЗ и требований к данным</li>
-      </ul>
-    </div>
-    <div class="card r">
-      <h3>Что усложнилось</h3>
-      <ul class="lst">
-        <li><span class="arrr">→</span>Google Analytics требует обходов</li>
-        <li><span class="arrr">→</span>AppMetrica/Adjust частично ограничены</li>
-        <li><span class="arrr">→</span>Международные платежи с комиссиями</li>
-        <li><span class="arrr">→</span>Рекрутинг в IT сложнее, зарплаты выше</li>
-      </ul>
-    </div>
-  </div>
+<div class="card">
+  <h3><span class="num">1</span>Воронка AARRR (полный цикл)</h3>
+  <p>Процент переходов между этапами — ключевой показатель здоровья продукта.</p>
+  
+  <table class="data-table">
+    <tr><th>Этап</th><th>Что происходит</th><th>Типичная конверсия</th><th>Что делать при падении</th></tr>
+    <tr><td><span class="cell-main">👀 Awareness</span></td><td>Узнают о продукте</td><td>—</td><td>Расширять каналы, тестировать креативы</td></tr>
+    <tr><td><span class="cell-main">🎯 Acquisition</span></td><td>Заходят на сайт/в приложение</td><td>—</td><td>SEO, реклама, виральность</td></tr>
+    <tr><td><span class="cell-main">⚡ Activation</span></td><td>Первая ценность получена</td><td>15-40%</td><td>Упрощать онбординг, показывать ценность быстрее</td></tr>
+    <tr><td><span class="cell-main">🔄 Retention</span></td><td>Возвращаются повторно</td><td>D7: 20-40%, D30: 10-25%</td><td>Письма, push, контент, привычки</td></tr>
+    <tr><td><span class="cell-main">💰 Revenue</span></td><td>Оплачивают</td><td>1-5% от активных</td><td>Ценообразование, триггеры, скидки</td></tr>
+    <tr><td><span class="cell-main">📣 Referral</span></td><td>Рекомендуют друзьям</td><td>K-factor 0.1-0.5</td><td>Реферальная программа, шаринг</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🛠️</span> Стек инструментов для продуктовой работы в РФ</div>
-  <div class="tw">
-    <table class="t">
-      <tr><th>Задача</th><th>Инструменты</th><th>Альтернативы</th></tr>
-      <tr><td class="hl">Аналитика web</td><td>Яндекс.Метрика</td><td>Google Analytics 4 (VPN)</td></tr>
-      <tr><td class="hl">Аналитика mobile</td><td>Яндекс.АппМетрика</td><td>Своя система на ClickHouse</td></tr>
-      <tr><td class="hl">Продуктовая аналитика</td><td>Amplitude, Mixpanel</td><td>Яндекс.ДатаLens + события</td></tr>
-      <tr><td class="hl">Трекер задач</td><td>Яндекс.Трекер, YouTrack</td><td>Linear (VPN), Trello</td></tr>
-      <tr><td class="hl">Дизайн</td><td>Figma (работает)</td><td>Pixso, Penpot</td></tr>
-      <tr><td class="hl">Коммуникация</td><td>Telegram, VK</td><td>Discord, Slack</td></tr>
-      <tr><td class="hl">Платежи</td><td>ЮKassa, Робокасса, СБП</td><td>Крипто (ограниченно)</td></tr>
-      <tr><td class="hl">Рекрутинг респондентов</td><td>VK, Telegram, Яндекс.Взгляд</td><td>Рекрутинговые агентства</td></tr>
-    </table>
-  </div>
-</div>
-</section>
-
-<!-- ГЛАВА 10 -->
-<section class="chapter" id="ch10">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#0a7a50,#12a06a)">10</div>
-  <div>
-    <h2>Чек-лист CPO: универсальная памятка</h2>
-    <div class="sub">Что проверить при входе в любой продукт.</div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">✅</span> Чек-лист исследования продукта (Day 0-30)</div>
+<div class="card g">
+  <h3><span class="num">2</span>Onboarding-воронка</h3>
+  <p>Путь от установки до первой ценности (aha-moment).</p>
+  
   <div class="steps">
     <div class="step">
-      <div class="step-n" style="background:var(--pbg);color:var(--p)">D0</div>
+      <div class="step-num">1</div>
       <div class="step-body">
-        <h4>Инвентаризация</h4>
-        <p>✓ Продуктовые активы (фичи, платформы)<br>✓ Бизнес-модель (где деньги)<br>✓ Конкуренты (3-5 штук)<br>✓ Аналитика (что есть, чего нет)</p>
+        <h5>Установка / Регистрация</h5>
+        <p>Минимум полей, социальный вход, не требовать сразу email</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--gbg);color:var(--g)">D1-3</div>
+      <div class="step-num">2</div>
       <div class="step-body">
-        <h4>Вторичное исследование</h4>
-        <p>✓ <span class="abbr-link" data-term="TAM">TAM</span>/<span class="abbr-link" data-term="SAM">SAM</span>/<span class="abbr-link" data-term="SOM">SOM</span><br>✓ Тренды рынка<br>✓ Отзывы пользователей (100 шт)<br>✓ <span class="abbr-link" data-term="BMC">BMC</span> для себя и конкурентов</p>
+        <h5>Первый вход</h5>
+        <p>Приветствие, объяснение ценности, не перегружать</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--abg);color:var(--a)">D4-14</div>
+      <div class="step-num">3</div>
       <div class="step-body">
-        <h4>Первичное исследование</h4>
-        <p>✓ 8-12 глубинных интервью<br>✓ <span class="abbr-link" data-term="JTBD">JTBD</span> сформулированы<br>✓ Гипотезы проблем/решений<br>✓ Опрос (если нужно количество)</p>
+        <h5>Core action</h5>
+        <p>Главное действие: создать проект, сделать заказ, добавить друга</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--cbg);color:var(--c)">D15-21</div>
+      <div class="step-num">4</div>
       <div class="step-body">
-        <h4>Метрики и воронка</h4>
-        <p>✓ <span class="abbr-link" data-term="NSM">North Star Metric</span> выбран<br>✓ Воронка <span class="abbr-link" data-term="AARRR">AARRR</span> построена<br>✓ Базовые метрики посчитаны<br>✓ <span class="abbr-link" data-term="CAC">CAC</span>/<span class="abbr-link" data-term="LTV">LTV</span> оценены</p>
+        <h5>Aha-moment</h5>
+        <p>Пользователь понимает ценность: "О, это работает!"</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-n" style="background:var(--tbg);color:var(--t)">D22-30</div>
+      <div class="step-num">5</div>
       <div class="step-body">
-        <h4>Приоритизация и план</h4>
-        <p>✓ RICE/ICE для топ-идей<br>✓ Roadmap на 2 недели / месяц / квартал<br>✓ Команда в курсе приоритетов<br>✓ Первая фича в разработке</p>
+        <h5>Привычка</h5>
+        <p>Второе, третье использование — начало привычки</p>
       </div>
     </div>
+  </div>
+  
+  <div class="callout a">
+    <strong>Aha-moment для разных продуктов:</strong><br>
+    • Facebook: добавление 7 друзей за 10 дней<br>
+    • Twitter: просмотр 30 сообщений (не чтение)<br>
+    • Slack: отправка 2000 сообщений в команде<br>
+    • Dropbox: загрузка файла в одну папку
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧠</span> 10 вопросов, которые задаёт CPO при входе в продукт</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>О пользователе</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Кто реальный пользователь? (не "все", а сегмент)</li>
-        <li><span class="arr">→</span>Какую работу он нанимает продукт?</li>
-        <li><span class="arr">→</span>Что он делал до нас?</li>
-      </ul>
-    </div>
-    <div class="card g">
-      <h3>О продукте</h3>
-      <ul class="lst">
-        <li><span class="arrg">→</span>Какая ценность создаётся за 1 минуту использования?</li>
-        <li><span class="arrg">→</span>Где пользователь бросает продукт и почему?</li>
-        <li><span class="arrg">→</span>Какие фичи используются, а какие — мёртвый груз?</li>
-      </ul>
-    </div>
-    <div class="card a">
-      <h3>О бизнесе</h3>
-      <ul class="lst">
-        <li><span class="arra">→</span>Откуда деньги? Как растут?</li>
-        <li><span class="arra">→</span><span class="abbr-link" data-term="LTV/CAC">LTV/CAC</span> &gt; 3?</li>
-        <li><span class="arra">→</span>Какой эксперимент даст максимум за минимум?</li>
-      </ul>
-    </div>
-    <div class="card c">
-      <h3>О команде</h3>
-      <ul class="lst">
-        <li><span class="arr">→</span>Какие решения команда может принять сама?</li>
-        <li><span class="arr">→</span>Что блокирует скорость?</li>
-        <li><span class="arr">→</span>Где нужны данные, а где — интуиция?</li>
-      </ul>
-    </div>
-  </div>
+<div class="card a">
+  <h3><span class="num">3</span>Монетизационная воронка</h3>
+  <p>Путь от активного пользователя до платящего.</p>
+  
+  <table class="data-table">
+    <tr><th>Этап</th><th>Действие</th><th>Триггеры</th></tr>
+    <tr><td><span class="cell-main">MAU</span></td><td>Активные пользователи</td><td>Постоянная ценность, привычка</td></tr>
+    <tr><td><span class="cell-main">Viewed pricing</span></td><td>Посмотрели тарифы</td><td>Ограничение бесплатной версии, подсказка</td></tr>
+    <tr><td><span class="cell-main">Started checkout</span></td><td>Начали оплату</td><td>Прозрачная цена, доверие</td></tr>
+    <tr><td><span class="cell-main">Completed purchase</span></td><td>Завершили оплату</td><td>Простой процесс, локальные способы оплаты</td></tr>
+    <tr><td><span class="cell-main">Upsell</span></td><td>Апгрейд тарифа</td><td>Потребность в функциях, персонализация</td></tr>
+  </table>
 </div>
 </section>
 
-<!-- ГЛАВА СЛОВАРЬ -->
-<section class="chapter" id="glossary">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#6d28d9,#a855f7)">G</div>
+<!-- STORAGE -->
+<section class="sec" id="storage">
+<div class="sh">
+  <div class="sh-ico">📁</div>
   <div>
-    <h2>Словарь терминов: максимальное покрытие</h2>
-    <div class="sub">Все ключевые понятия из курса Яндекс и книг Кагана, Эяаля, Остервальдера и Риса.</div>
+    <h2>Хранение данных и знаний</h2>
+    <div class="sub">Структура хранилища исследований, бэклога и гипотез</div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">📊</span> Метрики и аналитика</div>
-  <div class="g2">
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="DAU">DAU</span> / <span class="abbr-link" data-term="MAU">MAU</span> / <span class="abbr-link" data-term="WAU">WAU</span></h3>
-      <p>Daily/Monthly/Weekly Active Users — активные пользователи за день/месяц/неделю. Важно определить, что считать «активностью».</p>
+<div class="card">
+  <h3><span class="num">1</span>Структура хранилища продукта</h3>
+  
+  <div class="grid-2">
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">📊 Исследования</h4>
+      <ul>
+        <li>Вторичные данные (отчёты, ссылки)</li>
+        <li>Глубинные интервью (записи, выжимки)</li>
+        <li>Опросы (сырые данные, выводы)</li>
+        <li>Аналитика (дашборды, отчёты)</li>
+      </ul>
     </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="NSM">North Star Metric</span></h3>
-      <p>Одна ключевая метрика, отражающая ценность для пользователя и бизнес-результат. Примеры: Spotify — время прослушивания, Airbnb — бронирования.</p>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">📋 Стратегия</h4>
+      <ul>
+        <li>Видение продукта (Vision)</li>
+        <li>OKR / цели квартала</li>
+        <li>BMC — текущая и будущая версии</li>
+        <li>Конкуренты (анализы, следилка)</li>
+      </ul>
     </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="retention">Retention</span></h3>
-      <p>Удержание: доля пользователей, вернувшихся через N дней. Считается по когортам: D1, D7, D30, M1, M3, M12.</p>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">🎯 Бэклог</h4>
+      <ul>
+        <li>Идеи (ICE/RICE оценки)</li>
+        <li>Гипотезы для тестирования</li>
+        <li>Баги и техдолг</li>
+        <li>Приоритеты и роадмап</li>
+      </ul>
     </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="churn">Churn</span></h3>
-      <p>Отток: доля пользователей, переставших использовать продукт. Часто = 1 − retention, но зависит от определения активности.</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="ARPU">ARPU</span> / <span class="abbr-link" data-term="ARPPU">ARPPU</span></h3>
-      <p>Average Revenue Per (Paying) User — средний доход на пользователя / на платящего пользователя.</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="CAC">CAC</span> / <span class="abbr-link" data-term="LTV">LTV</span> / <span class="abbr-link" data-term="LTV/CAC">LTV/CAC</span></h3>
-      <p>Стоимость привлечения / ценность клиента / их отношение. Правило: LTV/CAC > 3 для масштабирования.</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="CPA">CPA</span> / <span class="abbr-link" data-term="CTR">CTR</span></h3>
-      <p>Cost Per Action — стоимость целевого действия. Click-Through Rate — кликабельность (клики/показы).</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="Cohort">Cohort</span></h3>
-      <p>Группа пользователей с общим событием (например, дата регистрации). Когортный анализ показывает изменение retention во времени.</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="NPS">NPS</span></h3>
-      <p>Net Promoter Score: вероятность рекомендации (0–10). NPS = % промоутеров (9–10) − % критиков (0–6).</p>
-    </div>
-    <div class="card p">
-      <h3><span class="abbr-link" data-term="Vanity Metric">Vanity Metric</span> / <span class="abbr-link" data-term="Actionable Metric">Actionable Metric</span></h3>
-      <p>Тщеславные метрики (растут, но не помогают действовать) vs действующие (на их основе принимаются решения).</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🎯</span> Фреймворки и модели</div>
-  <div class="g2">
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="AARRR">AARRR</span></h3>
-      <p>Пиратская воронка: Acquisition → Activation → Retention → Revenue → Referral. Помогает находить узкие места роста.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="JTBD">JTBD</span> / <span class="abbr-link" data-term="Jobs to be Done">Jobs to be Done</span></h3>
-      <p>Подход: пользователь «нанимает» продукт для выполнения работы. Фокус на контексте и мотивации, а не на демографии.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="BMC">BMC</span> / <span class="abbr-link" data-term="Business Model Canvas">Business Model Canvas</span></h3>
-      <p>Шаблон из 9 блоков по <span class="abbr-link" data-term="Остервальдер">Остервальдеру</span>. Описывает бизнес-модель на 1 странице.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="TAM">TAM</span> / <span class="abbr-link" data-term="SAM">SAM</span> / <span class="abbr-link" data-term="SOM">SOM</span></h3>
-      <p>Total/Serviceable/Obtainable Addressable Market — весь рынок / достижимый / реалистичная доля за 1–2 года.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="RICE">RICE</span> / <span class="abbr-link" data-term="ICE">ICE</span></h3>
-      <p>Фреймворки приоритизации. RICE = (Reach × Impact × Confidence) / Effort. ICE = Impact × Confidence × Ease.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="SWOT">SWOT</span></h3>
-      <p>Сильные/слабые стороны, возможности/угрозы. Используется для конкурентного анализа и стратегии.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="MoSCoW">MoSCoW</span></h3>
-      <p>Must have / Should have / Could have / Won't have. Метод приоритизации scope при ограниченных ресурсах.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="Kano Model">Kano Model</span></h3>
-      <p>Модель классификации фич: базовые (must-be), производительность (one-dimensional), возбудители (delighters).</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="Cost of Delay">Cost of Delay</span> / <span class="abbr-link" data-term="WSJF">WSJF</span></h3>
-      <p>Стоимость задержки и метод приоритизации Weighted Shortest Job First = Cost of Delay / Duration.</p>
-    </div>
-    <div class="card g">
-      <h3><span class="abbr-link" data-term="Hook Model">Hook Model</span></h3>
-      <p>Модель привычки <span class="abbr-link" data-term="Эяаль">Эяаля</span>: триггер → действие → <span class="abbr-link" data-term="Variable Reward">variable reward</span> → инвестиция.</p>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0">📈 Результаты</h4>
+      <ul>
+        <li>A/B тесты (гипотезы, результаты)</li>
+        <li>Релизы (что выпущено, метрики)</li>
+        <li>Ретроспективы</li>
+        <li>Learnings (что узнали)</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧪</span> Эксперименты и валидация</div>
-  <div class="g2">
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Lean Startup">Lean Startup</span></h3>
-      <p>Build → Measure → Learn. Делай быстрые итерации, измеряй, учись, принимай решение pivot/persevere.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="MVP">MVP</span> / <span class="abbr-link" data-term="MVP vs Prototype">MVP vs Prototype</span></h3>
-      <p>Minimum Viable Product — минимум для проверки гипотезы. Прототип — для UX, MVP — для validated learning в проде.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="A/B тест">A/B-тест</span></h3>
-      <p>Эксперимент: часть на вариант A, часть на B. Нужны: гипотеза, метрика успеха, выборка, значимость.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Concierge Test">Concierge Test</span></h3>
-      <p>Ручная имитация продукта для проверки спроса без разработки. Дорого масштабировать, но дёшево проверить.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Smoke Test">Smoke Test</span> / <span class="abbr-link" data-term="Fake Door">Fake Door</span></h3>
-      <p>Посадочная страница несуществующего продукта или кнопка «скоро будет» для измерения интереса.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Validated Learning">Validated Learning</span></h3>
-      <p>Обучение на реальных данных, а не на предположениях. Цель Lean Startup — максимум обучения при минимуме ресурсов.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Pivot">Pivot</span></h3>
-      <p>Изменение стратегии на основе обучения: zoom-in, zoom-out, смена сегмента, канала, технологии.</p>
-    </div>
-    <div class="card a">
-      <h3><span class="abbr-link" data-term="Customer Development">Customer Development</span></h3>
-      <p>Процесс валидации гипотез о клиентах: discovery → validation → creation → company building.</p>
-    </div>
-  </div>
+<div class="card g">
+  <h3><span class="num">2</span>Инструменты хранения (2026)</h3>
+  <table class="data-table">
+    <tr><th>Инструмент</th><th>Лучше для</th><th>Особенности</th></tr>
+    <tr><td><span class="cell-main">Notion</span></td><td>База знаний, бэклог</td><td>Гибкость, шаблоны, базы данных, бесплатно для маленьких команд</td></tr>
+    <tr><td><span class="cell-main">Miro / FigJam</span></td><td>Воркшопы, визуализация</td><td>Бесконечный канвас, стикеры, совместная работа</td></tr>
+    <tr><td><span class="cell-main">Google Docs / Яндекс.Документы</span></td><td>Тексты, отчёты</td><td>Совместное редактирование, комментарии</td></tr>
+    <tr><td><span class="cell-main">Productboard / Aha!</span></td><td>Продакт-менеджмент</td><td>Специализированы под PM: roadmap, идеи, feedback</td></tr>
+    <tr><td><span class="cell-main">Jira / Linear</span></td><td>Бэклог разработки</td><td>Трекинг задач, интеграция с Git</td></tr>
+    <tr><td><span class="cell-main">Confluence</span></td><td>Документация</td><td>Структурированная вики, интеграция с Jira</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">📋</span> Процессы и артефакты</div>
-  <div class="g2">
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="OKR">OKR</span></h3>
-      <p>Objectives and Key Results: качественная цель + 2–5 измеримых результатов. Связывают стратегию и бэклог.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="KPI">KPI</span></h3>
-      <p>Key Performance Indicator с baseline, target, частотой измерения и owner.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="PRD">PRD</span> / <span class="abbr-link" data-term="PRFAQ">PRFAQ</span></h3>
-      <p>Product Requirements Document или Press Release + FAQ (метод Amazon Working Backwards).</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="Epic">Epic</span> / <span class="abbr-link" data-term="User Story">User Story</span></h3>
-      <p>Крупная единица работы vs короткое описание потребности: «Как [роль], я хочу [действие], чтобы [ценность]».</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="DoR">DoR</span> / <span class="abbr-link" data-term="DoD">DoD</span></h3>
-      <p>Definition of Ready (готово к работе) и Definition of Done (готово к релизу, включая аналитику).</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="Product Discovery">Discovery</span> / <span class="abbr-link" data-term="Product Delivery">Delivery</span></h3>
-      <p>Фаза выяснения «что строить» vs фаза реализации «как строить». Dual Track — параллельное ведение.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="Sprint">Sprint</span> / <span class="abbr-link" data-term="Velocity">Velocity</span> / <span class="abbr-link" data-term="Backlog Refinement">Refinement</span></h3>
-      <p>Итерация, скорость команды, уточнение бэклога. 10% времени спринта — на refinement.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="Story Mapping">Story Mapping</span> / <span class="abbr-link" data-term="Impact Mapping">Impact Mapping</span></h3>
-      <p>Визуализация user journey и планирование: цель → акторы → импакты → deliverables.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="User Journey">User Journey</span> / <span class="abbr-link" data-term="Persona">Persona</span></h3>
-      <p>Путь пользователя от проблемы до цели и вымышленный персонаж, представляющий сегмент.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="ICP">ICP</span> / <span class="abbr-link" data-term="Value Proposition">Value Proposition</span></h3>
-      <p>Ideal Customer Profile и ценностное предложение — сердце Business Model Canvas.</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="Product Vision">Vision</span> / <span class="abbr-link" data-term="Product Strategy">Strategy</span> / <span class="abbr-link" data-term="Roadmap">Roadmap</span></h3>
-      <p>Видение (мир через 3–5 лет), стратегия (как достичь), roadmap (инициативы по времени).</p>
-    </div>
-    <div class="card c">
-      <h3><span class="abbr-link" data-term="RACI">RACI</span></h3>
-      <p>Матрица ответственности: Responsible, Accountable, Consulted, Informed.</p>
-    </div>
+<div class="card a">
+  <h3><span class="num">3</span>Шаблон гипотезы</h3>
+  
+  <div class="formula">
+Мы верим, что [действие]<br>
+для [аудитория]<br>
+приведёт к [результат]<br>
+потому что [обоснование]<br><br>
+<span class="formula-comment">Критерии приемки: [метрика] вырастет/упадёт на [X]% за [период]</span>
   </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🚀</span> Рост и привыкание</div>
-  <div class="g2">
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="PMF">PMF</span> / <span class="abbr-link" data-term="Product-Market Fit">Product-Market Fit</span></h3>
-      <p>Продукт устойчиво удовлетворяет рынок. Признаки: высокий retention, органический рост, повторное использование.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Growth Hacking">Growth Hacking</span></h3>
-      <p>Итеративный подход: гипотеза → эксперимент → измерение → масштабирование.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Viral Coefficient">Viral Coefficient</span></h3>
-      <p>Сколько новых пользователей приводит один существующий. >1 = органический рост.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Activation">Activation</span> / <span class="abbr-link" data-term="Magic Moment">Magic Moment</span></h3>
-      <p>AHA-момент, когда пользователь понимает ценность. Чем раньше — тем выше retention.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Referral">Referral</span></h3>
-      <p>Виральность: органическая (сарафан) или механизированная (реферальные программы).</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Onboarding">Onboarding</span></h3>
-      <p>Процесс знакомства нового пользователя. Цель — довести до activation максимально быстро.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Habit Zone">Habit Zone</span> / <span class="abbr-link" data-term="Trigger">Trigger</span></h3>
-      <p>Частота использования для формирования привычки и спусковой крючок к действию.</p>
-    </div>
-    <div class="card o">
-      <h3><span class="abbr-link" data-term="Working Backwards">Working Backwards</span></h3>
-      <p>Метод Amazon: начинаем с пресс-релиза и FAQ, потом планируем реализацию.</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">⚙️</span> Техника и риски</div>
-  <div class="g2">
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Feature Flags">Feature Flags</span></h3>
-      <p>Флаги функций: включение/выключение без деплоя. Для канареечных релизов и A/B-тестов.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Canary Release">Canary Release</span> / <span class="abbr-link" data-term="Dark Launch">Dark Launch</span></h3>
-      <p>Постепенный релиз (1% → 5% → 25% → 100%) и скрытый запуск для тестирования.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Technical Debt">Technical Debt</span></h3>
-      <p>Технический долг: компромиссы ради скорости. Накопление замедляет разработку.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Platform Risk">Platform Risk</span></h3>
-      <p>Риск зависимости от платформы (iOS/Android политики). Может уничтожить бизнес.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Key Risk">Key Risk</span></h3>
-      <p>Ключевые риски: ценность, юзабилити, бизнес-модель, технология. Валидировать до масштабирования.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="SQL">SQL</span></h3>
-      <p>Язык запросов к базам данных. Для PM — базовый уровень: метрики, сегменты, когорты.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Theme">Theme</span></h3>
-      <p>Тема в бэклоге: группировка инициатив по цели, а не по типу работы.</p>
-    </div>
-    <div class="card t">
-      <h3><span class="abbr-link" data-term="Stakeholder Management">Stakeholder Management</span></h3>
-      <p>Управление стейкхолдерами: выявление, анализ, коммуникация, ожидания.</p>
-    </div>
+  
+  <div class="example">
+    <p><strong>Пример гипотезы:</strong></p>
+    <p>Мы верим, что <strong>добавление обучающего видео на экран онбординга</strong> для <strong>новых пользователей</strong> приведёт к <strong>увеличению завершения онбординга с 25% до 40%</strong> потому что <strong>пользователи не понимают ценность без демонстрации</strong>.</p>
+    <p><strong>Критерий:</strong> Процент завершения онбординга вырастет на 15% за 2 недели после релиза.</p>
   </div>
 </div>
 </section>
 
-<!-- ГЛАВА IF X → THEN Y -->
-<section class="chapter" id="ifthen">
-<div class="chapter-header">
-  <div class="ch-num" style="background:linear-gradient(135deg,#b91c1c,#ef4444)">XY</div>
+<!-- PROCESS -->
+<section class="sec" id="process">
+<div class="sh">
+  <div class="sh-ico">⚙️</div>
   <div>
-    <h2>If X → then Y: логика принятия решений</h2>
-    <div class="sub">Полная карта решений для продуктового менеджера на основе данных, гипотез и проверок.</div>
+    <h2>Процесс разработки продукта</h2>
+    <div class="sub">От идеи до масштабирования: порядок шагов</div>
   </div>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🎯</span> Исследование и валидация</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если нет данных о пользователе</h3>
-      <p><strong>→</strong> Провести 8–12 глубинных интервью (JTBD) перед любыми решениями. Не «додумывать», а спросить.</p>
-    </div>
-    <div class="card g">
-      <h3>Если есть гипотеза о проблеме</h3>
-      <p><strong>→</strong> Проверить через консьерж-тест или smoke test до разработки. Цена ошибки на этом этапе минимальна.</p>
-    </div>
-    <div class="card a">
-      <h3>Если интервью показывают разные "jobs"</h3>
-      <p><strong>→</strong> Сегментировать и выбрать ICP — сегмент с максимальной ценностью и готовностью платить.</p>
-    </div>
-    <div class="card c">
-      <h3>Если нет понимания рынка</h3>
-      <p><strong>→</strong> Посчитать TAM/SAM/SOM через аналоги и открытые данные. Если SOM < $10M — ниша может быть слишком мала.</p>
-    </div>
-    <div class="card o">
-      <h3>Если конкуренты сильнее во всём</h3>
-      <p><strong>→</strong> Искать узкий сегмент, где конкурент слаб (flank attack), или менять игру (blue ocean).</p>
-    </div>
-    <div class="card r">
-      <h3>Если отзывы противоречивы</h3>
-      <p><strong>→</strong> Кластеризовать по частоте и сегменту. То, что часто повторяется у ICP — реальная боль.</p>
-    </div>
+<div class="card">
+  <h3><span class="num">1</span>Стандартный процесс (Double Diamond)</h3>
+  
+  <div style="display:flex;justify-content:center;margin:30px 0">
+    <svg width="800" height="200" viewBox="0 0 800 200" style="max-width:100%;height:auto">
+      <!-- Double Diamond -->
+      <path d="M 50 100 L 200 20 L 350 100 L 200 180 Z" fill="#f0ecff" stroke="#5b3de8" stroke-width="3"/>
+      <path d="M 450 100 L 600 20 L 750 100 L 600 180 Z" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+      <text x="200" y="105" text-anchor="middle" font-size="18" font-weight="700" fill="#5b3de8">Discover</text>
+      <text x="600" y="105" text-anchor="middle" font-size="18" font-weight="700" fill="#059669">Deliver</text>
+      <text x="200" y="130" text-anchor="middle" font-size="12" fill="#666">Проблема → Решение</text>
+      <text x="600" y="130" text-anchor="middle" font-size="12" fill="#666">Масштабирование</text>
+    </svg>
   </div>
+  
+  <table class="data-table">
+    <tr><th>Фаза</th><th>Шаги</th><th>Артефакты</th><th>Длительность</th></tr>
+    <tr><td><span class="cell-main">1. Discover</span></td><td>Исследование → Синтез → Идеи</td><td>Отчёт вторички, JTBD, боли пользователей</td><td>2-4 недели</td></tr>
+    <tr><td><span class="cell-main">2. Define</span></td><td>Фокус → Концепция</td><td>BMC, гипотезы, приоритеты</td><td>1-2 недели</td></tr>
+    <tr><td><span class="cell-main">3. Develop</span></td><td>Дизайн → MVP → Тест</td><td>Прототип, MVP, результаты теста</td><td>4-8 недель</td></tr>
+    <tr><td><span class="cell-main">4. Deliver</span></td><td>Запуск → Масштаб</td><td>Релиз, метрики, итерации</td><td>Постоянно</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">📊</span> Метрики и аналитика</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если DAU растёт, но retention падает</h3>
-      <p><strong>→</strong> Проверить источники трафика. Возможно, привлекается нецелевая аудитория (vanity growth).</p>
-    </div>
-    <div class="card g">
-      <h3>Если нет North Star Metric</h3>
-      <p><strong>→</strong> Выбрать одну метрику, которая отражает ценность для пользователя и связана с бизнес-результатом. Выровнять команду вокруг неё.</p>
-    </div>
-    <div class="card a">
-      <h3>Если LTV/CAC < 1</h3>
-      <p><strong>→</strong> Срочно остановить масштабирование. Либо повышать LTV (монетизация, retention), либо снижать CAC (каналы).</p>
-    </div>
-    <div class="card c">
-      <h3>Если LTV/CAC между 1 и 3</h3>
-      <p><strong>→</strong> Доращивать юнит-экономику до >3 перед масштабированием. Проверить маржинальность и горизонты окупаемости.</p>
-    </div>
-    <div class="card o">
-      <h3>Если retention на D7 < 20%</h3>
-      <p><strong>→</strong> Фокус на onboarding и activation. Пользователи не достигают "magic moment".</p>
-    </div>
-    <div class="card r">
-      <h3>Если churn резко вырос</h3>
-      <p><strong>→</strong> Проверить: баги, конкуренты, изменение цен/условий, сезонность. Когортный анализ покажет, какая группа уходит.</p>
-    </div>
-    <div class="card p">
-      <h3>Если метрика "плохая" но непонятно почему</h3>
-      <p><strong>→</strong> Декомпозировать: разбить на сегменты, каналы, платформы. Найти, где конкретно проблема.</p>
-    </div>
-    <div class="card g">
-      <h3>Если невозможно посчитать CAC</h3>
-      <p><strong>→</strong> Внедрить атрибуцию: UTM-метки, post-install аналитика, опросы "откуда узнали".</p>
-    </div>
-  </div>
+<div class="card g">
+  <h3><span class="num">2</span>Вариации процесса</h3>
+  
+  <h4>Для стартапа (быстрый запуск):</h4>
+  <ul>
+    <li>Сократить Discover до 1-2 недель (вторичка + 5 интервью)</li>
+    <li>Минимальный MVP — Landing Page с кнопкой "Купить"</li>
+    <li>Fake door test — проверить спрос до разработки</li>
+    <li>Конкретная цель: найти PMF за 3-6 месяцев</li>
+  </ul>
+  
+  <h4>Для корпорации (внутренний продукт):</h4>
+  <ul>
+    <li>Больше времени на согласования и compliance</li>
+    <li>Пилот на подразделении перед масштабом</li>
+    <li>Интеграция с существующими системами</li>
+    <li>Фокус на ROI и метриках для бизнеса</li>
+  </ul>
+  
+  <h4>Для пивота (смена направления):</h4>
+  <ul>
+    <li>Анализ почему не сработало (learning)</li>
+    <li>Проверка новой гипотезы быстро (2-3 недели)</li>
+    <li>Сохранить работающие части (если есть)</li>
+    <li>Не бросать полностью — итерация</li>
+  </ul>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">⚡</span> Приоритизация и бэклог</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если идей больше, чем ресурсов</h3>
-      <p><strong>→</strong> Применить RICE или ICE. Делать то, что даст максимум ценности за минимум усилий с высокой уверенностью.</p>
-    </div>
-    <div class="card g">
-      <h3>Если фича "нужна всем"</h3>
-      <p><strong>→</strong> Проверить Reach конкретно: сколько пользователей реально затронет, а не "все".</p>
-    </div>
-    <div class="card a">
-      <h3>Если бэклог превратился в свалку</h3>
-      <p><strong>→</strong> Архивировать всё старше 6 месяцев. Если идея важна — она вернётся. Начать структурировать по темам (themes).</p>
-    </div>
-    <div class="card c">
-      <h3>Если команда спорит о приоритетах</h3>
-      <p><strong>→</strong> Вернуться к OKR или NSM. Тот, кто ближе к цели — побеждает. Если оба — тестируем.</p>
-    </div>
-    <div class="card o">
-      <h3>Если стейкхолдер требует "это важно"</h3>
-      <p><strong>→</strong> Попросить: метрика, baseline, target, почему это сдвинет NSM. Без данных — в бэклог на оценку.</p>
-    </div>
-    <div class="card r">
-      <h3>Если задача без метрики успеха</h3>
-      <p><strong>→</strong> Не брать в спринт. Как минимум: план оценки эффекта (даже квалификаторы).</p>
-    </div>
-    <div class="card p">
-      <h3>Если Epic раздувается</h3>
-      <p><strong>→</strong> Резать на меньшие эпики или вводить фича-флаги. Правило: 2 недели максимум до промежуточного результата.</p>
-    </div>
-    <div class="card g">
-      <h3>Если технический долг мешает</h3>
-      <p><strong>→</strong> Закладывать 20% времени спринта на долг. Если не дают — показать, как скорость падает.</p>
-    </div>
-  </div>
+<div class="card a">
+  <h3><span class="num">3</span>Артефакты на каждом этапе</h3>
+  <table class="data-table">
+    <tr><th>Этап</th><th>Должно быть создано</th><th>Хранится в</th></tr>
+    <tr><td><span class="cell-main">Начало</span></td><td>PRD (Product Requirements Document), BMC</td><td>Notion / Confluence</td></tr>
+    <tr><td><span class="cell-main">Дизайн</span></td><td>Прототипы, user flows, CJM</td><td>Figma / Miro</td></tr>
+    <tr><td><span class="cell-main">Разработка</span></td><td>Техспека, задачи в трекере</td><td>Jira / Linear</td></tr>
+    <tr><td><span class="cell-main">Тестирование</span></td><td>Тест-кейсы, баг-репорты</td><td>TestRail / Jira</td></tr>
+    <tr><td><span class="cell-main">Релиз</span></td><td>Release notes, коммуникация</td><td>Confluence / Slack</td></tr>
+    <tr><td><span class="cell-main">Пост-релиз</span></td><td>Отчёт по метрикам, learnings</td><td>Notion / Analytics</td></tr>
+  </table>
 </div>
 
-<div class="block">
-  <div class="block-title"><span class="ico">🧪</span> Эксперименты и проверки</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если нет трафика для A/B-теста</h3>
-      <p><strong>→</strong> Использовать квалификаторы (qualitative) или квази-эксперименты (сравнение похожих сегментов).</p>
-    </div>
-    <div class="card g">
-      <h3>Если A/B-тест не показывает значимости</h3>
-      <p><strong>→</strong> Проверить: достаточно ли выборки (power analysis), правильна ли метрика, не пересекаются ли тесты.</p>
-    </div>
-    <div class="card a">
-      <h3>Если хочется сразу "сделать красиво"</h3>
-      <p><strong>→</strong> Сначала Fake Door или прототип. Проверить, что пользователи вообще будут туда тыкать.</p>
-    </div>
-    <div class="card c">
-      <h3>Если гипотеза требует 3 месяца разработки</h3>
-      <p><strong>→</strong> Искать способ проверить за 2 недели (консьерж, ручной прототип, интеграция с существующими инструментами).</p>
-    </div>
-    <div class="card o">
-      <h3>Если команда хочет "дожать" фичу</h3>
-      <p><strong>→</strong> Определить MVP-границу (Must have по MoSCoW). Остальное — в следующие итерации.</p>
-    </div>
-    <div class="card r">
-      <h3>Если эксперимент не удался</h3>
-      <p><strong>→</strong> Зафиксировать learnings. Проверить: неправильное решение, неправильная аудитория, или неправильная реализация.</p>
-    </div>
-    <div class="card p">
-      <h3>Если эксперимент удался в малом масштабе</h3>
-      <p><strong>→</strong> Планировать канареечный релиз. 1% → 5% → 25% с мониторингом метрик на каждом этапе.</p>
-    </div>
-    <div class="card g">
-      <h3>Если нужно откатить фичу</h3>
-      <p><strong>→</strong> Использовать фича-флаги. Отключить → разобраться → либо починить, либо удалить.</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">🚀</span> Рост и масштабирование</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если продукт не растёт</h3>
-      <p><strong>→</strong> Диагностика по AARRR: где воронка узкая? Acquisition, Activation, Retention, Revenue или Referral?</p>
-    </div>
-    <div class="card g">
-      <h3>Если есть Product-Market Fit</h3>
-      <p><strong>→</strong> Масштабировать acquisition. До PMF — не лить деньги в маркетинг, это сожжёт кэш.</p>
-    </div>
-    <div class="card a">
-      <h3>Если viral coefficient > 1</h3>
-      <p><strong>→</strong> Фокус на retention и монетизации. Органический рост будет сам.</p>
-    </div>
-    <div class="card c">
-      <h3>Если NPS высокий, но нет рефералов</h3>
-      <p><strong>→</strong> Упростить механизм реферала (1 клик) и добавить стимул (бонусы обеим сторонам).</p>
-    </div>
-    <div class="card o">
-      <h3>Если retention падает при масштабировании</h3>
-      <p><strong>→</strong> Проверить каналы. Возможно, привлекаем не-ICP. Сузить таргетинг.</p>
-    </div>
-    <div class="card r">
-      <h3>Если конкурент скопировал фичу</h3>
-      <p><strong>→</strong> Не паниковать. Смотреть на метрики. Если не влияет — значит, не ценно. Если влияет — искать новое отличие.</p>
-    </div>
-    <div class="card p">
-      <h3>Если нужно выйти на новый рынок</h3>
-      <p><strong>→</strong> Проверить: те же JTBD? Те же каналы? Та же регуляторика? Если нет — это новый продукт.</p>
-    </div>
-    <div class="card g">
-      <h3>Если платформа меняет правила</h3>
-      <p><strong>→</strong> Диверсификация каналов. Никогда не зависеть от одной платформы >50% трафика.</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">👥</span> Команда и процессы</div>
-  <div class="g2">
-    <div class="card p">
-      <h3>Если команда не понимает приоритеты</h3>
-      <p><strong>→</strong> Провести сессию приоритизации вместе. RICE/ICE прозрачнее, чем "начальник сказал".</p>
-    </div>
-    <div class="card g">
-      <h3>Если задачи возвращаются из тестирования</h3>
-      <p><strong>→</strong> Ужесточить DoR: критерии приёмки, тестовые сценарии, дизайн-ревью до разработки.</p>
-    </div>
-    <div class="card a">
-      <h3>Если релизы задерживаются</h3>
-      <p><strong>→</strong> Уменьшить размер релиза. Релиз каждую неделю лучше, чем раз в месяц "когда всё будет готово".</p>
-    </div>
-    <div class="card c">
-      <h3>Если аналитика не успевает за разработкой</h3>
-      <p><strong>→</strong> DoD должен включать аналитику. Нет событий = нет релиза.</p>
-    </div>
-    <div class="card o">
-      <h3>Если стейкхолдеры недовольны скоростью</h3>
-      <p><strong>→</strong> Показать roadmap и trade-offs: вот что делаем, вот что откладываем, вот почему.</p>
-    </div>
-    <div class="card r">
-      <h3>Если команда выгорела</h3>
-      <p><strong>→</strong> Проверить: ясность целей (OKR), автономия (какие решения может принять команда), влияние (видят ли результат).</p>
-    </div>
-    <div class="card p">
-      <h3>Если junior PM требует чётких инструкций</h3>
-      <p><strong>→</strong> Дать фреймворк (этот playbook), но требовать самостоятельных решений. Обсуждать ход мыслей, а не только результат.</p>
-    </div>
-    <div class="card g">
-      <h3>Если конфликт между отделами</h3>
-      <p><strong>→</strong> Вернуться к общей цели (NSM, OKR). RACI матрица для разграничения. Привлечь neutral facilitator.</p>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="block-title"><span class="ico">⚠️</span> Критические ситуации</div>
-  <div class="g2">
-    <div class="card r">
-      <h3>Если продукт умирает</h3>
-      <p><strong>→</strong> Диагностика: нет PMF (retention?), бизнес-модель не работает (LTV/CAC?), технология устарела? Pivot или закрыть.</p>
-    </div>
-    <div class="card r">
-      <h3>Если основной канал перестал работать</h3>
-      <p><strong>→</strong> Экстренный поиск новых каналов. Параллельно: анализ, почему старый умер (временно/навсегда).</p>
-    </div>
-    <div class="card r">
-      <h3>Если ключевой конкурент снизил цены</h3>
-      <p><strong>→</strong> Не повторять. Усилить дифференциацию: сервис, скорость, качество, сообщество. Ценовая война — проигрыш для всех.</p>
-    </div>
-    <div class="card r">
-      <h3>Если регулятор меняет правила</h3>
-      <p><strong>→</strong> Сценарный анализ: best case / worst case. Юрист + продуктовая адаптация. Коммуникация с пользователями.</p>
-    </div>
-    <div class="card r">
-      <h3>Если данные украли / утечка</h3>
-      <p><strong>→</strong> Incident response: остановить, оценить масштаб, уведомить affected users, регулятор. Потом: post-mortem и фиксы.</p>
-    </div>
-    <div class="card r">
-      <h3>Если основатель/CEO меняет стратегию каждую неделю</h3>
-      <p><strong>→</strong> Фиксировать решения письменно (roadmap, OKR). При изменении — явно: что дропаем, что подтверждаем, почему.</p>
-    </div>
-  </div>
-</div>
-
-<div class="voice">
-  <div class="voice-label">Принцип</div>
-  <p>"Если не знаешь, что делать — измерь. Если измерил — сформулируй гипотезу. Если гипотеза — проверь дёшево. Если проверил — либо масштабируй, либо отбрось. Цикл: факты → гипотеза → проверка → решение."</p>
+<div class="checklist">
+  <h4>✅ Чек-лист запуска продукта</h4>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Проведено вторичное исследование</strong><span>Есть отчёт с TAM/SAM/SOM, конкурентами, болями</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Проведены глубинные интервью</strong><span>8-12 респондентов, JTBD выявлены</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Заполнен BMC</strong><span>Все 9 блоков, понятна бизнес-модель</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Определён NSM</strong><span>Есть главная метрика продукта</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Приоритизирован бэклог</strong><span>RICE/ICE оценки, понятен порядок</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Создан MVP</strong><span>Минимум для проверки гипотез</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Настроена аналитика</strong><span>Метрика, воронки, события</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>План тестирования</strong><span>Что проверяем, какие метрики, критерии успеха</span></div></div>
 </div>
 </section>
+
+</div>
 
 <footer>
-  <p>Playbook исследования продукта · База: курс Яндекс + 4 книги (Каган, Эяаль, Остервальдер, Рис)</p>
-  <p style="margin-top:12px;color:var(--mu)">Россия · Апрель 2026 · Универсальная инструкция от нуля до CPO</p>
+  <p><strong>Полный гид по продукт-менеджменту · Россия 2026</strong></p>
+  <p>На основе курса Яндекс Практикум и актуальных источников</p>
+  <p style="margin-top:16px">
+    <span class="tag">Data Insight</span>
+    <span class="tag">Telemetr</span>
+    <span class="tag">Яндекс.Взгляд</span>
+    <span class="tag">JTBD</span>
+    <span class="tag">AARRR</span>
+    <span class="tag">RICE</span>
+  </p>
 </footer>
 
- <script>
- const tooltipData = {
-   'DAU': { title: 'DAU (Daily Active Users)', text: 'Количество уникальных активных пользователей в день. «Активный» = совершил целевое действие (зафиксируй определение в аналитике). Важно: DAU сам по себе — часто vanity metric, если не привязан к ценности.', source: 'Продуктовая аналитика' },
-   'MAU': { title: 'MAU (Monthly Active Users)', text: 'Количество уникальных активных пользователей за месяц. Часто используют вместе с DAU: DAU/MAU ≈ «липкость» (stickiness).', source: 'Продуктовая аналитика' },
-   'WAU': { title: 'WAU (Weekly Active Users)', text: 'Количество уникальных активных пользователей за неделю. Полезно для продуктов с недельным циклом.', source: 'Продуктовая аналитика' },
-   'JTBD': { title: 'JTBD (Jobs To Be Done)', text: 'Подход: пользователь «нанимает» продукт для выполнения работы. Фокус на контексте и мотивации, а не на демографии.', source: 'Исследования' },
-   'CAC': { title: 'CAC (Customer Acquisition Cost)', text: 'Стоимость привлечения клиента. Формула: CAC = (маркетинг + продажи) / новые клиенты. Используется для оценки окупаемости привлечения и масштабирования каналов.', source: 'Юнит-экономика' },
-   'LTV': { title: 'LTV (Lifetime Value)', text: 'Сколько прибыли приносит клиент за всё время жизни. Упрощённо: LTV = чек × частота × период × маржинальность. Нужен, чтобы понимать, сколько можно потратить на CAC.', source: 'Юнит-экономика' },
-   'LTV/CAC': { title: 'LTV/CAC', text: 'Отношение ценности клиента к стоимости привлечения. Частое правило: >3 — можно масштабировать, <1 — убыточно. Всегда проверяй маржинальность и горизонты окупаемости.', source: 'Юнит-экономика' },
-   'RICE': { title: 'RICE', text: 'Фреймворк приоритизации: Reach × Impact × Confidence / Effort. Нужен, чтобы сравнивать инициативы на одном языке.', source: 'Приоритизация' },
-   'ICE': { title: 'ICE', text: 'Impact × Confidence × Ease. Быстрый вариант при нехватке данных. Риск: «E» субъективный — фиксируй допущения.', source: 'Приоритизация' },
-   'TAM': { title: 'TAM', text: 'Total Addressable Market — весь рынок, если бы вы покрыли 100% спроса.', source: 'Рынок' },
-   'SAM': { title: 'SAM', text: 'Serviceable Available Market — достижимая часть TAM с учётом географии/сегмента/каналов.', source: 'Рынок' },
-   'SOM': { title: 'SOM', text: 'Serviceable Obtainable Market — реалистичная доля SAM на горизонте 1–2 лет.', source: 'Рынок' },
-   'BMC': { title: 'BMC (Business Model Canvas)', text: 'Business Model Canvas — шаблон из 9 блоков для описания бизнес-модели на 1 странице. Помогает понять, где ценность и деньги, до того как спорить о фичах.', source: 'Остервальдер' },
-   'MVP': { title: 'MVP', text: 'Minimum Viable Product — минимальный продукт, чтобы проверить гипотезу и получить обучение (validated learning).', source: 'Lean Startup' },
-   'NSM': { title: 'NSM / North Star Metric', text: 'Одна ключевая метрика, отражающая ценность для пользователя и связанная с бизнес-результатом. Задача — синхронизировать команды вокруг ценности.', source: 'Метрики' },
-   'AARRR': { title: 'AARRR', text: 'Пиратская воронка: Acquisition → Activation → Retention → Revenue → Referral. Помогает находить узкие места роста.', source: 'Growth' },
-   'CPA': { title: 'CPA', text: 'Cost Per Action/Acquisition — стоимость целевого действия (регистрация/покупка/лид). Важно определить «action».', source: 'Маркетинг' },
-   'CTR': { title: 'CTR', text: 'Click-Through Rate — кликабельность: клики / показы. Полезно для оценки креативов и элементов интерфейса.', source: 'Маркетинг/UX' },
-   'ARPU': { title: 'ARPU', text: 'Average Revenue Per User — средний доход на пользователя за период: выручка / активные пользователи.', source: 'Монетизация' },
-   'ARPPU': { title: 'ARPPU', text: 'Average Revenue Per Paying User — средний доход на платящего: выручка / платящие пользователи.', source: 'Монетизация' },
-   'retention': { title: 'Retention', text: 'Удержание: доля пользователей, вернувшихся через N дней/недель/месяцев. Считается по когортам.', source: 'Аналитика' },
-   'churn': { title: 'Churn', text: 'Отток: доля пользователей, которые перестали пользоваться продуктом за период. Часто = 1 - retention (в упрощении), но зависит от определения активности.', source: 'Аналитика' },
-   'Business Model Canvas': { title: 'Business Model Canvas', text: 'Шаблон Остервальдера из 9 блоков: сегменты, ценностное предложение, каналы, отношения, доходы, ресурсы, деятельность, партнёры, издержки. Нужен, чтобы видеть бизнес целиком на 1 странице.', source: 'Остервальдер' },
-   'Остервальдер': { title: 'Остервальдер', text: 'Алекс Остервальдер — автор Business Model Canvas. Подход помогает структурировать модель заработка и ценности до разработки.', source: 'Книга «Построение бизнес‑моделей»' },
-   'Lean Startup': { title: 'Lean Startup', text: 'Build → Measure → Learn. Делай быстрые итерации, измеряй, учись, принимай решение pivot/persevere.', source: 'Эрик Рис' },
-   'DoR': { title: 'DoR (Definition of Ready)', text: 'Критерии, при которых задача готова к взятию в работу. Снижает хаос, контекст-свитчинг и «а что имелось в виду?»', source: 'Процессы' },
-   'DoD': { title: 'DoD (Definition of Done)', text: 'Критерии, при которых задача считается завершённой. В продукте DoD обычно включает аналитику и план оценки эффекта.', source: 'Процессы' },
-   'OKR': { title: 'OKR (Objectives and Key Results)', text: 'Система целей: Objective (качественная цель) + 2–5 измеримых Key Results. OKR помогает связать стратегию, roadmap и бэклог.', source: 'Стратегия' },
-   'KPI': { title: 'KPI', text: 'Key Performance Indicator — измеримый показатель успеха. KPI должен иметь baseline, target, частоту измерения и owner.', source: 'Управление' },
-   'PRD': { title: 'PRD (Product Requirements Document)', text: 'Документ требований к продукту/фиче: проблема, цель, метрики, решение, ограничения, аналитика, риски. Нужен, чтобы синхронизировать команду и стейкхолдеров.', source: 'Delivery' },
-   'Epic': { title: 'Эпик', text: 'Крупная единица работы, объединяющая набор user stories/задач вокруг одной цели. Обычно соответствует инициативе или части roadmap.', source: 'Бэклог' },
-   'User Story': { title: 'User story', text: 'Короткое описание потребности пользователя в формате: «Как [роль], я хочу [действие], чтобы [ценность]». Помогает держать фокус на ценности, а не на реализации.', source: 'Agile' },
-   'SWOT': { title: 'SWOT', text: 'Сильные/слабые стороны, возможности/угрозы. Используют для конкурентного анализа и выявления точек дифференциации.', source: 'Стратегия' },
-   'ICP': { title: 'ICP (Ideal Customer Profile)', text: 'Идеальный профиль клиента: сегмент, для которого продукт даёт максимальную ценность и который готов платить/использовать. Помогает сфокусировать исследования и маркетинг.', source: 'Маркетинг/стратегия' },
-   'NPS': { title: 'NPS (Net Promoter Score)', text: 'Метрика лояльности: «С какой вероятностью вы порекомендуете продукт?» (0–10). NPS = % промоутеров (9–10) − % критиков (0–6). Используют для мониторинга доверия, но не как единственную метрику продукта.', source: 'Метрики качества' },
-   'PMF': { title: 'PMF (Product-Market Fit)', text: 'Состояние, когда продукт устойчиво удовлетворяет потребности рынка и растёт без постоянного «дожима» маркетингом. Признаки: высокий retention, органический рост, повторное использование, сильные рекомендации.', source: 'Стратегия' },
-   'SQL': { title: 'SQL', text: 'Язык запросов к базам данных. Для PM нужен на базовом уровне: вытянуть метрики, сегменты, когорты, проверить гипотезу без очереди к аналитикам.', source: 'Аналитика' },
-   'Cohort': { title: 'Cohort (когорта)', text: 'Группа пользователей, объединённых общим событием (например, дата регистрации). Когортный анализ помогает понять, как меняется retention и монетизация у разных групп.', source: 'Аналитика' },
-   'A/B тест': { title: 'A/B-тест', text: 'Эксперимент: часть пользователей видит вариант A (контроль), часть — B (изменение). Сравниваем метрику. Нужны: гипотеза, метрика успеха, достаточная выборка и критерий значимости.', source: 'Эксперименты' },
-   'MVP vs Prototype': { title: 'MVP vs прототип', text: 'Прототип — проверка понимания/UX (может быть без бэка). MVP — минимальный продукт, который реально решает задачу и даёт «validated learning» в проде.', source: 'Lean Startup' },
-   'Сohort': { title: 'Cohort (когорта)', text: 'Группа пользователей, объединённых общим событием (например, дата регистрации). Когортный анализ помогает понять, как меняется retention и монетизация у разных групп.', source: 'Аналитика' },
-   'North Star Metric': { title: 'North Star Metric', text: 'Одна ключевая метрика, отражающая ценность для пользователя и связанная с бизнес-результатом. Задача — синхронизировать команды вокруг ценности.', source: 'Метрики' },
-   'Activation': { title: 'Activation', text: 'Момент, когда пользователь впервые понимает ценность продукта (AHA-moment). Критично для retention: активированные пользователи возвращаются чаще.', source: 'AARRR' },
-   'Referral': { title: 'Referral', text: 'Виральность: пользователи приводят других пользователей. Может быть органической (сарафанное радио) или механизированной (реферальные программы).', source: 'AARRR' },
-   'Concierge Test': { title: 'Concierge Test', text: 'Ручная имитация работы продукта для проверки спроса без разработки. Пример: вручную подбираешь контент пользователю, прежде чем делать алгоритм.', source: 'Lean Startup' },
-   'Smoke Test': { title: 'Smoke Test', text: 'Посадочная страница несуществующего продукта для измерения конверсии в «хочу». Проверяет спрос до разработки.', source: 'Lean Startup' },
-   'Fake Door': { title: 'Fake Door', text: 'Кнопка или функция, которая показывает «скоро будет доступно» при клике. Меряет интерес без реализации.', source: 'Lean Startup' },
-   'Validated Learning': { title: 'Validated Learning', text: 'Обучение на реальных данных от пользователей, а не на предположениях. Цель Lean Startup — максимизировать обучение при минимуме ресурсов.', source: 'Lean Startup' },
-   'Pivot': { title: 'Pivot', text: 'Изменение стратегии продукта на основе обучения. Примеры: zoom-in (фокус на одной фиче), zoom-out (расширение), смена сегмента, смена канала.', source: 'Lean Startup' },
-   'Vanity Metric': { title: 'Vanity Metric', text: 'Метрика, которая растёт без связи с ценностью или бизнесом (например, общие просмотры или скачивания). Легко манипулировать, трудно действовать.', source: 'Метрики' },
-   'Actionable Metric': { title: 'Actionable Metric', text: 'Метрический показатель, на основе которого можно принять решение. Привязан к поведению пользователя и бизнес-результату.', source: 'Метрики' },
-   'Customer Development': { title: 'Customer Development', text: 'Процесс валидации гипотез о клиентах через интервью и тесты. 4 этапа: customer discovery → validation → creation → company building.', source: 'Каган' },
-   'Product Discovery': { title: 'Product Discovery', text: 'Фаза выяснения, что строить: исследование, генерация идей, оценка и планирование. Отделяется от Delivery (как строить).', source: 'Modern PM' },
-   'Product Delivery': { title: 'Product Delivery', text: 'Фаза реализации: разработка, тестирование, релиз. Не следует начинать без понимания проблемы (Discovery).', source: 'Modern PM' },
-   'Dual Track': { title: 'Dual Track', text: 'Параллельное ведение Discovery (что строить) и Delivery (как строить). Discovery опережает Delivery на 1–2 спринта.', source: 'Modern PM' },
-   'Story Mapping': { title: 'Story Mapping', text: 'Метод визуализации user journey через карточки историй. Помогает увидеть продукт целиком и приоритизировать горизонт релизов.', source: 'Agile' },
-   'Impact Mapping': { title: 'Impact Mapping', text: 'Техника планирования: цель → акторы → импакты → deliverables. Помогает связать бизнес-цели с конкретными задачами.', source: 'Стратегия' },
-   'Value Proposition': { title: 'Value Proposition', text: 'Ценностное предложение: чёткое объяснение, какую проблему решаем, для кого, и почему это лучше альтернатив. Сердце Business Model Canvas.', source: 'Остервальдер' },
-   'Product-Market Fit': { title: 'Product-Market Fit', text: 'Состояние, когда продукт устойчиво удовлетворяет потребности рынка и растёт без постоянного «дожима» маркетингом. Признаки: высокий retention, органический рост.', source: 'Стратегия' },
-   'MoSCoW': { title: 'MoSCoW', text: 'Must have / Should have / Could have / Won\'t have. Метод приоритизации для фиксации scope при ограниченных ресурсах.', source: 'Приоритизация' },
-   'Kano Model': { title: 'Kano Model', text: 'Модель классификации фич: базовые (must-be), производительность (one-dimensional), возбудители (delighters). Помогает балансировать инвестиции.', source: 'Приоритизация' },
-   'Cost of Delay': { title: 'Cost of Delay', text: 'Стоимость задержки: сколько денег/возможностей теряем, если сделаем позже. Используется в приоритизации вместе с размером.', source: 'Приоритизация' },
-   'WSJF': { title: 'WSJF', text: 'Weighted Shortest Job First: Cost of Delay / Duration. Сначала делаем то, что даст максимум ценности за минимум времени.', source: 'Приоритизация' },
-   'Sprint': { title: 'Sprint', text: 'Фиксированный период (обычно 1–2 недели) для выполнения запланированного объёма работы в Scrum.', source: 'Agile' },
-   'Backlog Refinement': { title: 'Backlog Refinement', text: 'Регулярная активность по уточнению элементов бэклога: декомпозиция, оценка, добавление деталей. 10% времени спринта.', source: 'Agile' },
-   'Velocity': { title: 'Velocity', text: 'Скорость команды: сколько story points или задач выполняется за спринт. Используется для прогнозирования, не для оценки эффективности.', source: 'Agile' },
-   'Burn-down Chart': { title: 'Burn-down Chart', text: 'График сгорания работ: оставшийся объём vs время. Помогает видеть, укладываемся ли в спринт.', source: 'Agile' },
-   'User Journey': { title: 'User Journey', text: 'Карта пути пользователя от осознания проблемы до достижения цели. Помогает находить точки боли и возможности улучшения.', source: 'UX/Research' },
-   'Persona': { title: 'Persona', text: 'Вымышленный персонаж, представляющий сегмент пользователей. Включает цели, боли, поведение, контекст. Не заменяет реальные исследования.', source: 'UX/Research' },
-   'Jobs to be Done': { title: 'Jobs to be Done', text: 'Фреймворк: пользователь «нанимает» продукт для выполнения работы (job). Фокус на контексте и мотивации, а не на демографии.', source: 'Исследования' },
-   'Hook Model': { title: 'Hook Model', text: 'Модель формирования привычки: триггер → действие → вознаграждение → инвестиция. Автор: Нир Эяаль.', source: 'Эяаль' },
-   'Habit Zone': { title: 'Habit Zone', text: 'Частота использования продукта, при которой формируется привычка. Разная для разных категорий (ежедневно для соцсетей, реже для e-commerce).', source: 'Эяаль' },
-   'Trigger': { title: 'Trigger', text: 'Спусковой крючок, побуждающий к действию. Бывает внешним (уведомление) и внутренним (эмоция, рутина).', source: 'Эяаль' },
-   'Variable Reward': { title: 'Variable Reward', text: 'Переменное вознаграждение: непредсказуемость усиливает привыкание. Примеры: лента соцсетей, лутбоксы, слот-машины.', source: 'Эяаль' },
-   'Growth Hacking': { title: 'Growth Hacking', text: 'Итеративный подход к росту: гипотеза → быстрый эксперимент → измерение → масштабирование успешного.', source: 'Growth' },
-   'Viral Coefficient': { title: 'Viral Coefficient', text: 'Коэффициент виральности: сколько новых пользователей приводит один существующий. >1 = органический рост без маркетинга.', source: 'Growth' },
-   'Magic Moment': { title: 'Magic Moment', text: 'Момент, когда пользователь впервые понимает ценность продукта. Чем раньше он наступает, тем выше retention.', source: 'Growth' },
-   'Onboarding': { title: 'Onboarding', text: 'Процесс знакомства нового пользователя с продуктом. Цель — довести до activation и первой ценности максимально быстро.', source: 'Продукт' },
-   'Feature Flags': { title: 'Feature Flags', text: 'Флаги функций: возможность включать/выключать фичи без деплоя. Используются для канареечных релизов и A/B-тестов.', source: 'Engineering' },
-   'Canary Release': { title: 'Canary Release', text: 'Постепенный релиз: сначала 1% пользователей, потом 5%, 25%, 100%. Снижает риски от катастрофических багов.', source: 'Engineering' },
-   'Dark Launch': { title: 'Dark Launch', text: 'Запуск фичи в проде, но скрытой от пользователей. Позволяет тестировать нагрузку и интеграцию до официального релиза.', source: 'Engineering' },
-   'Technical Debt': { title: 'Technical Debt', text: 'Технический долг: компромиссы в коде/архитектуре ради скорости. Накопление долга замедляет разработку и повышает риски.', source: 'Engineering' },
-   'Platform Risk': { title: 'Platform Risk', text: 'Риск зависимости от платформы (iOS/Android политики, API changes). Может уничтожить бизнес без предупреждения.', source: 'Риски' },
-   'Key Risk': { title: 'Key Risk', text: 'Ключевые риски продукта: ценность, юзабилити, бизнес-модель, технология. Должны быть валидированы до масштабирования.', source: 'Lean Startup' },
-   'Product Vision': { title: 'Product Vision', text: 'Видение продукта: какой мир мы создаём через 3–5 лет. Вдохновляет команду и помогает принимать стратегические решения.', source: 'Стратегия' },
-   'Product Strategy': { title: 'Product Strategy', text: 'Стратегия: как достичь видения, какие рынки/сегменты, чем победим конкурентов. Мост между видением и roadmap.', source: 'Стратегия' },
-   'Roadmap': { title: 'Roadmap', text: 'Карта развития продукта: инициативы по времени (NOW/NEXT/LATER или кварталы). Не график задач, а стратегический инструмент коммуникации.', source: 'Стратегия' },
-   'Theme': { title: 'Theme', text: 'Тема в бэклоге/roadmap: группировка инициатив по цели (например, «улучшить onboarding»), а не по типу работы.', source: 'Приоритизация' },
-   'Stakeholder Management': { title: 'Stakeholder Management', text: 'Управление стейкхолдерами: выявление, анализ влияния/заинтересованности, коммуникация, управление ожиданиями.', source: 'Soft skills' },
-   'RACI': { title: 'RACI', text: 'Матрица ответственности: Responsible (делает), Accountable (решение), Consulted (советуют), Informed (в курсе). Устраняет неясности.', source: 'Управление' },
-   'Working Backwards': { title: 'Working Backwards', text: 'Метод Amazon: начинаем с пресс-релиза и FAQ будущего продукта, потом планируем реализацию. Проверяет ценность до строительства.', source: 'Amazon' },
-   'PRFAQ': { title: 'PRFAQ', text: 'Press Release + FAQ: артефакт Working Backwards. PR объясняет ценность для клиента, FAQ отвечает на вопросы команды и стейкхолдеров.', source: 'Amazon' }
- };
- 
- // Tooltip functionality
-const tooltip = document.getElementById('tooltip');
-let currentTooltip = null;
+<script>
+// Navigation highlighting
+const sections = document.querySelectorAll('.sec');
+const navLinks = document.querySelectorAll('.nav-in a');
 
-function showTooltip(element, term) {
-  const data = tooltipData[term];
-  if (!data) return;
-
-  tooltip.innerHTML = '<strong>' + data.title + '</strong>' + data.text + '<small>' + (data.source || '') + '</small>';
-  tooltip.classList.add('active');
-
-  const rect = element.getBoundingClientRect();
-  const tooltipRect = tooltip.getBoundingClientRect();
-
-  let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-  let top = rect.top - tooltipRect.height - 10;
-
-  if (left < 10) left = 10;
-  if (left + tooltipRect.width > window.innerWidth - 10) {
-    left = window.innerWidth - tooltipRect.width - 10;
-  }
-  if (top < 10) {
-    top = rect.bottom + 10;
-  }
-
-  tooltip.style.left = left + 'px';
-  tooltip.style.top = top + 'px';
-
-  currentTooltip = element;
-}
-
-function hideTooltip() {
-  tooltip.classList.remove('active');
-  currentTooltip = null;
-}
-
-// Add event listeners to all abbr-link elements
-document.querySelectorAll('.abbr-link').forEach(function(link) {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const term = link.getAttribute('data-term');
-    if (currentTooltip === link) {
-      hideTooltip();
-    } else {
-      showTooltip(link, term);
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (scrollY >= sectionTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
     }
   });
 });
-
-// Add event listeners to all autolink elements
-document.querySelectorAll('.autolink').forEach(function(link) {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const term = link.getAttribute('data-term');
-    if (currentTooltip === link) {
-      hideTooltip();
-    } else {
-      showTooltip(link, term);
-    }
-  });
-});
-
-// Close tooltip when clicking anywhere else
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.abbr-link') && !e.target.closest('.autolink') && !e.target.closest('.tooltip')) {
-    hideTooltip();
-  }
-});
-
-// Close on ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    hideTooltip();
-  }
-});
- </script>
+</script>
 
 </body>
 </html>
