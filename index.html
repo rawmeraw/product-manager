@@ -18,17 +18,26 @@
   --o:#ea580c;--ol:#fb923c;--obg:#fff7ed;--obd:#fed7aa;
   --t:#0d9488;--tl:#2dd4bf;--tbg:#f0fdfa;--tbd:#99f6e4;
   --n:#1e1b4b;--nl:#6d28d9;--nbg:#f5f3ff;--nbd:#ddd6fe;
-  --rad:14px;--rad-lg:20px;
+  --rad:0;--rad-lg:0;
   --sh:0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:15px}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:15px;overflow-x:hidden;word-wrap:break-word;overflow-wrap:break-word}
+img{max-width:100%;height:auto}
+
+/* TOOLTIP */
+.term{color:var(--p);border-bottom:2px dotted var(--p);cursor:help;font-weight:600;position:relative;display:inline-block;vertical-align:baseline}
+.tooltip{position:fixed;background:#17150e;color:#fff;padding:12px 16px;font-size:13px;font-weight:400;line-height:1.6;pointer-events:none;opacity:0;display:none;z-index:99999;box-shadow:0 8px 30px rgba(0,0,0,.4);max-width:340px}
+.tooltip.active{display:block;opacity:1}
+
+/* Prevent term breaking in headings */
+h3 .term, h4 .term{display:inline-block;vertical-align:baseline;margin:0 2px}
 
 /* HERO */
 .hero{background:linear-gradient(155deg,#0f0820 0%,#1e1b4b 50%,#0f766e 100%);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 60%,rgba(91,61,232,.25) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,rgba(20,184,166,.15) 0%,transparent 55%)}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);padding:6px 18px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);padding:6px 18px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;position:relative}
 .hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;color:#fff;position:relative;margin-bottom:16px}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,#5eead4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{color:rgba(255,255,255,.6);font-size:16px;max-width:800px;margin:0 auto 36px;position:relative;line-height:1.7}
@@ -47,19 +56,19 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 
 /* SECTION HEADER */
 .sh{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
-.sh-ico{width:60px;height:60px;border-radius:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,var(--p),var(--c));box-shadow:0 8px 24px rgba(91,61,232,.3)}
+.sh-ico{width:60px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,var(--p),var(--c));box-shadow:0 8px 24px rgba(91,61,232,.3)}
 .sh h2{font-size:clamp(24px,3.5vw,36px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
 .sh .sub{color:var(--mu);font-size:15px;line-height:1.7;max-width:900px}
 
 /* CARDS */
-.card{background:var(--s);border:1.5px solid var(--bd);border-radius:var(--rad-lg);padding:28px;margin:20px 0;box-shadow:var(--sh);position:relative}
-.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--p);border-radius:var(--rad-lg) 0 0 var(--rad-lg)}
+.card{background:var(--s);border:1.5px solid var(--bd);padding:28px;margin:20px 0;box-shadow:var(--sh);position:relative}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--p)}
 .card.g::before{background:var(--g)}
 .card.a::before{background:var(--a)}
 .card.r::before{background:var(--r)}
 .card.c::before{background:var(--c)}
 .card h3{font-size:20px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.card h3 .num{width:36px;height:36px;border-radius:10px;background:var(--pbg);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--p)}
+.card h3 .num{width:36px;height:36px;background:var(--pbg);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--p)}
 .card h4{font-size:16px;font-weight:700;margin:24px 0 12px;color:var(--tx)}
 .card p{color:var(--tx2);font-size:15px;line-height:1.8;margin-bottom:14px}
 .card ul{list-style:none;margin:14px 0;padding:0}
@@ -70,7 +79,8 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .card strong{color:var(--tx)}
 
 /* TABLES */
-.data-table{width:100%;border-collapse:collapse;font-size:13px;margin:20px 0;background:var(--s);border-radius:var(--rad-lg);overflow:hidden;box-shadow:var(--sh)}
+.table-wrap{overflow-x:auto;margin:20px 0;box-shadow:var(--sh)}
+.data-table{width:100%;min-width:600px;border-collapse:collapse;font-size:13px;background:var(--s)}
 .data-table th{background:var(--s2);color:var(--mu);font-weight:700;padding:14px 16px;text-align:left;font-size:11px;letter-spacing:.04em;text-transform:uppercase;border-bottom:2px solid var(--bd)}
 .data-table td{padding:14px 16px;border-bottom:1px solid var(--bd);vertical-align:top;color:var(--tx2);line-height:1.7}
 .data-table tr:last-child td{border-bottom:none}
@@ -80,27 +90,27 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .cell-link{color:var(--p);font-weight:600}
 
 /* FORMULA */
-.formula{background:#17150e;color:#fff;border-radius:14px;padding:24px 28px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:14px;line-height:2.2;margin:24px 0;overflow-x:auto;position:relative}
+.formula{background:#17150e;color:#fff;padding:24px 28px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:14px;line-height:2.2;margin:24px 0;overflow-x:auto;position:relative;word-wrap:break-word;overflow-wrap:break-word;white-space:normal}
 .formula::before{content:'⚡ Формула';position:absolute;top:10px;right:16px;font-size:11px;color:#888;font-family:system-ui}
-.formula-comment{color:#aaa;font-size:12px;display:block;margin-top:12px;line-height:1.8;font-family:system-ui}
-.hl{background:rgba(91,61,232,.4);padding:3px 8px;border-radius:6px}
+.formula-comment{color:#aaa;font-size:12px;display:block;margin-top:12px;line-height:1.8;font-family:system-ui;white-space:normal}
+.hl{background:rgba(91,61,232,.4);padding:3px 8px;word-wrap:break-word}
 
 /* EXAMPLE */
-.example{background:linear-gradient(135deg,var(--gbg),var(--pbg));border:2px solid var(--gbd);border-radius:var(--rad-lg);padding:28px;margin:24px 0;position:relative}
-.example::before{content:'💡 Реальный пример';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:var(--g);border:2px solid var(--gbd);box-shadow:var(--sh)}
+.example{background:linear-gradient(135deg,var(--gbg),var(--pbg));border:2px solid var(--gbd);padding:28px;margin:24px 0;position:relative}
+.example::before{content:'💡 Реальный пример';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;font-size:12px;font-weight:700;color:var(--g);border:2px solid var(--gbd);box-shadow:var(--sh)}
 .example p{margin-top:12px}
 
 /* WARNING */
-.warning{background:var(--rbg);border:2px solid var(--rbd);border-radius:var(--rad-lg);padding:22px 26px;margin:24px 0;position:relative}
-.warning::before{content:'⚠️ Важно — не ошибитесь';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:var(--r);border:2px solid var(--rbd);box-shadow:var(--sh)}
+.warning{background:var(--rbg);border:2px solid var(--rbd);padding:22px 26px;margin:24px 0;position:relative}
+.warning::before{content:'⚠️ Важно — не ошибитесь';position:absolute;top:-12px;left:20px;background:var(--s);padding:4px 16px;font-size:12px;font-weight:700;color:var(--r);border:2px solid var(--rbd);box-shadow:var(--sh)}
 .warning p{margin-top:12px}
 
 /* CHECKLIST */
-.checklist{background:var(--s);border:2px solid var(--bd);border-radius:var(--rad-lg);padding:24px;margin:24px 0}
+.checklist{background:var(--s);border:2px solid var(--bd);padding:24px;margin:24px 0}
 .checklist h4{font-size:17px;font-weight:800;margin-bottom:20px}
 .check-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--bd)}
 .check-item:last-child{border-bottom:none}
-.check-box{width:26px;height:26px;border-radius:8px;background:var(--gbg);border:2px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--g);flex-shrink:0;margin-top:2px}
+.check-box{width:26px;height:26px;background:var(--gbg);border:2px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--g);flex-shrink:0;margin-top:2px}
 .check-text{flex:1}
 .check-text strong{display:block;font-size:15px;margin-bottom:4px}
 .check-text span{font-size:14px;color:var(--mu)}
@@ -109,22 +119,22 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 .steps{display:flex;flex-direction:column;gap:0;margin:20px 0}
 .step{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--bd)}
 .step:last-child{border-bottom:none}
-.step-num{width:48px;height:48px;border-radius:14px;background:var(--pbg);color:var(--p);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0}
+.step-num{width:48px;height:48px;background:var(--pbg);color:var(--p);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0}
 .step-body{flex:1}
 .step-body h5{font-size:16px;font-weight:700;margin-bottom:8px}
 .step-body p{font-size:14px;color:var(--tx2);line-height:1.8}
 .step-body .step-meta{font-size:12px;color:var(--mu);margin-top:8px;font-style:italic}
 
 /* WHEN TO USE */
-.whento{background:var(--s2);border-radius:var(--rad-lg);padding:20px;margin:20px 0}
+.whento{background:var(--s2);padding:20px;margin:20px 0}
 .whento h5{font-size:14px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:.03em;color:var(--mu)}
 .whento-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.whento-item{background:var(--s);border-radius:12px;padding:16px;border-left:4px solid var(--p);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.whento-item{background:var(--s);padding:16px;border-left:4px solid var(--p);box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .whento-item strong{display:block;font-size:14px;margin-bottom:6px}
 .whento-item span{font-size:13px;color:var(--mu);line-height:1.5}
 
 /* CALLOUT */
-.callout{background:var(--s2);border-left:4px solid var(--p);border-radius:0 var(--rad) var(--rad) 0;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--tx2);line-height:1.8}
+.callout{background:var(--s2);border-left:4px solid var(--p);padding:18px 22px;margin:20px 0;font-size:15px;color:var(--tx2);line-height:1.8}
 .callout.g{border-left-color:var(--g);background:var(--gbg)}
 .callout.a{border-left-color:var(--a);background:var(--abg)}
 .callout.r{border-left-color:var(--r);background:var(--rbg)}
@@ -137,19 +147,40 @@ body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSyst
 
 /* BMC GRID */
 .bmc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0;font-size:12px}
-.bmc-cell{background:var(--s2);border:2px solid var(--bd);border-radius:12px;padding:16px;min-height:90px;display:flex;flex-direction:column}
+.bmc-cell{background:var(--s2);border:2px solid var(--bd);padding:16px;min-height:90px;display:flex;flex-direction:column}
 .bmc-cell.hl{background:var(--pbg);border-color:var(--pbd)}
 .bmc-cell.center{grid-column:3;grid-row:1/3;background:var(--pbg);border-color:var(--pbd);display:flex;align-items:center;justify-content:center;text-align:center}
 .bmc-title{font-weight:700;font-size:13px;margin-bottom:6px}
 .bmc-desc{color:var(--mu);font-size:11px;line-height:1.5}
-@media(max-width:768px){.bmc-grid{grid-template-columns:repeat(2,1fr)}.bmc-cell.center{grid-column:1/3}}
+@media(max-width:768px){.bmc-grid{grid-template-columns:repeat(2,1fr);gap:8px}.bmc-cell.center{grid-column:1/3}.bmc-cell{padding:12px;font-size:11px}}
+
+/* MOBILE OPTIMIZATIONS */
+@media(max-width:600px){
+.wrap{padding:0 12px;overflow-x:hidden}
+.hero{padding:60px 16px 40px}
+.card{padding:16px;margin:12px 0;word-wrap:break-word}
+.sh{flex-direction:column;gap:12px}
+.sh-ico{width:48px;height:48px;font-size:22px}
+.data-table{font-size:12px}
+.data-table th,.data-table td{padding:10px 12px;word-wrap:break-word;max-width:200px}
+.formula{padding:16px;font-size:12px;word-wrap:break-word}
+.formula br{display:none}
+.formula span{display:block;margin:4px 0}
+.example,.warning{padding:16px}
+.step{gap:12px}
+.step-num{width:36px;height:36px;font-size:16px}
+.nav-in a{font-size:10px;padding:10px 8px}
+.card p,.card li{font-size:14px}
+.hero h1{font-size:clamp(22px,8vw,36px)}
+.hero-sub{font-size:14px}
+}
 
 /* FOOTER */
 footer{text-align:center;padding:50px 24px;color:var(--mu);font-size:14px;border-top:2px solid var(--bd);background:var(--s2)}
 footer p{margin:6px 0}
 
 /* TAGS */
-.tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:var(--s2);color:var(--mu);margin:4px 4px 4px 0}
+.tag{display:inline-block;padding:4px 12px;font-size:12px;font-weight:600;background:var(--s2);color:var(--mu);margin:4px 4px 4px 0}
 .tag.p{background:var(--pbg);color:var(--p)}
 .tag.g{background:var(--gbg);color:var(--g)}
 .tag.a{background:var(--abg);color:var(--a)}
@@ -157,6 +188,8 @@ footer p{margin:6px 0}
 </style>
 </head>
 <body>
+
+<div id="tooltip" class="tooltip"></div>
 
 <div class="hero">
   <div class="hero-badge">📚 Полный гид · Россия 2026 · На основе курса Яндекс Практикум</div>
@@ -174,6 +207,7 @@ footer p{margin:6px 0}
     <a href="#funnels">Воронки</a>
     <a href="#storage">Хранение</a>
     <a href="#process">Процесс</a>
+    <a href="#bilinkis">Билинкис</a>
   </div>
 </nav>
 
@@ -247,6 +281,16 @@ footer p{margin:6px 0}
       <li>Инструменты: Notion, Miro, FigJam</li>
     </ul>
   </div>
+  <div class="card" style="border-left-color:var(--k)">
+    <h3><span class="num">7</span>📖 Юлия Билинкис</h3>
+    <ul>
+      <li>Продукт как система ценностей (3 уровня)</li>
+      <li>PMF Score — методика для России</li>
+      <li>Пирамида стратегии продукта</li>
+      <li>Роли PM: от владельца до CEO продукта</li>
+      <li>Принцип "три амиго"</li>
+    </ul>
+  </div>
 </div>
 </section>
 
@@ -262,7 +306,7 @@ footer p{margin:6px 0}
 
 <div class="card">
   <h3><span class="num">1</span>Что такое вторичное исследование</h3>
-  <p><strong>Определение:</strong> Анализ данных, которые уже существуют и были собраны кем-то другим. Это не "второсортные" данные — это данные из вторых рук (secondary = вторичный).</p>
+  <p><strong>Определение:</strong> Анализ данных, которые уже существуют и были собраны кем-то другим. Это не "второсортные" данные — это данные из вторых рук (<span class="term" data-tip="Secondary research — исследование существующих данных без контакта с респондентами"></span>secondary</span> = вторичный).</p>
   
   <h4>Когда использовать вторичку:</h4>
   <div class="whento">
@@ -301,7 +345,7 @@ footer p{margin:6px 0}
 <div class="card g">
   <h3><span class="num">2</span>Источники данных о рынке (Россия 2026)</h3>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Источник</th>
       <th>Что найдёте</th>
@@ -362,12 +406,12 @@ footer p{margin:6px 0}
       <td class="cell-sub">Сайт ассоциации → раздел "Исследования/Аналитика"</td>
       <td>Часто бесплатно</td>
     </tr>
-  </table>
+  </table></div>
   
   <div class="formula">
-<span class="hl">TAM</span> = Общий объём рынка в России (все деньги на эту категорию)<br>
-<span class="hl">SAM</span> = TAM × % доступного сегмента (гео/категория)<br>
-<span class="hl">SOM</span> = SAM × реалистичная доля за 1-2 года (обычно 1-5%)<br><br>
+<span class="term" data-tip="Total Addressable Market — общий объём рынка, все деньги на эту категорию">TAM</span> = Общий объём рынка в России (все деньги на эту категорию)<br>
+<span class="term" data-tip="Serviceable Addressable Market — доступный сегмент рынка (география/категория)">SAM</span> = TAM × % доступного сегмента (гео/категория)<br>
+<span class="term" data-tip="Serviceable Obtainable Market — реалистичная доля рынка, которую можно получить за 1-2 года">SOM</span> = SAM × реалистичная доля за 1-2 года (обычно 1-5%)<br><br>
 <span class="formula-comment">Пример: TAM доставки еды в РФ = 500 млрд ₽. SAM (Казань) = 500 млрд × 1.5% = 7.5 млрд ₽. SOM (цель на год 2) = 7.5 млрд × 2% = 150 млн ₽</span>
   </div>
 </div>
@@ -409,7 +453,7 @@ footer p{margin:6px 0}
   </div>
   
   <h4>Что анализировать у конкурентов:</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Аспект</th>
       <th>Где смотреть</th>
@@ -418,7 +462,7 @@ footer p{margin:6px 0}
     <tr>
       <td><span class="cell-main">Продукт/фичи</span></td>
       <td>Сайт, приложение, демо, тестовый аккаунт</td>
-      <td>Функционал, UI/UX, ценностное предложение, боли UX</td>
+      <td>Функционал, <span class="term" data-tip="User Experience — опыт взаимодействия пользователя с продуктом">UI/UX</span>, ценностное предложение, боли UX</td>
     </tr>
     <tr>
       <td><span class="cell-main">Цены</span></td>
@@ -466,7 +510,7 @@ footer p{margin:6px 0}
         <td>Скидки, акции</td>
         <td>Медленнее Яндекса в некоторых районах</td>
       </tr>
-    </table>
+    </table></div>
   </div>
 </div>
 
@@ -476,7 +520,7 @@ footer p{margin:6px 0}
   <p><strong>Зачем:</strong> Пользователи уже сформулировали свои боли. Нужно только собрать и систематизировать.</p>
   
   <h4>Где брать отзывы (Россия 2026):</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Площадка</th>
       <th>Лучше для</th>
@@ -512,7 +556,7 @@ footer p{margin:6px 0}
       <td>Товары, услуги B2C</td>
       <td class="cell-sub">Детальные разборы с фото, часто — объективные</td>
     </tr>
-  </table>
+  </table></div>
   
   <h4>Метод анализа (ручной, 2-4 часа):</h4>
   <div class="steps">
@@ -555,7 +599,7 @@ footer p{margin:6px 0}
 <div class="card c">
   <h3><span class="num">5</span>Тренды и поведение: цифровые источники</h3>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Что исследуем</th>
       <th>Инструмент</th>
@@ -592,7 +636,7 @@ footer p{margin:6px 0}
       <td class="cell-sub">Мониторинг упоминаний, анализ тональности</td>
       <td>От 30 тыс/мес</td>
     </tr>
-  </table>
+  </table></div>
   
   <div class="callout g">
     <strong>💡 Практика: как проверить спрос на идею за 30 минут</strong><br><br>
@@ -626,9 +670,9 @@ footer p{margin:6px 0}
 </div>
 
 <div class="card g">
-  <h3><span class="num">1</span>Глубинные интервью (JTBD-структура)</h3>
+  <h3><span class="num">1</span>Глубинные интервью (<span class="term" data-tip="In-depth Interviews — глубинные качественные интервью для понимания мотивации">IDI</span>)</h3>
   
-  <p><strong>Определение:</strong> Качественный метод — полуструктурированная беседа 45-60 минут с целью понять мотивацию, контекст, боли пользователя.</p>
+  <p><strong>Определение:</strong> Качественный метод — полуструктурированная беседа 45-60 минут с целью понять мотивацию, контекст, <span class="term" data-tip="Пэйн-пойнты — точки боли пользователя, проблемы которые он испытывает">боли</span> пользователя.</p>
   
   <h4>Когда использовать:</h4>
   <div class="whento">
@@ -641,7 +685,7 @@ footer p{margin:6px 0}
   </div>
   
   <h4>Структура интервью (60 минут):</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Этап</th>
       <th>Вопросы-примеры</th>
@@ -684,7 +728,7 @@ footer p{margin:6px 0}
       <td>Конкуренты</td>
       <td>10 мин</td>
     </tr>
-  </table>
+  </table></div>
   
   <h4>Где найти респондентов (Россия 2026):</h4>
   <div class="grid-2">
@@ -733,7 +777,7 @@ footer p{margin:6px 0}
   <p><strong>Определение:</strong> Структурированный набор вопросов для большой выборки. Цель — получить статистически значимые данные.</p>
   
   <h4>Инструменты для опросов (РФ 2026):</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Инструмент</th>
       <th>Лучше для</th>
@@ -761,7 +805,7 @@ footer p{margin:6px 0}
     <tr>
       <td><span class="cell-main">Typeform</span></td>
       <td>Красивые опросы для клиентов</td>
-      <td class="cell-sub">Отличный UX, логика ветвления, интеграции</td>
+      <td class="cell-sub">Отличный <span class="term" data-tip="User Experience — пользовательский опыт, как человек чувствует себя при использовании">UX</span>, логика ветвления, интеграции</td>
       <td>От $25/мес</td>
     </tr>
     <tr>
@@ -770,7 +814,7 @@ footer p{margin:6px 0}
       <td class="cell-sub">Проведение под ключ, национальная репрезентативность</td>
       <td>От 300 тыс ₽</td>
     </tr>
-  </table>
+  </table></div>
   
   <div class="formula">
 Размер выборки для статистической значимости (95% доверие, ±5% погрешность):<br>
@@ -788,7 +832,7 @@ footer p{margin:6px 0}
   <p><strong>Определение:</strong> Наблюдение за пользователями, выполняющими реальные задачи в продукте. Поиск проблем в UX.</p>
   
   <h4>Методология:</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr>
       <th>Этап</th>
       <th>Что делать</th>
@@ -814,7 +858,7 @@ footer p{margin:6px 0}
       <td>Группировка проблем по типу и серьёзности</td>
       <td>Список UX-багов с приоритетами</td>
     </tr>
-  </table>
+  </table></div>
   
   <div class="callout g">
     <strong>Закон 5 пользователей (Jakob Nielsen):</strong> 5 респондентов находят 85% проблем usability. 15-й респондент найдёт проблемы, которые уже найдены. Экономьте бюджет — 5-8 человек достаточно.
@@ -833,7 +877,7 @@ footer p{margin:6px 0}
 </div>
 
 <div class="card">
-  <h3><span class="num">1</span>BMC — Business Model Canvas</h3>
+  <h3><span class="num">1</span><span class="term" data-tip="Business Model Canvas — шаблон из 9 блоков для описания бизнес-модели">BMC</span> — Business Model Canvas</h3>
   <p><strong>Александр Остервальдер.</strong> Описание бизнес-модели на 1 странице. 9 блоков — логика создания ценности и заработка.</p>
   
   <div class="bmc-grid">
@@ -869,7 +913,7 @@ footer p{margin:6px 0}
 </div>
 
 <div class="card g">
-  <h3><span class="num">2</span>JTBD — Jobs To Be Done</h3>
+  <h3><span class="num">2</span><span class="term" data-tip="Jobs To Be Done — методология понимания, какую работу нанимает продукт"></span>JTBD</span> — Jobs To Be Done</h3>
   <p><strong>Клейтон Кристенсен.</strong> Люди не покупают продукты — они "нанимают" их для выполнения конкретной работы (Job).</p>
   
   <div class="formula">
@@ -878,7 +922,7 @@ footer p{margin:6px 0}
   </div>
   
   <h4>Структура JTBD-интервью (60 минут):</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Этап</th><th>Вопрос</th><th>Что выясняем</th><th>Время</th></tr>
     <tr><td><span class="cell-main">Контекст</span></td><td>"Расскажи о последний раз, когда..."</td><td>В какой ситуации возникла потребность</td><td>5 мин</td></tr>
     <tr><td><span class="cell-main">Триггер</span></td><td>"Что сподвигло начать?"</td><td>Почему сейчас, а не месяц назад</td><td>5 мин</td></tr>
@@ -886,19 +930,19 @@ footer p{margin:6px 0}
     <tr><td><span class="cell-main">Проблемы</span></td><td>"Что раздражало?"</td><td>Боли и препятствия</td><td>15 мин</td></tr>
     <tr><td><span class="cell-main">Результат</span></td><td>"Как понял, что всё хорошо?"</td><td>Успешное выполнение job</td><td>10 мин</td></tr>
     <tr><td><span class="cell-main">Альтернативы</span></td><td>"Что ещё рассматривал?"</td><td>Конкуренты — прямые и косвенные</td><td>10 мин</td></tr>
-  </table>
+  </table></div>
   
   <h4>Примеры JTBD для разных продуктов:</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Продукт</th><th>Поверхностный job</th><th>Глубинный job</th></tr>
     <tr><td>Spotify</td><td>Слушать музыку</td><td>"Помоги мне поднять настроение во время утренней пробежки"</td></tr>
     <tr><td>Notion</td><td>Вести заметки</td><td>"Помоги организовать все проекты в одном месте, чтобы ничего не забыть"</td></tr>
     <tr><td>Яндекс.Еда</td><td>Заказать еду</td><td>"Помоги мне не готовить после работы, когда я устал"</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="card a">
-  <h3><span class="num">3</span>AARRR — Pirate Metrics</h3>
+  <h3><span class="num">3</span><span class="term" data-tip="AARRR — фреймворк из 5 метрик: Acquisition, Activation, Retention, Revenue, Referral">AARRR</span> — Pirate Metrics</h3>
   <p><strong>Дейв Макклюр.</strong> 5 метрик жизненного цикла пользователя. Звучит как "AARRR!" — рёв пирата 🏴‍☠️</p>
   
   <div class="formula">
@@ -909,14 +953,14 @@ footer p{margin:6px 0}
 <span class="hl">R</span> — Referral (Виральность) → Рассказывают друзьям?
   </div>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Этап</th><th>Метрики</th><th>Инструменты улучшения</th></tr>
     <tr><td><span class="cell-main">🎯 Acquisition</span></td><td>CPA, CAC, трафик по каналам</td><td>SEO, контекст, SMM, офлайн</td></tr>
     <tr><td><span class="cell-main">⚡ Activation</span></td><td>Время до первой ценности, % онбординга</td><td>Онбординг, tutorial, aha-moment</td></tr>
     <tr><td><span class="cell-main">🔄 Retention</span></td><td>D1/D7/D30 retention, когорты</td><td>Письма, push, привычки, контент</td></tr>
     <tr><td><span class="cell-main">💰 Revenue</span></td><td>ARPU, ARPPU, LTV, конверсия</td><td>Ценообразование, upsell, paywall</td></tr>
-    <tr><td><span class="cell-main">📣 Referral</span></td><td>K-factor, NPS, реферальные</td><td>Рефералки, шаринг, инвайты</td></tr>
-  </table>
+    <tr><td><span class="cell-main">📣 Referral</span></td><td><span class="term" data-tip="Коэффициент виральности — сколько новых пользователей приводит один существующий">K-factor</span>, <span class="term" data-tip="Net Promoter Score — индекс готовности рекомендовать продукт">NPS</span>, реферальные</td><td>Рефералки, шаринг, инвайты</td></tr>
+  </table></div>
   
   <div class="example">
     <p><strong>Диагностика продукта через AARRR:</strong></p>
@@ -925,39 +969,39 @@ footer p{margin:6px 0}
       <li><strong>Activation:</strong> Только 15% завершают регистрацию — <span style="color:var(--r)">🚨 проблема!</span></li>
       <li><strong>Retention:</strong> D7 = 45% — <span style="color:var(--g)">хорошо</span></li>
       <li><strong>Revenue:</strong> ARPPU = 2,000₽, LTV = 6,000₽ — <span style="color:var(--g)">хорошо</span></li>
-      <li><strong>Referral:</strong> K-factor = 0.1 — <span style="color:var(--a)">можно улучшить</span></li>
+      <li><strong>Referral:</strong> <span class="term" data-tip="Коэффициент виральности: 1 = каждый приводит 1 нового, >1 = вирусный рост">K-factor</span> = 0.1 — <span style="color:var(--a)">можно улучшить</span></li>
     </ul>
     <p><strong>Вывод:</strong> Фокус на Activation — пересмотреть онбординг, упростить регистрацию.</p>
   </div>
 </div>
 
 <div class="card r">
-  <h3><span class="num">4</span>RICE и ICE — приоритизация</h3>
+  <h3><span class="num">4</span><span class="term" data-tip="RICE — фреймворк приоритизации: Reach × Impact × Confidence / Effort">RICE</span> и <span class="term" data-tip="ICE — фреймворк приоритизации: Impact × Confidence × Ease">ICE</span> — приоритизация</h3>
   <p><strong>Интерком.</strong> У вас 100 идей, ресурсов на 10. Как выбрать? Фреймворки дают числа для сравнения.</p>
   
   <div class="formula">
-<span class="hl" style="color:var(--rl)">RICE</span> = (Reach × Impact × Confidence) / Effort<br><br>
-<span class="hl" style="color:var(--rl)">ICE</span> = Impact × Confidence × Ease<br><br>
+<span class="term" data-tip="Reach (охват) × Impact (влияние) × Confidence (уверенность) / Effort (усилия)">RICE</span> = (Reach × Impact × Confidence) / Effort<br><br>
+<span class="term" data-tip="Impact × Confidence × Ease — упрощённая версия без учёта охвата">ICE</span> = Impact × Confidence × Ease<br><br>
 <span class="formula-comment">RICE точнее (учитывает охват), ICE проще (быстрее считать). Для продуктового бэклога — RICE, для гипотез роста — ICE.</span>
   </div>
   
   <h4>Компоненты RICE:</h4>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Компонент</th><th>Что означает</th><th>Шкала оценки</th></tr>
     <tr><td><span class="cell-main">Reach (Охват)</span></td><td>Сколько пользователей затронет за период</td><td>Число: 100, 1000, 10000</td></tr>
     <tr><td><span class="cell-main">Impact (Влияние)</span></td><td>Насколько сильно улучшит метрику</td><td>3 = массовое, 2 = высокое, 1 = среднее, 0.5 = низкое, 0.25 = минимальное</td></tr>
     <tr><td><span class="cell-main">Confidence (Уверенность)</span></td><td>Насколько уверены в оценках</td><td>%: 100% = есть данные, 80% = уверены, 50% = предположение</td></tr>
     <tr><td><span class="cell-main">Effort (Усилия)</span></td><td>Сколько человеко-месяцев нужно</td><td>Число: 0.5 = неделя, 1 = месяц, 2 = два месяца...</td></tr>
-  </table>
+  </table></div>
   
   <div class="example">
     <p><strong>Расчёт RICE для фич:</strong></p>
-    <table class="data-table">
+    <div class="table-wrap"><table class="data-table">
       <tr><th>Фича</th><th>Reach</th><th>Impact</th><th>Confidence</th><th>Effort</th><th>RICE</th></tr>
       <tr><td>Поиск по фильтрам</td><td>5,000</td><td>2</td><td>80%</td><td>1</td><td>8,000</td></tr>
       <tr><td>Push-уведомления</td><td>10,000</td><td>1</td><td>50%</td><td>0.5</td><td style="color:var(--g);font-weight:700">10,000 ✓</td></tr>
       <tr><td>Чат поддержки</td><td>1,000</td><td>3</td><td>60%</td><td>2</td><td>900</td></tr>
-    </table>
+    </table></div>
     <p><strong>Результат:</strong> Делаем сначала push-уведомления (10,000), потом поиск (8,000), потом чат (900).</p>
   </div>
 </div>
@@ -1032,7 +1076,7 @@ footer p{margin:6px 0}
 
 <div class="card">
   <h3><span class="num">1</span>Инструменты аналитики (Россия 2026)</h3>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Инструмент</th><th>Тип</th><th>Для чего</th><th>Цена</th></tr>
     <tr><td><span class="cell-main">Яндекс.Метрика</span></td><td>Веб-аналитика</td><td>Трафик, воронки, Вебвизор, тепловые карты</td><td>Бесплатно</td></tr>
     <tr><td><span class="cell-main">Яндекс.АппМетрика</span></td><td>Мобильная</td><td>Установки, события, воронки, краши, push</td><td>Бесплатно</td></tr>
@@ -1040,11 +1084,11 @@ footer p{margin:6px 0}
     <tr><td><span class="cell-main">Amplitude</span></td><td>Продуктовая</td><td>Когорты, retention, продуктовые воронки</td><td>От $49/мес</td></tr>
     <tr><td><span class="cell-main">Mixpanel</span></td><td>Продуктовая</td><td>Funnels, retention, A/B testing</td><td>От $25/мес</td></tr>
     <tr><td><span class="cell-main">ClickHouse + DataLens</span></td><td>Своя аналитика</td><td>Кастомные дашборды, большие данные</td><td>Инфраструктура</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="card g">
-  <h3><span class="num">2</span>North Star Metric (NSM)</h3>
+  <h3><span class="num">2</span><span class="term" data-tip="North Star Metric — главная метрика продукта, отражающая ценность для пользователя">NSM</span> (North Star Metric)</h3>
   <p><strong>Главная метрика продукта</strong>, отражающая ценность для пользователя и бизнеса.</p>
   
   <h4>Критерии хорошего NSM:</h4>
@@ -1055,22 +1099,26 @@ footer p{margin:6px 0}
     <li>✓ Можно повлиять продуктовыми решениями</li>
   </ul>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Продукт</th><th>Хороший NSM</th><th>Почему</th><th>Плохой NSM</th></tr>
-    <tr><td>Spotify</td><td>Время прослушивания</td><td>Ценность = слушать музыку</td><td>DAU (можно открыть и уйти)</td></tr>
+    <tr><td>Spotify</td><td>Время прослушивания</td><td>Ценность = слушать музыку</td><td><span class="term" data-tip="Daily Active Users — дневная аудитория, можно открыть и уйти">DAU</span> (можно открыть и уйти)</td></tr>
     <tr><td>Airbnb</td><td>Количество бронирований</td><td>Ценность = найти жильё</td><td>Регистрации (не бронирования)</td></tr>
     <tr><td>Slack</td><td>Отправленные сообщения</td><td>Ценность = коммуникация</td><td>Установки (не использование)</td></tr>
     <tr><td>Яндекс.Еда</td><td>Количество заказов</td><td>Ценность = еда доставлена</td><td>Просмотры ресторанов</td></tr>
-  </table>
+  </table></div>
+  
+  <p><strong>DAU/MAU ratio</strong> — отношение дневной аудитории к месячной. <span class="term" data-tip="DAU/MAU ratio — показывает частоту использования: 20% = раз в 5 дней, 50% = почти каждый день">Хороший показатель для привычного продукта = 20%+</span></p>
 </div>
 
 <div class="card a">
   <h3><span class="num">3</span>Юнит-экономика: CAC, LTV, AOV</h3>
   
   <div class="formula">
-<span class="hl">CAC</span> (Customer Acquisition Cost) = Затраты на маркетинг / Количество новых пользователей<br><br>
-<span class="hl">LTV</span> (Lifetime Value) = Средний чек × Количество покупок × Маржинальность<br><br>
-<span class="hl">AOV</span> (Average Order Value) = Выручка / Количество заказов<br><br>
+<span class="term" data-tip="Customer Acquisition Cost — стоимость привлечения одного нового пользователя">CAC</span> (Customer Acquisition Cost) = Затраты на маркетинг / Количество новых пользователей<br><br>
+<span class="term" data-tip="Lifetime Value — пожизненная ценность клиента, сколько денег принесёт за всё время">LTV</span> (Lifetime Value) = Средний чек × Количество покупок × Маржинальность<br><br>
+<span class="term" data-tip="Average Order Value — средний чек заказа">AOV</span> (Average Order Value) = Выручка / Количество заказов<br><br>
+<span class="term" data-tip="Average Revenue Per User — средний доход на одного пользователя">ARPU</span> = Выручка / Количество пользователей<br><br>
+<span class="term" data-tip="Average Revenue Per Paying User — средний доход на одного платящего пользователя">ARPPU</span> = Выручка / Количество платящих<br><br>
 <span class="hl">LTV / CAC ratio</span> должно быть ≥ 3 для здорового бизнеса
 <span class="formula-comment">Пример: CAC = 500₽, LTV = 2000₽ → Ratio = 4 (хорошо). Если ratio &lt; 3 — маркетинг убыточен.</span>
   </div>
@@ -1083,11 +1131,11 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
 </div>
 
 <div class="card r">
-  <h3><span class="num">4</span>Retention и Churn</h3>
+  <h3><span class="num">4</span><span class="term" data-tip="Retention — возврат пользователей, процент тех кто остался">Retention</span> и <span class="term" data-tip="Churn — отток пользователей, процент тех кто ушёл">Churn</span></h3>
   
   <div class="formula">
-<span class="hl">Retention Rate</span> = (Пользователи на конец периода / Пользователи на начало) × 100%<br><br>
-<span class="hl">Churn Rate</span> = (Ушедшие пользователи / Всего на начало) × 100%<br><br>
+<span class="term" data-tip="Retention Rate — процент пользователей которые остались за период">Retention Rate</span> = (Пользователи на конец периода / Пользователи на начало) × 100%<br><br>
+<span class="term" data-tip="Churn Rate — процент пользователей которые ушли за период">Churn Rate</span> = (Ушедшие пользователи / Всего на начало) × 100%<br><br>
 <span class="formula-comment">Retention + Churn = 100%. Хороший D30 retention для мобильных приложений = 15-25%. Для SaaS = 80%+.</span>
   </div>
   
@@ -1096,12 +1144,12 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
   
   <div class="example">
     <p><strong>Когортная таблица (D1/D7/D30 retention):</strong></p>
-    <table class="data-table">
+    <div class="table-wrap"><table class="data-table">
       <tr><th>Когорта (неделя)</th><th>Новые</th><th>D1</th><th>D7</th><th>D30</th></tr>
       <tr><td>1-8 января</td><td>1000</td><td>40%</td><td>20%</td><td>8%</td></tr>
       <tr><td>8-15 января</td><td>1200</td><td>45%</td><td>25%</td><td>12%</td></tr>
       <tr><td>15-22 января</td><td>1100</td><td>48%</td><td>28%</td><td style="color:var(--g);font-weight:700">15%</td></tr>
-    </table>
+    </table></div>
     <p><strong>Вывод:</strong> Ретеншен растёт с каждой когортой — продукт улучшается!</p>
   </div>
 </div>
@@ -1182,7 +1230,7 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
   <h3><span class="num">1</span>Воронка AARRR (полный цикл)</h3>
   <p>Процент переходов между этапами — ключевой показатель здоровья продукта.</p>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Этап</th><th>Что происходит</th><th>Типичная конверсия</th><th>Что делать при падении</th></tr>
     <tr><td><span class="cell-main">👀 Awareness</span></td><td>Узнают о продукте</td><td>—</td><td>Расширять каналы, тестировать креативы</td></tr>
     <tr><td><span class="cell-main">🎯 Acquisition</span></td><td>Заходят на сайт/в приложение</td><td>—</td><td>SEO, реклама, виральность</td></tr>
@@ -1190,12 +1238,12 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
     <tr><td><span class="cell-main">🔄 Retention</span></td><td>Возвращаются повторно</td><td>D7: 20-40%, D30: 10-25%</td><td>Письма, push, контент, привычки</td></tr>
     <tr><td><span class="cell-main">💰 Revenue</span></td><td>Оплачивают</td><td>1-5% от активных</td><td>Ценообразование, триггеры, скидки</td></tr>
     <tr><td><span class="cell-main">📣 Referral</span></td><td>Рекомендуют друзьям</td><td>K-factor 0.1-0.5</td><td>Реферальная программа, шаринг</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="card g">
   <h3><span class="num">2</span>Onboarding-воронка</h3>
-  <p>Путь от установки до первой ценности (aha-moment).</p>
+  <p>Путь от установки до первой ценности (<span class="term" data-tip="Aha-moment — момент когда пользователь впервые понимает ценность продукта">aha-moment</span>).</p>
   
   <div class="steps">
     <div class="step">
@@ -1222,7 +1270,7 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-body">
-        <h5>Aha-moment</h5>
+        <h5><span class="term" data-tip="Aha-moment — момент осознания ценности продукта, когда пользователь понимает 'это работает!'">Aha-moment</span></h5>
         <p>Пользователь понимает ценность: "О, это работает!"</p>
       </div>
     </div>
@@ -1236,7 +1284,7 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
   </div>
   
   <div class="callout a">
-    <strong>Aha-moment для разных продуктов:</strong><br>
+    <strong><span class="term" data-tip="Aha-moment — ключевое действие после которого пользователь 'включается' в продукт">Aha-moment</span> для разных продуктов:</strong><br>
     • Facebook: добавление 7 друзей за 10 дней<br>
     • Twitter: просмотр 30 сообщений (не чтение)<br>
     • Slack: отправка 2000 сообщений в команде<br>
@@ -1248,14 +1296,14 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
   <h3><span class="num">3</span>Монетизационная воронка</h3>
   <p>Путь от активного пользователя до платящего.</p>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Этап</th><th>Действие</th><th>Триггеры</th></tr>
     <tr><td><span class="cell-main">MAU</span></td><td>Активные пользователи</td><td>Постоянная ценность, привычка</td></tr>
     <tr><td><span class="cell-main">Viewed pricing</span></td><td>Посмотрели тарифы</td><td>Ограничение бесплатной версии, подсказка</td></tr>
     <tr><td><span class="cell-main">Started checkout</span></td><td>Начали оплату</td><td>Прозрачная цена, доверие</td></tr>
     <tr><td><span class="cell-main">Completed purchase</span></td><td>Завершили оплату</td><td>Простой процесс, локальные способы оплаты</td></tr>
     <tr><td><span class="cell-main">Upsell</span></td><td>Апгрейд тарифа</td><td>Потребность в функциях, персонализация</td></tr>
-  </table>
+  </table></div>
 </div>
 </section>
 
@@ -1314,7 +1362,7 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
 
 <div class="card g">
   <h3><span class="num">2</span>Инструменты хранения (2026)</h3>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Инструмент</th><th>Лучше для</th><th>Особенности</th></tr>
     <tr><td><span class="cell-main">Notion</span></td><td>База знаний, бэклог</td><td>Гибкость, шаблоны, базы данных, бесплатно для маленьких команд</td></tr>
     <tr><td><span class="cell-main">Miro / FigJam</span></td><td>Воркшопы, визуализация</td><td>Бесконечный канвас, стикеры, совместная работа</td></tr>
@@ -1322,7 +1370,7 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
     <tr><td><span class="cell-main">Productboard / Aha!</span></td><td>Продакт-менеджмент</td><td>Специализированы под PM: roadmap, идеи, feedback</td></tr>
     <tr><td><span class="cell-main">Jira / Linear</span></td><td>Бэклог разработки</td><td>Трекинг задач, интеграция с Git</td></tr>
     <tr><td><span class="cell-main">Confluence</span></td><td>Документация</td><td>Структурированная вики, интеграция с Jira</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="card a">
@@ -1369,13 +1417,13 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
     </svg>
   </div>
   
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Фаза</th><th>Шаги</th><th>Артефакты</th><th>Длительность</th></tr>
     <tr><td><span class="cell-main">1. Discover</span></td><td>Исследование → Синтез → Идеи</td><td>Отчёт вторички, JTBD, боли пользователей</td><td>2-4 недели</td></tr>
     <tr><td><span class="cell-main">2. Define</span></td><td>Фокус → Концепция</td><td>BMC, гипотезы, приоритеты</td><td>1-2 недели</td></tr>
     <tr><td><span class="cell-main">3. Develop</span></td><td>Дизайн → MVP → Тест</td><td>Прототип, MVP, результаты теста</td><td>4-8 недель</td></tr>
     <tr><td><span class="cell-main">4. Deliver</span></td><td>Запуск → Масштаб</td><td>Релиз, метрики, итерации</td><td>Постоянно</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="card g">
@@ -1405,18 +1453,16 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
     <li>Не бросать полностью — итерация</li>
   </ul>
 </div>
-
-<div class="card a">
   <h3><span class="num">3</span>Артефакты на каждом этапе</h3>
-  <table class="data-table">
+  <div class="table-wrap"><table class="data-table">
     <tr><th>Этап</th><th>Должно быть создано</th><th>Хранится в</th></tr>
-    <tr><td><span class="cell-main">Начало</span></td><td>PRD (Product Requirements Document), BMC</td><td>Notion / Confluence</td></tr>
-    <tr><td><span class="cell-main">Дизайн</span></td><td>Прототипы, user flows, CJM</td><td>Figma / Miro</td></tr>
+    <tr><td><span class="cell-main">Начало</span></td><td><span class="term" data-tip="Product Requirements Document — документ с требованиями к продукту">PRD</span>, <span class="term" data-tip="Business Model Canvas — шаблон бизнес-модели из 9 блоков">BMC</span></td><td>Notion / Confluence</td></tr>
+    <tr><td><span class="cell-main">Дизайн</span></td><td>Прототипы, user flows, <span class="term" data-tip="Customer Journey Map — карта пути клиента, все точки контакта с продуктом">CJM</span></td><td>Figma / Miro</td></tr>
     <tr><td><span class="cell-main">Разработка</span></td><td>Техспека, задачи в трекере</td><td>Jira / Linear</td></tr>
     <tr><td><span class="cell-main">Тестирование</span></td><td>Тест-кейсы, баг-репорты</td><td>TestRail / Jira</td></tr>
     <tr><td><span class="cell-main">Релиз</span></td><td>Release notes, коммуникация</td><td>Confluence / Slack</td></tr>
     <tr><td><span class="cell-main">Пост-релиз</span></td><td>Отчёт по метрикам, learnings</td><td>Notion / Analytics</td></tr>
-  </table>
+  </table></div>
 </div>
 
 <div class="checklist">
@@ -1426,9 +1472,154 @@ Payback Period = CAC / (ARPU × Маржинальность)<br><br>
   <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Заполнен BMC</strong><span>Все 9 блоков, понятна бизнес-модель</span></div></div>
   <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Определён NSM</strong><span>Есть главная метрика продукта</span></div></div>
   <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Приоритизирован бэклог</strong><span>RICE/ICE оценки, понятен порядок</span></div></div>
-  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Создан MVP</strong><span>Минимум для проверки гипотез</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Создан <span class="term" data-tip="Minimum Viable Product — минимально жизнеспособный продукт для проверки гипотез">MVP</span></strong><span>Минимум для проверки гипотез</span></div></div>
   <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Настроена аналитика</strong><span>Метрика, воронки, события</span></div></div>
   <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>План тестирования</strong><span>Что проверяем, какие метрики, критерии успеха</span></div></div>
+</div>
+</section>
+
+<!-- BILINKIS SECTION -->
+<section class="sec" id="bilinkis">
+<div class="sh">
+  <div class="sh-ico">📖</div>
+  <div>
+    <h2>Юлия Билинкис: Управление продуктом</h2>
+    <div class="sub">Ключевые концепции из книги "Управление продуктом: российская практика" (МИФ, 2025)</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3><span class="num">1</span>Продукт как система ценностей</h3>
+  <p>По мнению <span class="term" data-tip="Юлия Билинкис — эксперт по стратегическому управлению продуктом, автор книги 'Управление продуктом: российская практика'">Юлии Билинкис</span>, продукт — это не набор функций, а система ценностей, которую продукт создаёт для клиентов и бизнеса.</p>
+  
+  <h4>Три уровня ценности продукта:</h4>
+  <ul>
+    <li><strong>Функциональная ценность</strong> — что продукт делает (фичи, возможности)</li>
+    <li><strong>Эмоциональная ценность</strong> — как продукт делает пользователя счастливее (статус, уверенность, радость)</li>
+    <li><strong>Социальная ценность</strong> — как продукт связывает пользователя с другими (сообщество, принадлежность)</li>
+  </ul>
+  
+  <div class="callout g">
+    <strong>💡 Принцип Билинкис:</strong> Продуктовый менеджер — это не тот, кто пишет ТЗ, а тот, кто создаёт ценность. Если вы не можете объяснить ценность продукта в 3 уровнях — вы не управляете продуктом.
+  </div>
+</div>
+
+<div class="card g">
+  <h3><span class="num">2</span>Product-Market Fit (PMF) по-российски</h3>
+  <p><span class="term" data-tip="Product-Market Fit — соответствие продукта рынку, момент когда продукт 'взлетает'">PMF</span> — это не абстрактная концепция, а конкретное состояние, когда продукт решает реальную проблему достаточно большого сегмента рынка.</p>
+  
+  <h4>Признаки PMF в российских реалиях (Билинкис):</h4>
+  <ul>
+    <li><strong>Органический рост:</strong> 50%+ новых пользователей приходят по рекомендациям</li>
+    <li><strong>Высокий retention:</strong> D30 retention ≥ 30% для B2C, ≥ 80% для B2B SaaS</li>
+    <li><strong>Нетоксичная монетизация:</strong> пользователи платят не потому что "вынуждены", а потому что ценят</li>
+    <li><strong>Сарафанное радио:</strong> в соцсетях появляются посты "как круто, что есть этот продукт"</li>
+  </ul>
+  
+  <div class="formula">
+Индекс PMF (методика Билинкис):<br>
+<span class="term" data-tip="Product-Market Fit Score — доля пользователей, которые сильно разочаруются без продукта">PMF Score</span> = % пользователей, ответивших "Очень разочаруюсь" на вопрос "Как вы отнесётесь к закрытию продукта?"<br><br>
+<span class="formula-comment">PMF достигнут, когда PMF Score ≥ 40%. Для B2B SaaS — ≥ 60%.</span>
+  </div>
+</div>
+
+<div class="card a">
+  <h3><span class="num">3</span>Продуктовая стратегия: от видения до метрик</h3>
+  
+  <h4>Пирамида стратегии продукта (Билинкис):</h4>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h5>Видение (Vision)</h5>
+        <p>Как мир изменится через 5-10 лет благодаря продукту? Например: "Каждый человек в России имеет доступ к качественной медицине через телефон"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h5>Миссия (Mission)</h5>
+        <p>Как продукт меняет жизнь пользователей сегодня? Например: "Мы экономим время пациентов на поиск врача и запись"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h5>Стратегические цели (3-5 лет)</h5>
+        <p>Масштаб, рынки, продуктовая линейка. Метрики: выручка, доля рынка, география</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h5>OKR на год/квартал</h5>
+        <p><span class="term" data-tip="Objectives and Key Results — методология целеполагания: цель + 3-4 измеримых результата">OKR</span> связанные с продуктом. Objective: "Стать №1 в доставке еды в СПб". Key Results: "Заказов 100к/мес", "Retention 45%", "NPS 50+"</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h5>Инициативы и фичи</h5>
+        <p>Конкретные проекты в бэклоге с приоритетами (RICE)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card r">
+  <h3><span class="num">4</span>Продуктовый менеджер как лидер изменений</h3>
+  <p>Билинкис выделяет, что в российских компаниях PM часто становится катализатором трансформации.</p>
+  
+  <h4>Роли продуктового менеджера (по Билинкис):</h4>
+  <table class="data-table">
+    <tr><th>Роль</th><th>Что делает</th><th>В каких компаниях нужна</th></tr>
+    <tr><td><span class="cell-main">Владелец продукта</span></td><td>Формирует бэклог, приоритизирует, контролирует метрики</td><td>Малый/средний бизнес, стартапы</td></tr>
+    <tr><td><span class="cell-main">Стратег продукта</span></td><td>Определяет видение, позиционирование, рыночную нишу</td><td>Крупные компании, конкурентные рынки</td></tr>
+    <tr><td><span class="cell-main">Лидер изменений</span></td><td>Меняет процессы, культуру, выстраивает продуктовую команду</td><td>Трансформация, цифровизация</td></tr>
+    <tr><td><span class="cell-main">CEO продукта</span></td><td>Отвечает за P&L, стратегию, команду — как мини-CEO</td><td>Платформенные продукты, экосистемы</td></tr>
+  </table>
+  
+  <div class="warning">
+    <p><strong>Ошибка российских компаний (по Билинкис):</strong></p>
+    <ul>
+      <li>Ожидать от PM выполнения функций аналитика, тестировщика, дизайнера, маркетолога</li>
+      <li>Не давать PM реальное влияние на решения (только "писать ТЗ")</li>
+      <li>Нет разделения ответственности: продукт, проект, технологии — всё на одном человеке</li>
+      <li>Игнорировать продуктовую культуру в пользу "давайте быстрее запустим"</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card c">
+  <h3><span class="num">5</span>Продуктовая команда мечты</h3>
+  <p>По мнению Билинкис, эффективная продуктовая команда — это не сбор индивидуальных звёзд, а система.</p>
+  
+  <h4>Структура продуктовой команды:</h4>
+  <ul>
+    <li><strong>Product Lead / CPO</strong> — стратегия, культура, развитие команды</li>
+    <li><strong>Product Managers (1 на направление)</strong> — метрики, гипотезы, бэклог</li>
+    <li><strong>Product Analysts</strong> — данные, исследования, валидация гипотез</li>
+    <li><strong>UX Researchers</strong> — глубинные интервью, тестирование, JTBD</li>
+    <li><strong>Product Marketing Managers</strong> — позиционирование, запуски, коммуникация</li>
+  </ul>
+  
+  <div class="formula">
+Принцип "три амиго" (Билинкис):<br>
+На каждую фичу три роли должны быть вовлечены с самого начала:<br>
+1. <span class="hl">PM</span> — зачем это нужно, какая ценность<br>
+2. <span class="hl">Дизайнер</span> — как это будет работать для пользователя<br>
+3. <span class="hl">Tech Lead</span> — как это реализовать технически<br><br>
+<span class="formula-comment">Если одна из ролей подключается позже — будут переделки, срывы сроков, конфликты.</span>
+  </div>
+</div>
+
+<div class="checklist">
+  <h4>✅ Чек-лист по Билинкис: готовы ли вы управлять продуктом?</h4>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Можете объяснить ценность продукта в 3 уровнях</strong><span>Функциональная, эмоциональная, социальная ценность</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Знаете PMF Score своего продукта</strong><span>Провели опрос, знаете % пользователей, которые разочаруются без продукта</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Есть видение на 5-10 лет и OKR на квартал</strong><span>Стратегия декомпозирована до конкретных фич</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>Роль PM чётко отделена от проектного менеджера</strong><span>PM отвечает за ценность, не за сроки</span></div></div>
+  <div class="check-item"><div class="check-box">✓</div><div class="check-text"><strong>В команде работает принцип "три амиго"</strong><span>PM, дизайнер, техлид вовлечены с самого начала</span></div></div>
 </div>
 </section>
 
@@ -1466,6 +1657,35 @@ window.addEventListener('scroll', () => {
     if (link.getAttribute('href') === '#' + current) {
       link.classList.add('active');
     }
+  });
+});
+
+// Tooltip functionality
+const tooltip = document.getElementById('tooltip');
+const terms = document.querySelectorAll('.term');
+
+terms.forEach(term => {
+  term.addEventListener('mouseenter', (e) => {
+    const tip = e.target.getAttribute('data-tip');
+    tooltip.textContent = tip;
+    tooltip.classList.add('active');
+    
+    const rect = e.target.getBoundingClientRect();
+    const tipRect = tooltip.getBoundingClientRect();
+    
+    let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
+    let top = rect.top - tipRect.height - 10;
+    
+    if (left < 10) left = 10;
+    if (left + tipRect.width > window.innerWidth - 10) left = window.innerWidth - tipRect.width - 10;
+    if (top < 10) top = rect.bottom + 10;
+    
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+  });
+  
+  term.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('active');
   });
 });
 </script>
